@@ -1,0 +1,88 @@
+ACTOR SpiritTemplar 15120 {
+	Radius 20
+	Height 70
+	Health 500
+	Speed 3
+	Mass 9999999
+	
+	Dropitem "Megasphere" 256
+	
+	MONSTER
+	+SOLID
+	+FLOATBOB
+	+FLOAT
+	+NOGRAVITY
+	+DROPOFF
+	+NOBLOCKMONST
+	+FASTER
+	+LOOKALLAROUND
+	//+SYNCHRONIZED
+	+NOBLOOD
+	+QUICKTORETALIATE
+	//+SEEINVISIBLE
+	+BOSS
+	
+	Species "Knight"
+	
+	meleedamage 200
+	meleerange 32
+	
+	painchance 255
+	
+	meleesound "pyro/blast"
+	SeeSound ""
+	ActiveSound ""
+	DeathSound "pyro/pain"
+	
+	Obituary "%o has met a terrible fate..."
+	HitObituary "%o has met a terrible fate..."
+	
+	States {
+		Spawn:
+			SDIS A 0
+			//SDIS A 0 A_ChangeFlag("NOPAIN",0)
+			SDIS AAAAAAAAA 35 A_LookEx(LOF_NOSOUNDCHECK,0,1024,0,0,"See")
+			SDIS A 0 A_Jump(192,"Whisper")
+			SDIS A 35 A_LookEx(LOF_NOSOUNDCHECK,0,1024,0,0,"See")
+			Goto Spawn
+		See:
+			SDIS A 0 A_JumpIfCloser(64,"Chase")
+			SDIS A 0 A_CheckSight("Chase")
+			Goto Still
+		Chase:
+			SDIS A 1 A_Chase("TerribleFate","",CHF_NIGHTMAREFAST)
+			Goto See
+		ChaseLoop:
+			SDIS A 1 A_Chase("TerribleFate","",CHF_NIGHTMAREFAST)
+			SDIS A 0 A_Chase("TerribleFate","",CHF_NIGHTMAREFAST)
+			SDIS A 0 A_Chase("TerribleFate","",CHF_NIGHTMAREFAST)
+			SDIS A 0 A_Chase("TerribleFate","",CHF_NIGHTMAREFAST)
+			SDIS A 0 A_Chase("TerribleFate","",CHF_NIGHTMAREFAST)
+			Loop
+		Still:
+			SDIS A 0
+			SDIS AAAAAAAA 35
+			SDIS A 0 A_Jump(32,"WhisperStill")
+			Goto See
+		TerribleFate:
+			SDIS A 1 A_MeleeAttack
+			goto See
+		Whisper:
+			SDIS A 0
+			SDIS A 1 A_PlaySound("WHISPER2",4,1,0)
+			Goto Spawn
+		WhisperStill:
+			SDIS A 0
+			SDIS A 1 A_PlaySound("WHISPER2",4,1,0)
+			Goto See
+		Pain:
+			SDIS A 0 //A_ChangeFlag("NOPAIN",1)
+			Goto ChaseLoop
+	Pain.KillMe:
+		Goto See
+		Death:
+			FEDE A 0 A_Scream
+			FEDE A 1 A_Burst("FedEyeChunkSpawner")
+			Stop
+	}
+}

@@ -1,0 +1,228 @@
+ACTOR BurnDeath1 {
+	Radius 12
+	Height 56
+	Speed 6
+	Scale 0.85
+	+FIREDAMAGE
+	+FLOORCLIP
+	+LOOKALLAROUND
+	Obituary "%o was near someone in flames."
+	SeeSound "burningup"
+	RenderStyle Add
+	Alpha 0.9
+	ExplosionDamage 4
+	ExplosionRadius 32
+	States {
+		Spawn:
+			BDT1 A 0
+			BDT1 A 0 A_Jump(32,7)
+			BDT1 DDDDDD 1 Bright A_Look
+			Goto Death
+			BDT1 E 0 A_PlaySound("grunt/death")
+			BDT1 E 0 A_SpawnItem("BurnedSkeleton1",1,0,0)
+			BDT1 EFGHIJKLM 4 Bright A_Explode
+			BDT1 N 5 Bright
+			BDT1 O 6 Bright
+			Stop
+		See:
+			BDT1 A 0 A_Explode
+			BDT1 A 0 A_PlaySound("grunt/pain")
+			BDT1 A 0 A_Jump(100, 13)
+			BDT1 AAA 1 Bright A_Wander
+			BDT1 A 0 A_Explode
+			BDT1 BBB 1 Bright A_Wander
+			BDT1 B 0 A_Explode
+			TNT1 A 0 A_CustomMissile("IgnitedSurface", random(5,15), random(-15, 15), 0, 0)
+			BDT1 CCC 1 Bright A_Wander
+			BDT1 B 0 A_Explode
+			BDT1 DDD 1 Bright A_Wander
+			BDT1 C 0 A_PlaySound("grunt/pain")
+			BDT1 C 0 A_Explode
+			BDT1 AAA 1 Bright A_Wander
+			BDT1 C 0 A_Explode
+			BDT1 BBB 1 Bright A_Wander
+			BDT1 D 0 A_Explode
+			BDT1 CCC 1 Bright A_Wander
+			BDT1 D 0 A_Explode
+			TNT1 A 0 A_CustomMissile("IgnitedSurface", random(5,15), random(-15, 15), 0, 0)
+			BDT1 DDD 1 Bright A_Wander
+			BDT1 A 0 A_PlaySound("grunt/sight")
+			BDT1 A 0 A_Explode
+			BDT1 A 0 A_Jump(68, 16)
+			BDT1 AAA 1 Bright A_Wander
+			BDT1 A 0 A_Explode
+			BDT1 BBB 1 Bright A_Wander
+			BDT1 B 0 A_Explode
+			BDT1 CCC 1 Bright A_Wander
+			BDT1 B 0 A_Explode
+			BDT1 DDD 1 Bright A_Wander
+			BDT1 C 0 A_Explode
+			BDT1 C 0 A_PlaySound("grunt/pain")
+			BDT1 AAA 1 Bright A_Wander
+			BDT1 C 0 A_Explode
+			BDT1 BBB 1 Bright A_Wander
+			BDT1 D 0 A_Explode
+			TNT1 A 0 A_CustomMissile("IgnitedSurface", random(5,15), random(-15, 15), 0, 0)
+			BDT1 CCC 1 Bright A_Wander
+			BDT1 D 0 A_Explode
+			BDT1 DDD 1 Bright A_Wander
+			BDT1 A 0 A_PlaySound("grunt/pain")
+			BDT1 A 0 A_Explode
+			BDT1 AAA 1 Bright A_Wander
+			BDT1 A 0 A_Explode
+			BDT1 BBB 1 Bright A_Wander
+			BDT1 B 0 A_Explode
+			TNT1 A 0 A_CustomMissile("IgnitedSurface", random(5,15), random(-15, 15), 0, 0)
+			BDT1 CCC 1 Bright A_Wander
+			BDT1 B 0 A_Explode
+			BDT1 DDD 1 Bright A_Wander
+			BDT1 C 0 A_Explode
+			BDT1 C 0 A_PlaySound("grunt/sight")
+			BDT1 AAA 1 Bright A_Chase
+			BDT1 C 0 A_Explode
+			BDT1 BBB 1 Bright A_Wander
+			BDT1 D 0 A_Explode
+			TNT1 A 0 A_CustomMissile("IgnitedSurface", random(5,15), random(-15, 15), 0, 0)
+			BDT1 CCC 1 Bright A_Wander
+			BDT1 D 0 A_Explode
+			BDT1 DDD 1 Bright A_Wander
+			BDT1 A 0 A_PlaySound("grunt/pain")
+			BDT1 A 0 A_Explode
+			BDT1 AAA 1 Bright A_Wander
+			BDT1 A 0 A_Explode
+			BDT1 BBB 1 Bright A_Wander
+			BDT1 B 0 A_Explode
+			BDT1 CCC 1 Bright A_Wander
+			BDT1 B 0 A_Explode
+			BDT1 DDD 1 Bright A_Wander
+		Death:
+			BDT1 E 0 A_PlaySound("grunt/death")
+			BDT1 EFGHIJKLM 4 Bright A_Explode
+			BDT1 N 5 Bright
+			BDT1 O 6 Bright
+			Stop
+	}
+}
+
+ACTOR BurnDeath2 : BurnDeath1 { SeeSound "FEBURNME" }
+
+Actor RocketFire {
+	Height 2
+	Radius 2
+	Speed 3
+	
+	RenderStyle Add
+	Alpha 0.9
+	Scale 0.75
+	
+	+NOGRAVITY
+	+FORCEXYBILLBOARD
+	+DONTSPLASH
+	+NOTELEPORT
+	+NOBLOCKMAP
+	+RIPPER
+	+BLOODLESSIMPACT
+	+CANNOTPUSH
+	-BLOODSPLATTER
+	-ACTIVATEPCROSS
+	-ACTIVATEIMPACT
+	-NOCLIP
+	
+	States {
+		Spawn:
+			64P1 A 0
+			TNT1 A 0 A_Jump(127,"Spawn2","Spawn3")
+			64P1 ABCDEFGHIJKLMNOPQRSTUVWXYZ 1 BRIGHT
+			Stop
+		Spawn2:
+			64P2 ABCDEFGHIJKLMNOPQRSTUVWXYZ 1 BRIGHT
+			Stop
+		Spawn3:
+			64P3 ABCDEFGHIJKLMNOPQRSTUVWXYZ 1 BRIGHT
+			Stop
+	}
+}
+
+Actor IgnitedSurfaceFlame : RocketFire {
+	Scale 0.3
+	Alpha 0.7
+	+NOINTERACTION
+}
+
+Actor IgnitedSurface {
+	Height 5
+	Radius 2
+	
+	ReactionTime 30
+	// BounceFactor 0.0 // Commenting out to remove spread ~Avi
+	
+	DamageType "Fire2"
+	
+	PROJECTILE
+	-SOLID
+	+NODAMAGETHRUST
+	//+LOWGRAVITY   // Changing to just Gravity .25 ~Avi
+	-NOGRAVITY
+	// +HEXENBOUNCE  // Commenting out to remove spread ~Avi
+	+SKYEXPLODE
+	+DONTSPLASH
+	
+	Gravity 0.25
+	
+	RenderStyle Add
+	Scale 0.5
+	
+	Obituary "%o was purified by cleansing flame."
+	
+	States {
+		Spawn:
+			TFIR A 0 A_CountDown
+			TNT1 A 0 A_SpawnItemEx("IgnitedSurfaceFlame",Random(-8,8),Random(-8,8),0,0,0,Random(1,2),0,128,0)
+			TNT1 A 0 A_Jump(256,"1","2","3","4","5","6","7","8")
+		1:
+			TNT1 A 2 A_Explode(3,18,1)
+			TNT1 A 0 A_JumpIf(waterlevel == 3,"Poof")
+		2:
+			TNT1 A 2 A_Explode(3,18,1)
+			TNT1 A 0 A_JumpIf(waterlevel == 3,"Poof")
+		3:
+			TNT1 A 2 A_Explode(3,18,1)
+			TNT1 A 0 A_JumpIf(waterlevel == 3,"Poof")
+		4:
+			TNT1 A 2 A_Explode(3,18,1)
+			TNT1 A 0 A_JumpIf(waterlevel == 3,"Poof")
+			Goto Spawn
+		5:
+			TNT1 A 1 A_Explode(3,18,1)
+			TNT1 A 0 A_JumpIf(waterlevel == 3,"Poof")
+		6:
+			TNT1 A 1 A_Explode(3,18,1)
+			TNT1 A 0 A_JumpIf(waterlevel == 3,"Poof")
+		7:
+			TNT1 A 1 A_Explode(3,18,1)
+			TNT1 A 0 A_JumpIf(waterlevel == 3,"Poof")
+		8:
+			TNT1 A 1 A_Explode(3,18,1)
+			TNT1 A 0 A_JumpIf(waterlevel == 3,"Poof")
+			Goto Spawn
+		Poof:
+		Death:
+			TNT1 A 1
+			Stop
+	}
+}
+
+ACTOR BurnedSkeleton1 {
+	Radius 12
+	Height 56
+	+SOLID
+	+FLOORCLIP
+	Scale 0.60
+	States {
+		Spawn:
+		2BRN OPQRSTUVW 2
+		2BRN W 0 A_UnSetSolid
+		2BRN W -1
+		Stop
+	}
+}

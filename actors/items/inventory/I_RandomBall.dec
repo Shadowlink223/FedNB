@@ -1,0 +1,87 @@
+ACTOR FedRandomPowerup replaces RandomPowerup 17039 {
+	Health 100
+	Radius 13
+	Height 26
+	Mass 999999999
+	
+	Scale 0.25
+	
+	+SHOOTABLE
+	+SOLID
+	+NOGRAVITY
+	+NOBLOOD
+	+FLOATBOB
+
+	States {
+		Spawn:
+			FRAN A 0
+			FRAN A 0 ThrustThingZ(0,3,0,0)
+			FRAN ABCDEFGH 4 A_SpawnItemEx("FedRanPowFXtra",0,0,13,random(-3,3),random(-3,3),random(-3,3),0)
+			FRAN A 0 A_Stop
+		SpawnLoop:
+			FRAN ABCDEFGH 4 A_SpawnItemEx("FedRanPowFXtra",0,0,13,random(-3,3),random(-3,3),random(-3,3),0)
+			Loop
+		Death:
+			FRAN A 0 A_Jump(256,"Mortar","Camera","FireSpread","BioSpread","IceSpread","Terror")
+		Mortar:
+			FRAN A 0 A_SpawnItemEx("MortarStrikeItem",0,0,13,0,0,0,0,SXF_NOCHECKPOSITION)
+			Goto End
+		Camera:
+			FRAN A 0 A_SpawnItemEx("ReconCameraItem",0,0,13,0,0,0,0,SXF_NOCHECKPOSITION)
+			Goto End
+		/*Adrenaline:
+			FRAN A 0 A_SpawnItemEx("Adrenaline",0,0,13,0,0,0,0,SXF_NOCHECKPOSITION)
+			Goto End*/
+		/*Beacon:
+			FRAN A 0 A_SpawnItemEx("RandomBeacon",0,0,13,0,0,0,0,SXF_NOCHECKPOSITION)
+			Goto End*/
+		FireSpread:
+			TNT1 A 0 A_SpawnItemEx("DustCloudCluster_NoDirt",0,0,0,0,0,0,0,0,0)
+			FRAN A 0 A_SpawnItemEx("FireExplosion",0,0,13,0,0,0,0,0,0)
+			Goto End
+		BioSpread:
+			FRAN A 0 A_SpawnItem("poisonsmokespawner2")
+			FRAN A 0 A_SpawnItemEx("BioExplosion",0,0,13,0,0,0,0,0,0)
+			Goto End
+		IceSpread:
+			FRAN A 0 A_SpawnItem("icesmokespawner2")
+			FRAN A 0 A_SpawnItemEx("IceExplosion",0,0,13,0,0,0,0,0,0)
+			Goto End
+		Terror:
+			FRAN A 0 A_Burst("TerrorMite")
+			Goto End
+		End:
+			FRAN A 0 A_PlaySound("Glass/Glass",0)
+			FRAN A 0 A_Burst("FedEyeChunkSpawner")
+			Stop
+	}
+}
+
+Actor FedRanPowFXtra {
+	Radius 1
+	Height 1
+	Damage 0
+	Speed 0
+	
+	Projectile
+	+DONTBLAST
+	+NOCLIP
+    +CLIENTSIDEONLY
+	
+	Scale 0.09
+	
+	RenderStyle Add
+	
+	States {
+		Spawn:
+			STAR F 3 Bright
+			STAR F 0 A_Jump(128,1)
+			Loop
+			STAR F 3 Bright
+			STAR F 1 Bright A_FadeOut
+			Wait
+		Death:
+			NULL A 1
+			Stop
+	}
+}

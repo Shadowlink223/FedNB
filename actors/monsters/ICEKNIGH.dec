@@ -1,0 +1,939 @@
+ACTOR IceKnight : Enemy 13970 {
+	//$Category Federation
+
+	Health 225
+	GibHealth 60
+	Radius 16
+	Height 40
+	Mass 100
+	Speed 20
+
+	+MISSILEMORE
+	+FASTER
+
+	DropItem "Clip" 128
+	DropItem "Clip" 64
+	DropItem "Cell" 64
+   	DropItem "CellPack" 16
+	DropItem "RocketAmmo" 16
+
+	DropItem "Stimpack" 32
+	DropItem "IceArmor" 4
+	DropItem "ArmorShardSpawner" 64
+
+	DropItem "Chaingun" 4
+	DropItem "PlasmaRifle" 1
+
+	//Dropitem "PDA" 4
+
+	Dropitem "CBeacon" 4
+
+	Translation "112:127=80:95"
+
+	BloodType "AeniBlood"
+	Decal "BulletChip"
+	
+	DamageFactor "DU", 1.1
+	DamageFactor "HP", 1.25
+	DamageFactor "Trid", 1.5
+
+	PainChance 50
+	PainChance "Shock", 255
+	PainChance "ShockSlug", 255
+	DamageFactor Ice, 0.05
+   	PainChance Ice, 0
+
+	SeeSound "Knight/KnightSight"
+	AttackSound ""
+	PainSound "Knight/KnightPain"
+	DeathSound "monster/inidth"
+	ActiveSound "monster/iniact"
+
+	Obituary "%o was iced by an Ice Knight." 
+
+	States {
+
+/******************************************************************************\
+==================================MAIN STATES===================================
+\******************************************************************************/
+
+	Spawn:
+		SKFA A 0
+		TNT1 A 0 Thing_SetSpecial(0,226,642,0,random(14,28))
+	SpawnLoop:
+		TNT1 A 0 A_SpawnItem("HeadshotTarget10i",15,40,0) //Why does removing the space before the parenthesis without this comment turn this into a gfx?
+		SKFA E 10 A_LookEx(0,0,random(512,2048),random(1024,4096),random(90,120),"See")
+		Loop
+	See:
+		SKFA A 1 // Infinite loop crash prevention?
+		TNT1 A 0 A_CheckSight("ChanceToCharge")
+		Goto TakeCharge
+	ChanceToCharge:
+		TNT1 A 0 A_Jump(128,"GiveCharge")
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto Chase
+	GiveCharge:
+		TNT1 A 0 A_JumpIfInventory("KnightCharge",1,"TakeCharge")
+		TNT1 A 0 A_GiveInventory("KnightCharge",1)
+		Goto IfLowHealth
+	TakeCharge:
+		TNT1 A 0 A_TakeInventory("KnightCharge",1)
+		Goto IfLowHealth
+	IfLowHealth:
+		TNT1 A 0 A_JumpIfHealthLower(50,"LowHealth")
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto HealthHigh
+	HealthHigh:
+		TNT1 A 0 A_ChangeFlag("Frightened",0)
+		Goto Chase
+	LowHealth:
+		TNT1 A 0 A_Jump(32,"HealUp")
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto Retreat
+	Retreat:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_ChangeFlag("Frightened",1)
+		Goto HealUp
+	HealUp:
+		TNT1 A 0 HealThing(1)
+		Goto Chase
+	Chase:
+		TNT1 A 0 A_JumpIfInventory("KnightCharge",1,"Charge")
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3i",15,40,0)
+		SKFA AA 3 A_FastChase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3i",15,40,0)
+		SKFA BB 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3i",15,40,0)
+		SKFA CC 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3i",15,40,0)
+		SKFA DD 3 A_Chase
+		Goto See
+	Charge:
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3i",15,40,0)
+		SKFA A 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3i",15,40,0)
+		SKFA B 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3i",15,40,0)
+		SKFA C 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3i",15,40,0)
+		SKFA D 3 A_Chase
+		Goto See
+
+/******************************************************************************\
+=================================ATTACK STATES==================================
+\******************************************************************************/
+
+	Missile:
+		TNT1 A 0 A_SpawnItem("HeadshotTarget10i",0,40,0)
+		SKFA E 10 A_FaceTarget
+		TNT1 A 0 A_Jump(64,"DistanceCheck")
+		Goto BulletAttack
+	BulletAttack:
+		TNT1 A 0 A_Jump(192,"CryoAttack")
+		TNT1 A 0 A_JumpIfInventory("KnightAmmo",30,"Reload")
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("FNS_F1",6)
+		TNT1 A 0 A_GiveInventory("KnightAmmo",1)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget1i",0,40,0)
+		//TNT1 A 0 A_CustomBulletAttack(5,5,1,random(1,3),BulletPuff)
+		SKFA F 1 BRIGHT A_CustomMissile("IceTracer",38,0,random(-5,5),0,random(-5,5))
+		SKFA E 2 A_SpawnItem("HeadshotTarget2i",0,40,0)
+		TNT1 A 0 A_JumpIfInventory("KnightAmmo",40,"Reload")
+		TNT1 A 0 A_MonsterRefire(224,"See")
+		Loop
+	CryoAttack:
+		TNT1 A 0 A_JumpIfInventory("loadedOPG_Cryo",10,1)
+		Goto CryoNeedle
+		TNT1 A 0 A_Jump(64,"CryoBall")
+		Goto CryoNeedle
+	CryoNeedle:
+		TNT1 A 0 A_JumpIfInventory("loadedOPG_Cryo",0,"CryoReload")
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GiveInventory("loadedOPG_Cryo",1)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget1i",0,40,0)
+		SKFA F 1 BRIGHT A_CustomMissile("DPP_CryoIK",28,0,random(-1,1),2,random(-1,1))
+		SKFA E 2 A_SpawnItem("HeadshotTarget2i",0,40,0)
+		TNT1 A 0 A_JumpIfInventory("loadedOPG_Cryo",0,"CryoReload")
+		TNT1 A 0 A_MonsterRefire(224,"See")
+		Loop
+	CryoBall:
+		TNT1 A 0 A_JumpIfInventory("loadedOPG_Cryo",0,"CryoReload")
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GiveInventory("loadedOPG_Cryo",10)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget1i",0,40,0)
+		SKFA F 1 BRIGHT A_CustomMissile("CryoBlast",28,0,random(-1,1),2,random(-1,1))
+		SKFA E 10 A_SpawnItem("HeadshotTarget10i",0,40,0)
+		TNT1 A 0 A_JumpIfInventory("loadedOPG_Cryo",0,"CryoReload")
+		TNT1 A 0 A_MonsterRefire(64,"See")
+		Loop
+	Reload:
+		TNT1 A 0 A_ChangeFlag(NOPAIN,1)
+		TNT1 A 0 A_TakeInventory("KnightAmmo",30)
+		SKFA EE 3 A_SpawnItem("HeadshotTarget3i",0,40,0)
+		TNT1 A 0 A_PlaySound("FNS_R2")
+		SKFA E 2 A_SpawnItem("HeadshotTarget2i",0,40,0)
+		SKFA EEEEEEEEEEEEEEEEEEEEEEE 4 A_SpawnItem("HeadshotTarget4i",0,40,0)
+		TNT1 A 0 A_ChangeFlag(NOPAIN,0)
+		Goto See
+	CryoReload:
+		TNT1 A 0 A_ChangeFlag(NOPAIN,1)
+		TNT1 A 0 A_TakeInventory("loadedOPG_Cryo",60)
+		SKFA EE 10 A_SpawnItem("HeadshotTarget10i",0,40,0)
+		TNT1 A 0 A_PlaySoundEx("OPG/OPEN","SoundSlot5")
+		SKFA E 10 A_SpawnItem("HeadshotTarget10i",0,40,0)
+		SKFA EE 3 A_SpawnItem("HeadshotTarget3i",0,40,0)
+		TNT1 A 0 A_PlaySoundEx("OPG/CLIPOUT","SoundSlot5")
+		SKFA EEE 10 A_SpawnItem("HeadshotTarget10i",0,40,0)
+		SKFA E 3 A_SpawnItem("HeadshotTarget3i",0,40,0)
+		SKFA E 2 A_SpawnItem("HeadshotTarget2i",0,40,0)
+		TNT1 A 0 A_PlaySoundEx("OPG/CLIPIN","SoundSlot5")
+		SKFA EE 10 A_SpawnItem("HeadshotTarget10i",0,40,0)
+		SKFA EE 3 A_SpawnItem("HeadshotTarget3i",0,40,0)
+		TNT1 A 0 A_PlaySoundEx("OPG/CLOSE","SoundSlot5")
+		SKFA E 10 A_SpawnItem("HeadshotTarget10i",0,40,0)
+		SKFA E 2 A_SpawnItem("HeadshotTarget2i",0,40,0)
+		TNT1 A 0 A_PlaySoundEx("OPG/BOLT","SoundSlot5")
+		SKFA EEE 10 A_SpawnItem("HeadshotTarget4i",0,40,0)
+		SKFA E 2 A_SpawnItem("HeadshotTarget4i",0,40,0)
+		TNT1 A 0 A_ChangeFlag(NOPAIN,0)
+		Goto See
+	DistanceCheck:
+		TNT1 A 0 A_JumpIfCloser(1768,"CloseRangeSpecial")
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto BulletAttack
+	CloseRangeSpecial:
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4i",0,40,0)
+		SKFA E 4 A_FaceTarget
+		TNT1 A 0 A_JumpIfCloser(192,"KnifeLunge")
+		Goto LaunchIceGrenade
+	LaunchIceGrenade:
+		SKFA F 2 BRIGHT A_CustomMissile("KnightIceGrenadeShell",28,5,random(-15,15),2,random(0,10))
+		Goto LaunchGrenadeFinish
+	LaunchGrenadeFinish:
+		SKFA EE 3 A_SpawnItem("HeadshotTarget3i",0,40,0)
+		Goto GrenadeReload
+	GrenadeReload:
+		TNT1 A 0 A_ChangeFlag(NOPAIN,1)
+		TNT1 A 0 A_PlaySoundEx("M4_CLIPO","SoundSlot5")
+		SKFA E 2 A_SpawnItem("HeadshotTarget2i",0,40,0)
+		SKFA E 10 A_SpawnItem("HeadshotTarget10i",0,40,0)
+		TNT1 A 0 A_PlaySoundEx("M4_CLIPI","SoundSlot5")
+		SKFA E 2 A_SpawnItem("HeadshotTarget2i",0,40,0)
+		SKFA EEEEEE 10 A_SpawnItem("HeadshotTarget10i",0,40,0)
+		TNT1 A 0 A_ChangeFlag(NOPAIN,0)
+		Goto See
+	KnifeLunge:
+		TNT1 A 0 ThrustThing(angle*256/360,25,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4i",0,40,0)
+		SKFA E 4 A_FaceTarget
+		TNT1 A 0 A_PlaySound("knife/swing")
+		TNT1 A 0 A_SpawnItem("HeadshotTarget2i",0,40,0)
+		SKFA E 2 A_CustomMeleeAttack(34,"knife/swing","knife/swing","Knife",1)
+		Goto CloseRangeFinish
+	CloseRangeFinish:
+		SKFA EE 3 A_SpawnItem("HeadshotTarget3i",0,40,0)
+		Goto See
+
+/******************************************************************************\
+==================================PAIN STATES===================================
+\******************************************************************************/
+
+	Pain:
+		SKFA G 3 A_SpawnItem("HeadshotTarget4i",0,40,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4i",0,40,0)
+		SKFA G 3 A_Pain
+		Goto See
+	Pain.Shock:
+	Pain.ShockSlug:
+		TNT1 A 0 A_ChangeFlag(NOPAIN,1)
+		TNT1 A 0 A_Pain
+		SKFA GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 10 A_SpawnItem("HeadshotTarget10i",0,40,0)
+		TNT1 A 0 A_ChangeFlag(NOPAIN,0)
+		Goto See
+	Pain.KillMe:
+		Goto See
+
+/******************************************************************************\
+==================================DEATH STATES==================================
+\******************************************************************************/
+
+	Death:
+		TNT1 A 0 A_JumpIfHealthLower(-60,"Splode")
+		SKFA H 5 A_AlertMonsters
+		SKFA I 5 A_Scream
+		TNT1 A 0 A_Playsound("items/sbomb")
+		TNT1 A 0 A_SpawnItem("IceExplosion")
+		TNT1 A 0 A_SpawnItemEx("IceSmokeSpawner2",0,0,1,0,0,0,0,0,0)
+		TNT1 A 0 Radius_Quake(3,15,0,16,0)
+		Goto DeathFall
+	Death.KnifeSlash:
+	Death.KnifeStab:
+	Death.KnifeSlashPower:
+	Death.KnifeStabPower:
+	Death.WakizashiSlash:
+	Death.WakizashiStab:
+	Death.WakizashiSlashPower:
+	Death.WakizashiStabPower:
+		SKFA H 5
+		SKFA I 5 A_PlaySound("KNI_HIT")
+	DeathFall:
+		SKFA J 5 A_Fall
+		SKFA KLM 5
+		TNT1 A 0 A_Jump(5,"Regenerating")
+		SKFA N -1
+		Stop
+	Regenerating:
+		SKFA NNNNNNNNNNNNNNN 70
+		SKFA N -1 Thing_Raise(0)
+		Wait
+	Splode:
+		XXLF O 5 A_SpawnItem("AeniBlood",0,32,0)
+		TNT1 A 0 A_SpawnItemEx ("AeniBlood", 0,34,0, random(-75,75)*0.01,random(-75,75)*0.01,random(-65,65)*0.01, 0, SXF_NOCHECKPOSITION|SXF_CLIENTSIDE|SXF_TRANSFERTRANSLATION, 0)	
+		XXLF P 5 A_SpawnItem("AeniBlood",0,34,0)
+		TNT1 A 0 A_Playsound("items/sbomb")
+		TNT1 A 0 A_SpawnItem("IceExplosion")
+		TNT1 A 0 A_SpawnItemEx("IceSmokeSpawner2",0,0,1,0,0,0,0,0,0)
+		TNT1 A 0 Radius_Quake(3,15,0,16,0)
+		XXLF Q 5 A_SpawnItem("AeniBlood",0,26,0)
+		XXLF R 5 A_SpawnItem("AeniBlood",0,20,0)
+		XXLR S 5 A_SpawnItem("AeniBlood",0,14,0)
+		XXLR T 5 A_SpawnItem("AeniBlood",0,6,0)
+		XXLR U 5 A_SpawnItem("AeniBlood",0,0,0)
+		XXLR V 5 A_SpawnItem("AeniBlood",0,0,0)
+		XXLR W 5 // No extra blood needed here. He's dead, Jim.
+		TNT1 A 0 A_XScream
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_SpawnItemEx("DEADStrikeKnightGib",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)
+		Stop
+	Death.Fire2:
+		TNT1 A 0 A_Playsound("items/sbomb")
+		TNT1 A 0 A_SpawnItem("IceExplosion")
+		TNT1 A 0 A_SpawnItemEx("IceSmokeSpawner2",0,0,1,0,0,0,0,0,0)
+		TNT1 A 0 Radius_Quake(3,15,0,16,0)
+		TNT1 A 1 A_SpawnItem("BurnDeath1", 2, 1)
+		TNT1 A 0 A_AlertMonsters
+		Stop
+	Death.head:
+		SKFA O 9 A_PlaySound("headshot/splat")
+		TNT1 A 0 A_SpawnItem("AeniBlood",0,40,0)
+		TNT1 A 0 A_SpawnItem("AeniBlood",0,40,0)
+		SKFA P 9 A_XScream
+		SKFA Q 9 A_Fall
+		SKFA R 5
+		SKFA S 5 A_SpawnItemEx("DEADStrikeKnight",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)
+		Stop
+	Raise:
+		SKFA KJI 5
+		SKFA H 5 Thing_SetSpecial(0,226,642,0,random(14,28))
+		Goto See
+	}
+}
+
+Actor IceKnightGrenade
+{
+  obituary "%o was blasted by a wave of ice from an Ice Knight's freeze grenade."
+  radius 6
+  height 8
+  speed 20
+  damage (10)
+  seesound "ZSec/bounce"
+  PROJECTILE
+  +DOOMBOUNCE
+  -NOGRAVITY
+  +GRENADETRAIL
+  +DONTFALL
+  DamageType Ice
+  bouncefactor 0.5
+  bouncecount 10
+  states
+  {
+  Spawn:
+    GRND AAA 35 bright
+  Death:
+    MISL C 0 bright A_PlaySound("weapons/rocklx")
+    MISL C 5 bright A_Explode(0,32,0)
+    MISL C 0 A_PlaySound("Grenade/Iced")
+    MISL C 0 A_Mushroom("IceShotCloud1", 4)
+    MISL C 0 A_Mushroom("IceShotCloud1", 8)
+    MISL C 0 A_Mushroom("IceShotCloud1", 12)
+    MISL C 0 A_Mushroom("IceShotCloud1", 16)
+    MISL D 4 bright
+    MISL E 3 bright
+    stop
+  }
+}
+
+ACTOR IceShotCloud1 //Weapon: Poison Gun, By: Daniel, using the gas clouds from it.
+{
+   Radius 24
+   Height 16
+   Speed 16
+   Mass 2000
+   damage 4
+   obituary "%o was blasted by a wave of ice from an Ice Knight."
+   +NOBLOCKMAP 
+   +DROPOFF 
+   +MISSILE 
+   +ACTIVATEIMPACT 
+   +ACTIVATEPCROSS 
+   +NOTARGET
+   +RANDOMIZE
+   RenderStyle Add
+   Alpha 0.75
+   scale 0.9
+   SeeSound "weapons/iceshot"
+   DeathSound "weapons/icehit"
+   DamageType Ice
+   States
+   {
+   Spawn:
+      FBLS A 1 Bright
+      Loop
+   Death:
+      FBLS A 3 Bright
+      FBLS B 4 Bright
+      FBLS C 1 Bright
+      FBLS C 0 A_Jump(16,2)
+      FBLS C 1 Bright A_CustomMissile("IceShotCloud2",5,0,0)
+      FBLS C 0 A_Jump(16,2)
+      FBLS C 1 Bright A_CustomMissile("IceShotCloud2",5,0,90)
+      FBLS C 0 A_Jump(16,2)
+      FBLS C 1 Bright A_CustomMissile("IceShotCloud2",5,0,180)
+      FBLS C 0 A_Jump(16,2)
+      FBLS C 1 Bright A_CustomMissile("IceShotCloud2",5,0,270)
+      FBLS DE 6 Bright
+      Stop
+   }
+}
+
+ACTOR IceShotCloud2
+{
+   Radius 16
+   Height 8
+   Speed 8
+   Mass 3000
+   damage 4
+   obituary "%o was blasted by a wave of ice from an Ice Knight."   
+   +NOBLOCKMAP 
+   +DROPOFF 
+   +MISSILE 
+   +ACTIVATEIMPACT 
+   +ACTIVATEPCROSS 
+   +NOTARGET
+   +RANDOMIZE
+   RenderStyle Add
+   Alpha 0.75
+   scale 0.9
+   SeeSound "weapons/iceshot"
+   DeathSound "weapons/icehit"
+   DamageType Ice
+   States
+   {
+   Spawn:
+      FBLS A 1 Bright
+      Loop
+   Death:
+      FBLS A 3 Bright
+      FBLS B 4 Bright
+      FBLS C 1 Bright
+      FBLS C 0 A_Jump(32,2)
+      FBLS C 1 Bright A_CustomMissile("IceShotCloud3",5,0,0)
+      FBLS C 0 A_Jump(32,2)
+      FBLS C 1 Bright A_CustomMissile("IceShotCloud3",5,0,90)
+      FBLS C 0 A_Jump(32,2)
+      FBLS C 1 Bright A_CustomMissile("IceShotCloud3",5,0,180)
+      FBLS C 0 A_Jump(32,2)
+      FBLS C 1 Bright A_CustomMissile("IceShotCloud3",5,0,270)
+      FBLS DE 6 Bright
+      Stop
+   }
+}
+
+ACTOR IceShotCloud3
+{
+   Radius 10
+   Height 8
+   Speed 8
+   Mass 4000
+   damage 4
+   obituary "%o was blasted by a wave of ice from an Ice Knight."
+   +NOBLOCKMAP 
+   +DROPOFF 
+   +MISSILE 
+   +ACTIVATEIMPACT 
+   +ACTIVATEPCROSS 
+   +NOTARGET
+   +RANDOMIZE
+   RenderStyle Add
+   Alpha 0.75
+   scale 0.9
+   SeeSound "weapons/iceshot"
+   DeathSound "weapons/icehit"
+   DamageType Ice
+   States
+   {
+   Spawn:
+      FBLS A 1 Bright
+      Loop
+   Death:
+      FBLS A 3 Bright
+      FBLS B 4 Bright
+      FBLS C 5 Bright
+      FBLS DE 6 Bright
+      Stop
+   }
+}
+
+actor ZombieFreezeBlast
+{
+  Game Doom
+  SpawnID 51
+  Radius 13
+  Height 8
+  Speed 25
+  Damage 4
+  Projectile
+  //+HEXENBOUNCE
+  +RANDOMIZE
+  RenderStyle Add
+  Alpha 0.75
+  scale 0.9
+  SeeSound "weapons/iceshot"
+  DeathSound "weapons/icehit"
+  DamageType Ice
+  Decal FreezeBlastMelt
+  States
+  {
+  Spawn:
+    FBLS A 6 bright A_SpawnItem("FreezeBlastTrail")
+    loop
+  Death:
+    FBLS BCDE 4 bright
+	TNT1 A 0 A_PlaySound("misc/freeze",0)
+    TNT1 AAAAA 1 BRIGHT A_SpawnItemEx("IceCrystal",0,0,0,random(-1,1),random(-1,1),random(1,2))
+    stop
+  }
+}
+
+actor FreezeBlastTrail
+{
+  Game Doom
+  SpawnID 51
+  Radius 13
+  Height 8
+  Speed 20
+  Damage 0
+  Projectile
+  +RANDOMIZE
+  RenderStyle Add
+  Alpha 0.75
+  SeeSound "weapons/iceshot"
+  DeathSound "weapons/icehit"
+  States
+  {
+  Spawn:
+    FRTR ABC 6 bright A_FadeOut(0.2)
+    loop
+  Death:
+    FRTR ABC 4 bright
+    stop
+  }
+}
+
+
+
+
+
+
+
+
+actor icesmokebomb
+{
+//Scale 0.25
+speed 15
+radius 6
+height 1
+damage 0
+gravity 0.85
+PROJECTILE
++RIPPER
+-NOGRAVITY
+translation "48:79=80:111", "112:255=80:111"
+states
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_PlaySound("items/sbombf")
+goto spawn2
+Spawn2:
+GRND AAAAAA 3
+loop
+Death:
+TNT1 A 0 A_Playsound("items/sbombx")
+GRND A 17 A_SpawnItem("icesmokespawner2")
+GRND A 0 A_PlaySound("items/sbombs")
+TNT1 A 0 A_SpawnItemEx("IceExplosion",0,0,1,0,0,0,0,0,0)
+GRND AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 2 A_CustomMissile("icesmoke9",0,0,random(0,359),2,random(22,90))
+stop
+}
+}
+
+actor icesmoke
+{
+Scale 5
+obituary "%o was blasted by a wave of ice."
+renderstyle translucent
+alpha 0.30
+//damage 10
+//DamageType Ice
++NOGRAVITY
+//+RIPPER
+//+NOCLIP
++CLIENTSIDEONLY
+states
+{
+Spawn:
+FDIG A 0
+FDIG A 0 A_Jump(255,"1","2","3","4","5","6","7","8","9","10")
+stop
+1:
+FDIG A 0 A_FadeOut(0.25)
+FDIG A 70
+goto FadeOut
+2:
+FDIG A 0 A_FadeOut(0.25)
+FDIG A 75
+goto FadeOut
+3:
+FDIG A 0 A_FadeOut(0.25)
+FDIG A 80
+goto FadeOut
+4:
+FDIG A 0 A_FadeOut(0.25)
+FDIG A 85
+goto FadeOut
+5:
+FDIG A 0  A_FadeOut(0.25)
+FDIG A 90
+goto FadeOut
+6:
+FDIG A 0 A_FadeOut(0.25)
+FDIG A 95
+goto FadeOut
+7:
+FDIG A 0 A_FadeOut(0.25)
+FDIG A 100
+goto FadeOut
+8:
+FDIG A 0 A_FadeOut(0.25)
+FDIG A 105
+goto FadeOut
+9:
+FDIG A 0 A_FadeOut(0.25)
+FDIG A 110
+goto FadeOut
+10:
+FDIG A 0 A_FadeOut(0.25)
+FDIG A 115
+goto FadeOut
+FadeOut:
+FDIG A 1 A_FadeOut(0.005)
+loop
+}
+}
+
+actor icegravsmoke : icesmoke
+{
+radius 1
+height 1
+PROJECTILE
+-NOGRAVITY
++FLOORHUGGER
++CLIENTSIDEONLY
+}
+
+actor icesmoke1
+{
+Scale 2.2
+speed 25
+renderstyle translucent
+alpha 0.30
+//damage 10
+//DamageType Ice
+PROJECTILE
++NOGRAVITY
+//+NOCLIP
++CLIENTSIDEONLY
+states
+{
+Spawn:
+TNT1 A 0
+FDIG A 1
+TNT1 A 0 A_SpawnItem("icesmoke")
+stop
+}
+}
+
+actor icesmoke2 : icesmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDIG A 2
+TNT1 A 0 A_SpawnItem("icesmoke")
+stop
+}
+}
+
+actor icesmoke3 : icesmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDIG A 3
+TNT1 A 0 A_SpawnItem("icesmoke")
+stop
+}
+}
+
+actor icesmoke4 : icesmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDIG A 4
+TNT1 A 0 A_SpawnItem("icesmoke")
+stop
+}
+}
+
+actor icesmoke5 : icesmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDIG A 5
+TNT1 A 0 A_SpawnItem("icesmoke")
+stop
+}
+}
+
+actor icesmoke6 : icesmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDIG A 6
+TNT1 A 0 A_SpawnItem("icesmoke")
+stop
+}
+}
+
+actor icesmoke7 : icesmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDIG A 7
+TNT1 A 0 A_SpawnItem("icesmoke")
+stop
+}
+}
+
+actor icesmoke8 : icesmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDIG A 8
+TNT1 A 0 A_SpawnItem("icesmoke")
+stop
+}
+}
+
+actor icesmoke9 : icesmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDIG A 11
+TNT1 A 0 A_SpawnItem("icesmoke")
+stop
+}
+}
+
+actor icesmoke888 : icesmoke1
+{
+states
+{
+Spawn:
+TNT1 A 0
+FDIG A 2
+TNT1 A 0 A_SpawnItem("icegravsmoke")
+FDIG A 2
+TNT1 A 0 A_SpawnItem("icegravsmoke")
+FDIG A 2
+TNT1 A 0 A_SpawnItem("icegravsmoke")
+FDIG A 2
+TNT1 A 0 A_SpawnItem("icegravsmoke")
+stop
+}
+}
+
+actor icesmokespawner
+{
++CLIENTSIDEONLY
+states
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_Jump(255,"Spawn1","Spawn2")
+Spawn1:
+TNT1 A 0
+TNT1 A 0 A_CustomMissile("icesmoke1",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("icesmoke3",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("icesmoke5",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("icesmoke7",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("icesmoke888",0,0,0,2,-15)
+stop
+Spawn2:
+TNT1 A 0
+TNT1 A 0 A_CustomMissile("icesmoke2",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("icesmoke4",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("icesmoke6",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("icesmoke8",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("icesmoke888",0,0,0,2,-15)
+stop
+}
+}
+
+actor icesmokespawner2
+{
++CLIENTSIDEONLY
+states
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_SpawnItemEx ("icesmokespawner", 0, 0, 0, 0, 0, 0, 0, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("icesmokespawner", 0, 0, 0, 0, 0, 0, 30, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("icesmokespawner", 0, 0, 0, 0, 0, 0, 60, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("icesmokespawner", 0, 0, 0, 0, 0, 0, 90, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("icesmokespawner", 0, 0, 0, 0, 0, 0, 120, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("icesmokespawner", 0, 0, 0, 0, 0, 0, 150, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("icesmokespawner", 0, 0, 0, 0, 0, 0, 180, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("icesmokespawner", 0, 0, 0, 0, 0, 0, -30, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("icesmokespawner", 0, 0, 0, 0, 0, 0, -60, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("icesmokespawner", 0, 0, 0, 0, 0, 0, -90, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("icesmokespawner", 0, 0, 0, 0, 0, 0, -120, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("icesmokespawner", 0, 0, 0, 0, 0, 0, -150, 128, 0)
+stop
+}
+}
+
+actor DPP_CryoIK : FastProjectile { //Monster Version ~Avi
+	Radius 2
+	Height 4
+	Speed 80
+	Damage 5 // May buff it to 6 ~Avi
+	Projectile
+	//+HEXENBOUNCE
+	+RANDOMIZE
+	-BLOODSPLATTER
+	RenderStyle Add
+	Alpha 0.75
+	scale 0.4
+	SeeSound "weapons/iceshot"
+	DeathSound "weapons/icehit"
+	DamageType Ice
+	Decal FreezeBlastMelt
+	States {
+		Spawn:
+			CRYP ABCDEFGHIJKLMNOP 1 bright
+			loop
+		Death:
+			ICPR DEFGH 4 bright
+			//TNT1 A 0 A_PlaySound("misc/freeze",0)
+			TNT1 A 0 BRIGHT A_SpawnItemEx("IceCrystal",0,0,0,random(-16,16))
+			stop
+	}
+}
+
+actor LoadedOPG_Cryo : Ammo {// EDIT THIS
+	inventory.amount 0
+	inventory.maxamount 60
+	ammo.backpackamount 0
+	ammo.backpackmaxamount 60
+	+IGNORESKILL
+	States {
+		Spawn:
+			BLIT A -1
+			Stop
+	}
+}
+
+actor CryoTrail {
+	Radius 13
+	Height 8
+	Speed 20
+	Damage 0
+	Projectile
+	+RANDOMIZE
+	+CLIENTSIDEONLY
+	RenderStyle Add
+	Alpha 0.75
+	States {
+		Spawn:
+			FRTR ABC 6 bright A_FadeOut(0.2)
+			loop
+		Death:
+			FRTR ABC 4 bright
+			stop
+		}
+}
+
+ACTOR CryoBlast {
+	Radius 13
+	Height 8
+	Speed 60
+	Damage 20
+	Projectile
+	//+HEXENBOUNCE
+	+RANDOMIZE
+	-BLOODSPLATTER
+	RenderStyle Add
+	Alpha 0.75
+	scale 0.9
+	SeeSound "weapons/iceshot"
+	DeathSound "weapons/icehit"
+	DamageType Ice
+	Decal FreezeBlastMelt
+	States {
+		Spawn:
+			FBLS A 6 bright A_SpawnItem("CryoTrail")
+			loop
+		Death:
+			FBLS BCDE 4 bright
+			TNT1 A 0 A_Explode(32,128,0,1)
+			TNT1 AAAAAAAAAA 0 BRIGHT A_SpawnItemEx("IceCrystal",0,0,0,random(-16,16),random(-16,16),random(-16,16))//random(1,2))
+			TNT1 AAAAA 0 BRIGHT A_SpawnItemEx("CryoBlast2",0,0,0,random(-16,16),random(-16,16),random(-16,16))
+			stop
+	}
+}
+
+ACTOR CryoBlast2 : CryoBlast {
+	States {
+		Death:
+			FBLS BCDE 4 bright
+			TNT1 A 0 A_Explode(32,128,0,1)
+			TNT1 AAAAAAAAAA 0 BRIGHT A_SpawnItemEx("IceCrystal",0,0,0,random(-5,5),random(-5,5),random(-5,5))//random(1,2))
+			stop
+	}
+}

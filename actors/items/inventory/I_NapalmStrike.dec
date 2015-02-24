@@ -1,0 +1,40 @@
+ACTOR NapalmStrike : CustomInventory {
+	Inventory.Amount 1
+	Inventory.Maxamount 1
+	Inventory.Icon "COMMB0"
+	Inventory.PickupMessage "Napalm Strike Available!"
+	+INVBAR
+	States {
+		Spawn:
+			COMM A -1
+			stop
+		Use:
+			TNT1 A 0 A_PlaySoundEx("Artillery/FireMission","Auto")
+			TNT1 A 0 A_FireBullets(0,0,1,0,"JetTarget")
+			stop
+	}
+}
+
+ACTOR JetTarget : Bulletpuff {
+	-ALLOWPARTICLES
+	+NOBLOOD
+	+DONTSPLASH
+	+PUFFONACTORS
+	Renderstyle None
+	Alpha 0.0
+	States {
+		Spawn:
+		Melee:
+		Crash:
+		See:
+		Attack:
+		Active:
+		Death:
+		XDeath:
+			TNT1 A 4 Thing_ChangeTID(0,31999)
+			TNT1 A 4 A_Print("Calling Airstrike!")
+			TNT1 A 4 ACS_ExecuteAlways(558,0,1)
+			TNT1 AAAAAAAAAA 70
+			Stop
+	}
+}

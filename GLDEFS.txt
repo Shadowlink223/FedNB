@@ -1,0 +1,1126 @@
+/*
+#include "actors/weaponsGL/.gl"
+#include "actors/monstersGL/.gl"
+#include "actors/friendliesGL/.gl"
+#include "actors/projectilesGL/.gl"
+#include "actors/itemsGL/.gl"
+#include "actors/miscGL/.gl"
+*/
+
+#include "actors/weaponsGL/Hand_Grenade.gl"
+#include "actors/monstersGL/Security_Klaxon.gl"
+#include "actors/projectilesGL/Light_Matter.gl"
+
+// Items
+
+PulseLight FedRandomPowerupLight {
+	color 1.0 1.0 1.0
+	size 32
+	secondarySize 128
+	interval 1
+}
+Object FedRandomPowerup { Frame FRAN { Light FedRandomPowerupLight } }
+
+pointlight ArmorShard1 {
+		color 0.0 0.7 0.0
+		size 6
+}
+pointlight ArmorShard2 {
+		color 0.0 0.7 0.0
+		size 7
+}
+pointlight ArmorShard3 {
+		color 0.0 0.7 0.0
+		size 8
+}
+pointlight ArmorShard4 {
+		color 0.0 0.7 0.0
+		size 9
+}
+object ArmorShard {
+		frame ARSDA { light ArmorShard1 }
+		frame ARSDB { light ArmorShard2 }
+		frame ARSDC { light ArmorShard3 }
+		frame ARSDD { light ArmorShard4 }
+}
+
+// Projectiles
+
+flickerlight BioSludgeLight {
+	color 0.0 0.5 0.0
+	size 32
+	secondarysize 48
+	chance 0.1
+	dontlightself 1
+}
+Object BioSludgeExplosion { Frame SLUD { Light BioSludgeLight } }
+Object BioSludgeBall {
+	Frame SLUD { Light BioSludgeLight }
+	Frame SLUG { Light BioSludgeLight }
+}
+Object BioSludge {
+	Frame SLUD { Light BioSludgeLight }
+	Frame SLUE { Light BioSludgeLight }
+}
+Object GrenBioSludgeExplosion { Frame SLUD { Light BioSludgeLight } }
+Object GrenBioSludgeBall {
+	Frame SLUD { Light BioSludgeLight }
+	Frame SLUG { Light BioSludgeLight }
+}
+Object GrenBioSludge {
+	Frame SLUD { Light BioSludgeLight }
+	Frame SLUE { Light BioSludgeLight }
+}
+
+Pointlight FlashKnightBall1 {
+	Color 0.4 0.0 0.0
+	Size 48
+}
+Pointlight FlashKnightBall2 {
+	Color 0.7 0.0 0.0
+	Size 64
+}
+Pointlight FlashKnightBall3 {
+	Color 0.6 0.0 0.0
+	Size 56
+}
+Pointlight FlashKnightBall4 {
+	Color 0.4 0.0 0.0
+	Size 32
+}
+Object FlashKnightPlasmaBall { // needs to become the flash knight's attack
+	Frame GO99A { Light FlashKnightBall1 }
+	Frame GO99B { Light FlashKnightBall1 }
+	Frame GO99C { Light FlashKnightBall2 }
+	Frame GO99D { Light FlashKnightBall3 }
+	Frame GO99E { Light FlashKnightBall4 }
+}
+
+Pointlight Comet1 {
+	Color 0.6 0.4 0.0
+	Size 56
+}
+Pointlight Comet2 {
+	Color 0.8 0.6 0.0
+	Size 64
+}
+Pointlight Comet3 {
+	Color 1.0 0.8 0.4
+	Size 72
+}
+Pointlight Comet4 {
+	Color 0.8 0.7 0.0
+	Size 64
+}
+Object FallingComet {
+	Frame COMTA { Light Comet1 }
+	Frame COMTB { Light Comet1 }
+	Frame COMTC { Light Comet1 }
+	Frame COMTD { Light Comet2 }
+	Frame COMTE { Light Comet3 }
+	Frame COMTF { Light Comet4 }
+}
+
+Pointlight Comet5 {
+	Color 0.6 0.4 0.0
+	Size 56
+}
+Pointlight Comet6 {
+	Color 0.4 0.2 0.0
+	Size 48
+}
+Pointlight Comet7 {
+	Color 0.4 0.0 0.0
+	Size 40
+}
+Object CometDeath {
+	Frame COMTG { Light Comet5 }
+	Frame COMTH { Light Comet6 }
+	Frame COMTI { Light Comet7 }
+}
+
+Flickerlight2 RainCometNull {
+	Color 1.0 0.8 0.0
+	Size 15
+	Secondarysize 20
+	Interval 2
+	Offset 0 0 0
+}
+Object RainCometNull {
+	Frame ZAP5A { Light RainCometNull }
+	Frame ZAP5B { Light RainCometNull }
+	Frame ZAP5C { Light RainCometNull }
+	Frame ZAP5D { Light RainCometNull }
+}
+
+Pointlight SLGroundFire {
+	Color 0.3 0.0 0.0
+	Size 40
+}
+Object SLGroundFire { Frame FX03 { Light SLGroundFire } }
+
+pulselight DarkMatterLight {
+    offset 0 0 0
+    color 0.2 0.0 0.6
+    size 70
+    secondarySize 90
+    interval 0.7
+    Subtractive 1//90
+}
+Object DarkMatterBall {	Frame DMGB { Light DarkMatterLight } }
+
+flickerlight DarkMatterLightExp1 {
+    offset 0 0 0
+    color 0.2 0.0 0.6
+    size 100
+    secondarysize 110
+    Subtractive 1//110
+    chance 0.4
+}
+flickerlight DarkMatterLightExp2 {
+    offset 0 0 0
+    color 0.2 0.0 0.6
+    size 85
+    secondarysize 95
+    Subtractive 1//100
+    chance 0.4
+}
+flickerlight DarkMatterLightExp3 {
+    offset 0 0 0
+    color 0.2 0.0 0.6
+    size 70
+    secondarysize 80
+    Subtractive 1//90
+    chance 0.4
+}
+flickerlight DarkMatterLightExp4 {
+    offset 0 0 0
+    color 0.2 0.0 0.6
+    size 55
+    secondarysize 65
+    Subtractive 1//80
+    chance 0.4
+}
+flickerlight DarkMatterLightExp5 {
+    offset 0 0 0
+    color 0.2 0.0 0.6
+    size 40
+    secondarysize 50
+    Subtractive 1//70
+    chance 0.4
+}
+Object ShadowVaporSpawner {
+	Frame PLAYA	{ Light DarkMatterLightExp2 }
+	Frame PLAYB	{ Light DarkMatterLightExp1 }
+	Frame PLAYC	{ Light DarkMatterLightExp2 }
+	Frame PLAYD	{ Light DarkMatterLightExp3 }
+	Frame PLAYE	{ Light DarkMatterLightExp4 }
+	Frame PLAYF	{ Light DarkMatterLightExp5 }
+}
+
+pointlight EMPBall {
+    color 1.0 1.0 1.0
+    size 24
+}
+Object EMPGrenade {
+	Frame TEFX { Light EMPBall }
+}
+
+pointlight TeslaExplode1 {
+    color 0.75 0.75 1.0
+    size 32
+}
+pointlight TeslaExplode2 {
+    color 0.75 0.75 1.0
+    size 40
+}
+pointlight TeslaExplode3 {
+    color 0.75 0.75 1.0
+    size 48
+}
+pointlight TeslaExplode4 {
+    color 0.75 0.75 1.0
+    size 56
+}
+pointlight TeslaExplode5 {
+    color 0.75 0.75 1.0
+    size 64
+}
+pointlight TeslaExplode6 {
+    color 0.75 0.75 1.0
+    size 72
+}
+pointlight TeslaExplode7 {
+    color 0.75 0.75 1.0
+    size 80
+}
+pointlight TeslaExplode8 {
+    color 0.75 0.75 1.0
+    size 88
+}
+pointlight TeslaExplode9 {
+    color 0.75 0.75 1.0
+    size 96
+}
+pointlight TeslaExplode10 {
+    color 0.75 0.75 1.0
+    size 104
+}
+pointlight TeslaExplode11 {
+    color 0.75 0.75 1.0
+    size 112
+}
+pointlight TeslaExplode12 {
+    color 0.75 0.75 1.0
+    size 120
+}
+pointlight TeslaExplode13 {
+    color 0.75 0.75 1.0
+    size 128
+}
+pointlight TeslaExplode14 {
+    color 0.75 0.75 1.0
+    size 136
+}
+pointlight TeslaExplode15 {
+    color 0.75 0.75 1.0
+    size 144
+}
+pointlight TeslaExplode16 {
+    color 0.75 0.75 1.0
+    size 152
+}
+Object TeslaShotAltExplode1 { Frame TXP1 { Light TeslaExplode1 } }
+Object TeslaShotAltExplode2 { Frame TXP1 { Light TeslaExplode2 } }
+Object TeslaShotAltExplode3 { Frame TXP1 { Light TeslaExplode3 } }
+Object TeslaShotAltExplode4 { Frame TXP1 { Light TeslaExplode4 } }
+Object TeslaShotAltExplode5 { Frame TXP1 { Light TeslaExplode5 } }
+Object TeslaShotAltExplode6 { Frame TXP1 { Light TeslaExplode6 } }
+Object TeslaShotAltExplode7 { Frame TXP1 { Light TeslaExplode7 } }
+Object TeslaShotAltExplode8 { Frame TXP1 { Light TeslaExplode8 } }
+Object TeslaShotAltExplode9 { Frame TXP1 { Light TeslaExplode9 } }
+Object TeslaShotAltExplode10 { Frame TXP1 { Light TeslaExplode10 } }
+Object TeslaShotAltExplode11 { Frame TXP1 { Light TeslaExplode11 } }
+Object TeslaShotAltExplode12 { Frame TXP1 { Light TeslaExplode12 } }
+Object TeslaShotAltExplode13 { Frame TXP1 { Light TeslaExplode13 } }
+Object TeslaShotAltExplode14 { Frame TXP1 { Light TeslaExplode14 } }
+Object TeslaShotAltExplode15 { Frame TXP1 { Light TeslaExplode15 } }
+Object TeslaShotAltExplode16 { Frame TXP1 { Light TeslaExplode16 } }
+
+PointLight FodderLaser {
+	Color 1.0 0.8 0.0	
+	Size 20
+}
+Object FodderLaser { Frame DLASA { Light FodderLaser } }
+
+// Monsters
+
+Object JetpackZombieExplosion {
+	Frame MISLB { Light ROCKET_X1 }
+	Frame MISLC { Light ROCKET_X2 }
+	Frame MISLD { Light ROCKET_X3 }
+}
+
+PointLight LightTemplar {
+	Color 1.0 1.0 1.0
+	Size 4096
+}
+Object FedTemplarLight { Frame DISC { Light LightTemplar } }
+
+PointLight DarkTemplar {
+	Color 1.0 1.0 1.0
+	Size 4096
+	Subtractive 1
+}
+Object FedTemplarDark { Frame DISC { Light DarkTemplar } }
+
+PulseLight FedEyeGlow {
+	Color 1.0 1.0 1.0
+	Size 32
+	SecondarySize 128
+	Interval 5
+}
+Object FedEye { Frame FEDE { Light FedEyeGlow } }
+
+PointLight KnightAttack {
+	Color 1.0 0.8 0.2
+	Size 28
+	Offset 0 28 0
+}
+Object Initiate { Frame GO99F { Light InitiateAttack } }
+Object FInitiate { Frame G99PF { Light KnightAttack } }
+Object ZoneKnight { Frame XXLFF { Light KnightAttack } }
+Object FZoneKnight { Frame XXLFF { Light KnightAttack } }
+Object StrikeKnight { Frame SKFAF { Light KnightAttack } }
+Object FStrikeKnight { Frame SKFPF { Light KnightAttack } }
+Object RiotKnight { Frame POSSF { Light KnightAttack } }
+Object FRiotKnight { Frame POSSF { Light KnightAttack } }
+Object HeavyKnight { Frame GO99F { Light KnightAttack } }
+Object FHeavyKnight { Frame G99PF { Light KnightAttack } }
+Object KnightCaptain { Frame GO99F { Light KnightAttack } }
+Object FKnightCaptain { Frame SKCPF { Light KnightAttack } }
+Object MirageKnight { Frame MKFAF { Light KnightAttack } }
+Object TremorKnight { Frame ASSNF { Light KnightAttack } }
+Object IceKnight { Frame SKFAF { Light KnightAttack } }
+Object FIceKnight { Frame SKFPF { Light KnightAttack } }
+Object GrenadeKnight { Frame GO99F { Light KnightAttack } }
+Object FGrenadeKnight { Frame G99PF { Light KnightAttack } }
+Object RookKnight { Frame GO99F { Light KnightAttack } }
+Object FRookKnight { Frame G99PF { Light KnightAttack } }
+Object MedicKnight { Frame MEHDF { Light KnightAttack } }
+Object FMedicKnight { Frame MEHDF { Light KnightAttack } }
+Object BerserkKnight { Frame GO99F { Light KnightAttack } }
+Object SentryKnight { Frame GO99F { Light KnightAttack } }
+Object BioKnight { Frame SKFAF { Light KnightAttack } }
+Object FBioKnight { Frame SKFPF { Light KnightAttack } }
+Object FireKnight { Frame SKFAF { Light KnightAttack } }
+Object FFireKnight { Frame SKFPF { Light KnightAttack } }
+Object ShockKnight { Frame SKFAF { Light KnightAttack } }
+Object FShockKnight { Frame SKFPF { Light KnightAttack } }
+Object Justicar { Frame GO99F { Light KnightAttack } }
+Object FJusticar { Frame G99PF { Light KnightAttack } }
+Object SkyKnight { Frame SKFAF { Light KnightAttack } }
+
+PulseLight FriendlyRing {
+	color 0.0 1.0 0.0
+	size 16
+	secondarySize 32
+	interval 1
+	dontlightself 1
+}
+Object FInitiate {
+	Frame G99PA { Light FriendlyRing }
+	Frame G99PB { Light FriendlyRing }
+	Frame G99PC { Light FriendlyRing }
+	Frame G99PD { Light FriendlyRing }
+	Frame G99PE { Light FriendlyRing }
+	Frame G99PF { Light FriendlyRing }
+	Frame G99PG { Light FriendlyRing }
+}
+Object FZoneKnight {
+	Frame XXLFA { Light FriendlyRing }
+	Frame XXLFB { Light FriendlyRing }
+	Frame XXLFC { Light FriendlyRing }
+	Frame XXLFD { Light FriendlyRing }
+	Frame XXLFE { Light FriendlyRing }
+	Frame XXLFF { Light FriendlyRing }
+	Frame XXLFG { Light FriendlyRing }
+}
+Object FStrikeKnight {
+	Frame SKFPA { Light FriendlyRing }
+	Frame SKFPB { Light FriendlyRing }
+	Frame SKFPC { Light FriendlyRing }
+	Frame SKFPD { Light FriendlyRing }
+	Frame SKFPE { Light FriendlyRing }
+	Frame SKFPF { Light FriendlyRing }
+	Frame SKFPG { Light FriendlyRing }
+}
+Object FHeavyKnight {
+	Frame G99PA { Light FriendlyRing }
+	Frame G99PB { Light FriendlyRing }
+	Frame G99PC { Light FriendlyRing }
+	Frame G99PD { Light FriendlyRing }
+	Frame G99PE { Light FriendlyRing }
+	Frame G99PF { Light FriendlyRing }
+	Frame G99PG { Light FriendlyRing }
+}
+Object FBioKnight {
+	Frame SKFPA { Light FriendlyRing }
+	Frame SKFPB { Light FriendlyRing }
+	Frame SKFPC { Light FriendlyRing }
+	Frame SKFPD { Light FriendlyRing }
+	Frame SKFPE { Light FriendlyRing }
+	Frame SKFPF { Light FriendlyRing }
+	Frame SKFPG { Light FriendlyRing }
+}
+Object FIceKnight {
+	Frame SKFPA { Light FriendlyRing }
+	Frame SKFPB { Light FriendlyRing }
+	Frame SKFPC { Light FriendlyRing }
+	Frame SKFPD { Light FriendlyRing }
+	Frame SKFPE { Light FriendlyRing }
+	Frame SKFPF { Light FriendlyRing }
+	Frame SKFPG { Light FriendlyRing }
+}
+Object FFireKnight {
+	Frame SKFPA { Light FriendlyRing }
+	Frame SKFPB { Light FriendlyRing }
+	Frame SKFPC { Light FriendlyRing }
+	Frame SKFPD { Light FriendlyRing }
+	Frame SKFPE { Light FriendlyRing }
+	Frame SKFPF { Light FriendlyRing }
+	Frame SKFPG { Light FriendlyRing }
+}
+Object FShockKnight {
+	Frame SKFPA { Light FriendlyRing }
+	Frame SKFPB { Light FriendlyRing }
+	Frame SKFPC { Light FriendlyRing }
+	Frame SKFPD { Light FriendlyRing }
+	Frame SKFPE { Light FriendlyRing }
+	Frame SKFPF { Light FriendlyRing }
+	Frame SKFPG { Light FriendlyRing }
+}
+Object FGrenadeKnight {
+	Frame G99PA { Light FriendlyRing }
+	Frame G99PB { Light FriendlyRing }
+	Frame G99PC { Light FriendlyRing }
+	Frame G99PD { Light FriendlyRing }
+	Frame G99PE { Light FriendlyRing }
+	Frame G99PF { Light FriendlyRing }
+	Frame G99PG { Light FriendlyRing }
+}
+Object FRookKnight {
+	Frame SKFPA { Light FriendlyRing }
+	Frame SKFPB { Light FriendlyRing }
+	Frame SKFPC { Light FriendlyRing }
+	Frame SKFPD { Light FriendlyRing }
+	Frame SKFPE { Light FriendlyRing }
+	Frame SKFPF { Light FriendlyRing }
+	Frame SKFPG { Light FriendlyRing }
+}
+Object FMedicKnight {
+	Frame MEHDA { Light FriendlyRing }
+	Frame MEHDB { Light FriendlyRing }
+	Frame MEHDC { Light FriendlyRing }
+	Frame MEHDD { Light FriendlyRing }
+	Frame MEHDE { Light FriendlyRing }
+	Frame MEHDF { Light FriendlyRing }
+	Frame MEHDG { Light FriendlyRing }
+}
+Object FBishopKnight {
+	Frame BISHA { Light FriendlyRing }
+	Frame BISHB { Light FriendlyRing }
+	Frame BISHC { Light FriendlyRing }
+	Frame BISHD { Light FriendlyRing }
+	Frame BISHE { Light FriendlyRing }
+	Frame BISHF { Light FriendlyRing }
+	Frame BISHG { Light FriendlyRing }
+}
+Object FKnightCaptain {
+	Frame SKCPA { Light FriendlyRing }
+	Frame SKCPB { Light FriendlyRing }
+	Frame SKCPC { Light FriendlyRing }
+	Frame SKCPD { Light FriendlyRing }
+	Frame SKCPE { Light FriendlyRing }
+	Frame SKCPF { Light FriendlyRing }
+	Frame SKCPG { Light FriendlyRing }
+}
+Object FJusticar {
+	Frame G99PA { Light FriendlyRing }
+	Frame G99PB { Light FriendlyRing }
+	Frame G99PC { Light FriendlyRing }
+	Frame G99PD { Light FriendlyRing }
+	Frame G99PE { Light FriendlyRing }
+	Frame G99PF { Light FriendlyRing }
+	Frame G99PG { Light FriendlyRing }
+}
+
+FlickerLight2 ZombieTankAttack {
+	Color 1.0 0.8 0.2
+	Size 48
+	SecondarySize 56
+	Interval 1
+	Offset 0 40 0
+}
+Object KnightZombieTank {
+	Frame ZTNKD { Light ZombieTankAttack }
+	Frame ZTNKE { Light ZombieTankAttack }
+}
+
+Pointlight ZombieTankExplosion1 {
+	Color 1.0 0.8 0.2
+	Size 50
+}
+Pointlight ZombieTankExplosion2 {
+	Color 1.0 0.8 0.2
+	Size 58
+}
+Pointlight ZombieTankExplosion3 {
+	Color 1.0 0.8 0.2
+	Size 62
+}
+Pointlight ZombieTankExplosion4 {
+	Color 1.0 0.8 0.2
+	Size 58
+}
+Pointlight ZombieTankExplosion5 {
+	Color 1.0 0.8 0.2
+	Size 54
+}
+Pointlight ZombieTankExplosion6 {
+	Color 1.0 0.8 0.2
+	Size 50
+}
+Pointlight ZombieTankExplosion7 {
+	Color 1.0 0.8 0.2
+	Size 44
+}
+Pointlight ZombieTankExplosion8 {
+	Color 0.9 0.7 0.1
+	Size 40
+}
+Pointlight ZombieTankExplosion9 {
+	Color 0.9 0.7 0.1
+	Size 36
+}
+Pointlight ZombieTankExplosion10 {
+	Color 0.9 0.7 0.1
+	Size 32
+}
+Pointlight ZombieTankExplosion11 {
+	Color 0.8 0.6 0.0
+	Size 28
+}
+Pointlight ZombieTankExplosion12 {
+	Color 0.8 0.6 0.0
+	Size 26
+}
+Pointlight ZombieTankExplosion13 {
+	Color 0.8 0.6 0.0
+	Size 24
+}
+Pointlight ZombieTankExplosion14 {
+	Color 0.6 0.4 0.0
+	Size 22
+}
+Pointlight ZombieTankExplosion15 {
+	Color 0.6 0.4 0.0
+	Size 20
+}
+Pointlight ZombieTankExplosion16 {
+	Color 0.6 0.4 0.0
+	Size 18
+}
+Pointlight ZombieTankExplosion17 {
+	Color 0.4 0.2 0.0
+	Size 16
+}
+Pointlight ZombieTankExplosion18 {
+	Color 0.4 0.2 0.0
+	Size 14
+}
+Pointlight ZombieTankExplosion19 {
+	Color 0.2 0.0 0.0
+	Size 12
+}
+Pointlight ZombieTankExplosion20 {
+	Color 0.2 0.0 0.0
+	Size 10
+}
+Object ZombieTankExplosion {
+	Frame ZTXPA { Light ZombieTankExplosion1 }
+	Frame ZTXPB { Light ZombieTankExplosion2 }
+	Frame ZTXPC { Light ZombieTankExplosion3 }
+	Frame ZTXPD { Light ZombieTankExplosion4 }
+	Frame ZTXPE { Light ZombieTankExplosion5 }
+	Frame ZTXPF { Light ZombieTankExplosion6 }
+	Frame ZTXPG { Light ZombieTankExplosion7 }
+	Frame ZTXPH { Light ZombieTankExplosion8 }
+	Frame ZTXPI { Light ZombieTankExplosion9 }
+	Frame ZTXPJ { Light ZombieTankExplosion10 }
+	Frame ZTXPK { Light ZombieTankExplosion11 }
+	Frame ZTXPL { Light ZombieTankExplosion12 }
+	Frame ZTXPM { Light ZombieTankExplosion13 }
+	Frame ZTXPN { Light ZombieTankExplosion14 }
+	Frame ZTXPO { Light ZombieTankExplosion15 }
+	Frame ZTXPP { Light ZombieTankExplosion16 }
+	Frame ZTXPQ { Light ZombieTankExplosion17 }
+	Frame ZTXPR { Light ZombieTankExplosion18 }
+	Frame ZTXPS { Light ZombieTankExplosion19 }
+	Frame ZTXPT { Light ZombieTankExplosion20 }
+}
+
+Pointlight SmithExplode1 {
+	Color 1.0 0.8 0.0
+	Size 56
+}
+Pointlight SmithExplode2 {
+	Color 1.0 0.8 0.0
+	Size 64
+}
+Pointlight SmithExplode3 {
+	Color 1.0 0.8 0.0
+	Size 72
+	Offset 0 8 0
+}
+Pointlight SmithExplode4 {
+	Color 1.0 0.8 0.0
+	Size 80
+	Offset 0 16 0
+}
+Pointlight SmithExplode5 {
+	Color 1.0 0.8 0.0
+	Size 88
+	Offset 0 24 0
+}
+Pointlight SmithExplode6 {
+	Color 1.0 0.8 0.0
+	Size 96
+	Offset 0 32 0
+}
+Pointlight SmithExplode7 {
+	Color 1.0 0.8 0.0
+	Size 104
+	Offset 0 40 0
+}
+Pointlight SmithExplode8 {
+	Color 1.0 0.8 0.0
+	Size 112
+	Offset 0 48 0
+}
+Pointlight SmithExplode9 {
+	Color 1.0 0.8 0.0
+	Size 128
+	Offset 0 48 0
+}
+Pointlight SmithExplode10 {
+	Color 1.0 0.8 0.0
+	Size 136
+	Offset 0 48 0
+}
+Pointlight SmithExplode11 {
+	Color 1.0 0.8 0.0
+	Size 96
+	Offset 0 48 0
+}
+Pointlight SmithExplode12 {
+	Color 1.0 0.8 0.0
+	Size 80
+	Offset 0 48 0
+}
+Pointlight SmithExplode13 {
+	Color 1.0 0.8 0.0
+	Size 64
+	Offset 0 48 0
+}
+Pointlight SmithExplode14 {
+	Color 1.0 0.8 0.0
+	Size 56
+	Offset 0 48 0
+}
+Object DarkInquisitorBigExplosion {
+	Frame GRNEA { Light SmithExplode1 }
+	Frame GRNEB { Light SmithExplode2 }
+	Frame GRNEC { Light SmithExplode3 }
+	Frame GRNED { Light SmithExplode4 }
+	Frame GRNEE { Light SmithExplode5 }
+	Frame GRNEF { Light SmithExplode6 }
+	Frame GRNEG { Light SmithExplode7 }
+	Frame GRNEH { Light SmithExplode8 }
+	Frame GRNEI { Light SmithExplode9 }
+	Frame GRNEJ { Light SmithExplode10 }
+	Frame GRNEK { Light SmithExplode11 }
+	Frame GRNEL { Light SmithExplode12 }
+	Frame GRNEM { Light SmithExplode13 }
+	Frame GRNEN { Light SmithExplode14 }
+}
+
+Pointlight DeathExplode1 {
+	Color 1.0 0.8 0.0
+	Size 128
+	Offset 0 48 0
+}
+Pointlight DeathExplode2 {
+	Color 1.0 0.8 0.0
+	Size 96
+	Offset 0 48 0
+}
+Pointlight DeathExplode3 {
+	Color 1.0 0.8 0.0
+	Size 80
+	Offset 0 48 0
+}
+Pointlight DeathExplode4 {
+	Color 1.0 0.8 0.0
+	Size 64
+	Offset 0 48 0
+}
+Pointlight DeathExplode5 {
+	Color 1.0 0.8 0.0
+	Size 56
+	Offset 0 48 0
+}
+Object InquisitorDeathExplosion {
+	Frame R045M { Light DeathExplode1 }
+	Frame R045N { Light DeathExplode2 }
+	Frame R045O { Light DeathExplode3 }
+	Frame R045P { Light DeathExplode4 }
+	Frame R045Q { Light DeathExplode5 }
+}
+
+Pointlight FlierExplosion1 {
+	Color 1.0 0.8 0.2
+	Size 50
+}
+Pointlight FlierExplosion2 {
+	Color 1.0 0.8 0.2
+	Size 58
+}
+Pointlight FlierExplosion3 {
+	Color 1.0 0.8 0.2
+	Size 62
+}
+Pointlight FlierExplosion4 {
+	Color 1.0 0.8 0.2
+	Size 58
+}
+Pointlight FlierExplosion5 {
+	Color 1.0 0.8 0.2
+	Size 54
+}
+Pointlight FlierExplosion6 {
+	Color 1.0 0.8 0.2
+	Size 50
+}
+Pointlight FlierExplosion7 {
+	Color 1.0 0.8 0.2
+	Size 44
+}
+Pointlight FlierExplosion8 {
+	Color 0.9 0.7 0.1
+	Size 40
+}
+Pointlight FlierExplosion9 {
+	Color 0.9 0.7 0.1
+	Size 36
+}
+Pointlight FlierExplosion10 {
+	Color 0.9 0.7 0.1
+	Size 32
+}
+Pointlight FlierExplosion11 {
+	Color 0.8 0.6 0.0
+	Size 28
+}
+Pointlight FlierExplosion12 {
+	Color 0.8 0.6 0.0
+	Size 26
+}
+Pointlight FlierExplosion13 {
+	Color 0.8 0.6 0.0
+	Size 24
+}
+Pointlight FlierExplosion14 {
+	Color 0.6 0.4 0.0
+	Size 23
+}
+Pointlight FlierExplosion15 {
+	Color 0.6 0.4 0.0
+	Size 22
+}
+Pointlight FlierExplosion16 {
+	Color 0.6 0.4 0.0
+	Size 21
+}
+Pointlight FlierExplosion17 {
+	Color 0.4 0.2 0.0
+	Size 20
+}
+Pointlight FlierExplosion18 {
+	Color 0.4 0.2 0.0
+	Size 19
+}
+Pointlight FlierExplosion19 {
+	Color 0.2 0.0 0.0
+	Size 18
+}
+Pointlight FlierExplosion20 {
+	Color 0.2 0.0 0.0
+	Size 17
+}
+Pointlight FlierExplosion21 {
+	Color 0.2 0.0 0.0
+	Size 16
+}
+Object FlierExplosion {
+	Frame EXPLA { Light FlierExplosion1 }
+	Frame EXPLB { Light FlierExplosion2 }
+	Frame EXPLC { Light FlierExplosion3 }
+	Frame EXPLD { Light FlierExplosion4 }
+	Frame EXPLE { Light FlierExplosion5 }
+	Frame EXPLF { Light FlierExplosion6 }
+	Frame EXPLG { Light FlierExplosion7 }
+	Frame EXPLH { Light FlierExplosion8 }
+	Frame EXPLI { Light FlierExplosion9 }
+	Frame EXPLJ { Light FlierExplosion10 }
+	Frame EXPLK { Light FlierExplosion11 }
+	Frame EXPLL { Light FlierExplosion12 }
+	Frame EXPLM { Light FlierExplosion13 }
+	Frame EXPLN { Light FlierExplosion14 }
+	Frame EXPLO { Light FlierExplosion15 }
+	Frame EXPLP { Light FlierExplosion16 }
+	Frame EXPLQ { Light FlierExplosion17 }
+	Frame EXPLR { Light FlierExplosion18 }
+	Frame EXPLS { Light FlierExplosion19 }
+	Frame EXPLT { Light FlierExplosion20 }
+	Frame EXPLU { Light FlierExplosion21 }
+}
+
+// Weapons
+
+// Decoration/Obstacles
+
+flickerlight FedBarrelLight {
+	color 0.0 0.5 0.0
+	size 32
+	secondarysize 48
+	chance 0.1
+	Offset 0 56 0
+}
+Object FedBarrel { Frame BAR1 { Light FedBarrelLight } }
+
+// Misc
+
+pointlight FlashlightHelmetLight {
+		color 1.0 1.0 1.0
+		size 16
+		offset 8 0 0
+}
+object FlashlightHelmet { frame FLASH0 { light FlashlightHelmetLight } }
+
+pointlight FlashlightLight {
+    color 1.0 1.0 1.0
+    size 64
+}
+object Flashlight { frame FLASH0 { light FlashlightLight } }
+
+/******************************************************************************\
+===================================BRIGHTMAPS===================================
+\******************************************************************************/
+
+brightmap sprite SLUDA0 {
+	map "brightmaps/BSLDA0.png"
+	disablefullbright
+}
+brightmap sprite SLUDB0 {
+	map "brightmaps/BSLDB0.png"
+	disablefullbright
+}
+brightmap sprite SLUDC0 {
+	map "brightmaps/BSLDC0.png"
+	disablefullbright
+}
+brightmap sprite SLUDD0 {
+	map "brightmaps/BSLDD0.png"
+	disablefullbright
+}
+brightmap sprite SLUDE0 {
+	map "brightmaps/BSLDE0.png"
+	disablefullbright
+}
+brightmap sprite SLUDF0 {
+	map "brightmaps/BSLDF0.png"
+	disablefullbright
+}
+brightmap sprite SLUDG0 {
+	map "brightmaps/BSLDG0.png"
+	disablefullbright
+}
+brightmap sprite SLUDH0 {
+	map "brightmaps/BSLDH0.png"
+	disablefullbright
+}
+brightmap sprite SLUDI0 {
+	map "brightmaps/BSLDI0.png"
+	disablefullbright
+}
+brightmap sprite SLUDJ0 {
+	map "brightmaps/BSLDJ0.png"
+	disablefullbright
+}
+brightmap sprite SLUDK0 {
+	map "brightmaps/BSLDK0.png"
+	disablefullbright
+}
+brightmap sprite SLUDL0 {
+	map "brightmaps/BSLDL0.png"
+	disablefullbright
+}
+brightmap sprite SLUDM0 {
+	map "brightmaps/BSLDM0.png"
+	disablefullbright
+}
+brightmap sprite SLUDN0 {
+	map "brightmaps/BSLDN0.png"
+	disablefullbright
+}
+brightmap sprite SLUDO0 {
+	map "brightmaps/BSLDO0.png"
+	disablefullbright
+}
+brightmap sprite SLUDP0 {
+	map "brightmaps/BSLDP0.png"
+	disablefullbright
+}
+brightmap sprite SLUDQ0 {
+	map "brightmaps/BSLDQ0.png"
+	disablefullbright
+}
+brightmap sprite SLUDR0 {
+	map "brightmaps/BSLDR0.png"
+	disablefullbright
+}
+brightmap sprite SLUDS0 {
+	map "brightmaps/BSLDS0.png"
+	disablefullbright
+}
+brightmap sprite SLUDT0 {
+	map "brightmaps/BSLDT0.png"
+	disablefullbright
+}
+brightmap sprite SLUDU0 {
+	map "brightmaps/BSLDU0.png"
+	disablefullbright
+}
+brightmap sprite SLUDV0 {
+	map "brightmaps/BSLDV0.png"
+	disablefullbright
+}
+brightmap sprite SLUDW0 {
+	map "brightmaps/BSLDW0.png"
+	disablefullbright
+}
+brightmap sprite SLUEA0 {
+	map "brightmaps/BSLEA0.png"
+	disablefullbright
+}
+brightmap sprite SLUEB0 {
+	map "brightmaps/BSLEB0.png"
+	disablefullbright
+}
+brightmap sprite SLUEC0 {
+	map "brightmaps/BSLEC0.png"
+	disablefullbright
+}
+brightmap sprite SLUED0 {
+	map "brightmaps/BSLED0.png"
+	disablefullbright
+}
+brightmap sprite SLUEE0 {
+	map "brightmaps/BSLEE0.png"
+	disablefullbright
+}
+brightmap sprite SLUGA0 {
+	map "brightmaps/BSLGA0.png"
+	disablefullbright
+}
+brightmap sprite SLUGB0 {
+	map "brightmaps/BSLGB0.png"
+	disablefullbright
+}
+brightmap sprite SLUGC0 {
+	map "brightmaps/BSLGC0.png"
+	disablefullbright
+}
+brightmap sprite SLUGD0 {
+	map "brightmaps/BSLGD0.png"
+	disablefullbright
+}
+brightmap sprite SLUGE0 {
+	map "brightmaps/BSLGE0.png"
+	disablefullbright
+}
+brightmap sprite SLUGF0 {
+	map "brightmaps/BSLGF0.png"
+	disablefullbright
+}
+brightmap sprite SLUGG0 {
+	map "brightmaps/BSLGG0.png"
+	disablefullbright
+}
+brightmap sprite SLUGH0 {
+	map "brightmaps/BSLGH0.png"
+	disablefullbright
+}
+brightmap sprite SLUGI0 {
+	map "brightmaps/BSLGI0.png"
+	disablefullbright
+}
+brightmap sprite SLUGJ0 {
+	map "brightmaps/BSLGJ0.png"
+	disablefullbright
+}
+brightmap sprite SLUGK0 {
+	map "brightmaps/BSLGK0.png"
+	disablefullbright
+}
+brightmap sprite SLUGL0 {
+	map "brightmaps/BSLGL0.png"
+	disablefullbright
+}
+brightmap sprite SLUGM0 {
+	map "brightmaps/BSLGM0.png"
+	disablefullbright
+}
+
+pointlight BLBright {
+		color 1.0 1.0 1.0
+		size 96
+		offset 0 -69 0
+}
+
+pointlight BLBrightCenter {
+		color 1.0 1.0 1.0
+		size 8
+		offset 0 0 0
+}
+
+pointlight BLBrightBreak {
+		color 1.0 1.0 1.0
+		size 128
+		offset 0 -69 0
+}
+
+object BreakableLightBright {
+		frame TNT1 { light BLBrightCenter }
+		frame TNT1A { light BLBright }
+		frame TNT1B { light BLBrightBreak }
+}
+
+pointlight BLDim {
+		color 1.0 1.0 1.0
+		size 40
+		offset 0 -69 0
+}
+
+pointlight BLDimCenter {
+		color 1.0 1.0 1.0
+		size 8
+		offset 0 0 0
+}
+
+pointlight BLDimBreak {
+		color 1.0 1.0 1.0
+		size 72
+		offset 0 -69 0
+}
+
+object BreakableLightDim {
+		frame TNT1 { light BLDimCenter }
+		frame TNT1A { light BLDim }
+		frame TNT1B { light BLDimBreak }
+}
+
+pointlight BLBrightTall {
+		color 1.0 1.0 1.0
+		size 224
+		offset 0 -128 0
+}
+
+pointlight BLBrightTallCenter {
+		color 1.0 1.0 1.0
+		size 16
+		offset 0 0 0
+}
+
+pointlight BLBrightTallBreak {
+		color 1.0 1.0 1.0
+		size 256
+		offset 0 -128 0
+}
+
+object BreakableLightBrightTall {
+		frame TNT1 { light BLBrightTallCenter }
+		frame TNT1A { light BLBrightTall }
+		frame TNT1B { light BLBrightTallBreak }
+}

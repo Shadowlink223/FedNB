@@ -1,0 +1,33 @@
+Pointlight RedGrenadeBlink {
+	Color 1.0 0.0 0.0
+	Size 20
+}
+
+//Pointlight BlueGrenadeBlink {
+//	Color 0.0 0.0 1.0
+//	Size 20
+//}
+
+Object ThrownGrenade {
+	frame GHEAC { light RedGrenadeBlink }
+	frame GHEAD { light RedGrenadeBlink }
+	frame GHEAM { light RedGrenadeBlink }
+}
+
+Object RolledGrenade {
+	frame GHEAH { light RedGrenadeBlink }
+	frame GHEAL { light RedGrenadeBlink }
+	frame GHEAM { light RedGrenadeBlink }
+}
+
+//Object ThrownPlasmaGrenade {
+//	frame GHEAC { light BlueGrenadeBlink }
+//	frame GHEAD { light BlueGrenadeBlink }
+//	frame GHEAM { light BlueGrenadeBlink }
+//}
+
+//Object RolledPlasmaGrenade {
+//	frame GHEAH { light BlueGrenadeBlink }
+//	frame GHEAL { light BlueGrenadeBlink }
+//	frame GHEAM { light BlueGrenadeBlink }
+//}

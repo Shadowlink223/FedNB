@@ -1,0 +1,88 @@
+ACTOR Security_Camera 13912 {
+	//$Category Federation
+	Health 10
+	Radius 4
+	Height 8
+	
+	DamageFactor "Poison", 1.3
+	Damagefactor "Shock", 1.5
+	Damagefactor "ShockSlug", 1.8
+	Damagefactor "head", 0.0
+	Damagefactor "killme", 0.0
+	
+	Painchance 0
+	Speed 0
+	Mass 9999999
+	
+	Scale 0.5
+
+	MONSTER
+	-SOLID
+	+NOGRAVITY
+	+NOBLOOD
+	+DONTHURTSPECIES
+	+NOPAIN
+	+DONTGIB
+	+DONTSPLASH
+	+NOGRAVITY
+	+SPAWNCEILING
+	
+	Species "Knight"
+	
+	ActiveSound ""
+	SeeSound ""
+	DeathSound "scanner/death"
+	
+	Obituary "%o was killed by a security camera exploding."
+	
+	States {
+		Spawn:
+			FSCM A 0 
+			FSCM A 0 Thing_SetSpecial(0,226,642,0,random(1,5))
+			Goto Searching
+		Searching:
+			TNT1 A 0 A_SetAngle(1 + angle)
+			FSCM A 1
+			TNT1 A 0 A_LookEx(LOF_NOSOUNDCHECK,0,random(256,512),random(1024,4096),90,"Spotted")
+			TNT1 A 0 A_TakeInventory("Security_Check",1)
+			Loop
+		Spotted:
+			TNT1 A 0 A_GiveInventory("Security_Check",1)
+			TNT1 A 0 A_JumpIfInventory("Security_Check",50,"See")
+			TNT1 A 0 A_ClearTarget
+			Goto Searching
+		See:
+			TNT1 A 0 A_JumpIfInventory("Security_Check",1,"Tracking")
+			Goto TargetLost
+		Tracking:
+			FSCM A 4 A_FaceTarget
+			TNT1 A 0 A_AlertMonsters
+			TNT1 A 0 A_JumpIfTargetInLOS("KeepTracking",90)
+			Goto LoseTracking
+		KeepTracking:
+			TNT1 A 0 A_GiveInventory("Security_Check",1)
+			Goto See
+		LoseTracking:
+			TNT1 A 0 A_TakeInventory("Security_Check",1)
+			Goto See
+		TargetLost:
+			TNT1 A 0 A_ClearTarget
+			Goto Searching
+		Death:
+			TNT1 A 1 A_Scream
+			TNT1 A 0 A_Explode(10,80)
+			TNT1 AAAAAAAAAA 0 A_SpawnItemEx("LightSpark",0,0,-2,random(-4,4),random(-4,4),random(-8,0),0,SXF_NOCHECKPOSITION)
+			TNT1 A 0 A_Burst("RiotShieldGibber")
+			Stop
+	}
+}
+
+ACTOR Security_Camera2 : Security_Camera replaces Meat2 {}
+ACTOR Security_Camera3 : Security_Camera replaces NonsolidMeat2 {}
+ACTOR Security_Camera4 : Security_Camera replaces Meat4 {}
+ACTOR Security_Camera5 : Security_Camera replaces NonsolidMeat4 {}
+ACTOR Security_Camera6 : Security_Camera replaces HangNoGuts {}
+ACTOR Security_Camera7 : Security_Camera replaces HangTLookingDown {}
+ACTOR Security_Camera8 : Security_Camera replaces HangTSkull {}
+
+ACTOR Security_Check : Inventory { Inventory.MaxAmount "100" }

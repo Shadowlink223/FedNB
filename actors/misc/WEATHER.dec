@@ -1,0 +1,21 @@
+ACTOR RainSoundBox 29901 {
+	Height 4
+	Radius 2
+	-SOLID
+	+NOCLIP
+	+NOBLOCKMAP
+	States {
+		Spawn:
+			TNT1 A 1 A_JumpIf(ACS_ExecuteAlways(1,0,0,0,0) == 1,"PlaySound")
+			Loop
+		Playsound:
+			TNT1 A 1 A_PlaySound("Ambient/Rain",7,1.0,1,ATTN_NONE)
+			Goto CheckStop
+		CheckStop:
+			TNT1 A 1 A_JumpIf(ACS_ExecuteAlways(1,0,0,0,0) == 0,"StopSound")
+			Loop
+		StopSound:
+			TNT1 A 1 A_StopSound(7)
+			Goto Spawn
+	}
+}

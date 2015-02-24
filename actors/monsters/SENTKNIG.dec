@@ -1,0 +1,291 @@
+ACTOR SentryKnight : Enemy replaces PainElemental 13952 {
+	//$Category Federation
+
+	Health 270
+	GibHealth 60
+	Radius 16
+	Height 40
+	Speed 18
+	Mass 100
+
+	+MISSILEMORE
+	+FASTER
+
+	DropItem "Clip" 128
+	DropItem "Clip" 64
+	DropItem "RocketAmmo" 16
+	DropItem "RocketAmmo" 8
+
+	Dropitem "Stimpack" 32
+	Dropitem "StrikeArmor" 4
+	DropItem "ArmorShardSpawner" 64
+
+	DropItem "Chaingun" 4
+
+	//Dropitem "PDA" 4
+
+	Translation "112:127=250:254"
+
+	BloodType "AeniBlood"
+	Decal "BulletChip"
+	
+	DamageFactor "DU", 1.1
+	DamageFactor "HP", 1.25
+	DamageFactor "Trid", 1.5
+
+	PainChance 100
+	PainChance "Shock", 255
+	PainChance "ShockSlug", 255
+
+	SeeSound "Knight/KnightSight"
+	AttackSound ""
+	PainSound "Knight/KnightPain"
+	DeathSound "Infantry/death"
+	ActiveSound "Infantry/active"
+
+	Obituary "A Sentinel Knight took down %o by their own gun."
+
+	States {
+	
+/******************************************************************************\
+==================================MAIN STATES===================================
+\******************************************************************************/
+	
+	Spawn:
+		GO99 A 0
+		GO99 A 0 Thing_SetSpecial(0,226,642,0,random(10,20))
+	SpawnLoop:
+		TNT1 A 0 A_SpawnItem("HeadshotTarget10",15,40,0)
+		GO99 A 10 A_LookEx(0,0,random(512,2048),random(1024,4096),random(90,180),"See")
+		goto SpawnLoop
+	See:
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		GO99 AA 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		GO99 BB 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		GO99 CC 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		GO99 DD 3 A_Chase
+		TNT1 A 0 HealThing(1)
+		Loop
+
+/******************************************************************************\
+=================================ATTACK STATES==================================
+\******************************************************************************/
+
+	Missile:
+		TNT1 A 0 A_SpawnItem("HeadshotTarget10",0,40,0)
+		GO99 E 10 A_FaceTarget
+		TNT1 A 0 A_Jump(64,"DistanceCheck")
+		Goto BulletAttack
+	BulletAttack:
+		TNT1 A 0 A_JumpIfInventory("KnightAmmo",30,"Reload")
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("FNS_F1",6)
+		TNT1 A 0 A_GiveInventory("KnightAmmo",1)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget1",0,40,0)
+		//TNT1 A 0 A_CustomBulletAttack(5,5,1,random(2,5),BulletPuff)
+		GO99 F 1 BRIGHT A_CustomMissile("ZoneTracer",38,0,random(-5,5),0,random(-5,5))
+		GO99 E 2 A_SpawnItem ("HeadshotTarget2", 0, 40,0)
+		TNT1 A 0 A_JumpIfInventory("KnightAmmo",30,"Reload")
+		TNT1 A 0 A_MonsterRefire(224,"See")
+		Loop
+	Reload:
+		TNT1 A 0 A_ChangeFlag(NOPAIN,1)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		GO99 E 3 A_TakeInventory("KnightAmmo",30)
+		GO99 E 3 A_SpawnItem("HeadshotTarget3",0,40,0)
+		TNT1 A 0 A_PlaySound("FNS_R2")
+		GO99 E 2 A_SpawnItem("HeadshotTarget2",0,40,0)
+		GO99 EEEEEEEEEEEEEEEEEEEEEEE 4 A_SpawnItem("HeadshotTarget4",0,40,0)
+		TNT1 A 0 A_ChangeFlag(NOPAIN,0)
+		Goto See
+	DistanceCheck:
+		TNT1 A 0 A_JumpIfCloser(1768,"LaunchGrenade")
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto BulletAttack
+	LaunchGrenade:
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4",0,40,0)
+		GO99 E 4 A_FaceTarget
+		GO99 E 4 A_SpawnItem("HeadshotTarget4",0,40,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget2",0,40,0)
+		TNT1 A 0 A_Jump(32,"SpawnSentinel")
+		Goto LaunchHEGrenade
+	LaunchHEGrenade:
+		GO99 F 2 BRIGHT A_CustomMissile("KnightGrenadeShell",28,5,random(-15,15),2,random(0,10))
+		Goto LaunchGrenadeFinish
+	LaunchGrenadeFinish:
+		GO99 EE 3 A_SpawnItem("HeadshotTarget3",0,40,0)
+		Goto GrenadeReload
+	GrenadeReload:
+		TNT1 A 0 A_ChangeFlag(NOPAIN,1)
+		TNT1 A 0 A_PlaySoundEx("M4_CLIPO","SoundSlot5")
+		GO99 E 2 A_SpawnItem("HeadshotTarget2",0,40,0)
+		GO99 E 10 A_SpawnItem("HeadshotTarget10",0,40,0)
+		TNT1 A 0 A_PlaySoundEx("M4_CLIPI","SoundSlot5")
+		GO99 E 2 A_SpawnItem("HeadshotTarget2",0,40,0)
+		GO99 EEEEEE 10 A_SpawnItem("HeadshotTarget10",0,40,0)
+		TNT1 A 0 A_ChangeFlag(NOPAIN,0)
+		Goto See
+	SpawnSentinel:
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,90,0)
+		GO99 F 2 A_CustomMissile("GCSpawner",24,0,-90,0)
+		Goto See
+
+/******************************************************************************\
+==================================PAIN STATES===================================
+\******************************************************************************/
+
+	Pain: 
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,0,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,45,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,90,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,135,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,180,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,-135,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,-90,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,-45,0)
+		GO99 G 3 A_SpawnItem("HeadshotTarget3",0,40,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		GO99 G 3 A_Pain
+		Goto See
+	Pain.Shock:
+	Pain.ShockSlug:
+		TNT1 A 0 A_ChangeFlag(NOPAIN,1)
+		TNT1 A 0 A_Pain
+		GO99 GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 10 A_SpawnItem("HeadshotTarget10",0,40,0)
+		TNT1 A 0 A_ChangeFlag(NOPAIN,0)
+		Goto See
+	Pain.KillMe:
+		Goto See
+
+/******************************************************************************\
+==================================DEATH STATES==================================
+\******************************************************************************/
+
+	Death: 
+		TNT1 A 0 A_JumpIfHealthLower(-60,"Splode")
+		GO99 H 5 A_AlertMonsters
+		GO99 I 5 A_Scream
+		Goto DeathFall
+	Death.KnifeSlash:
+	Death.KnifeStab:
+	Death.KnifeSlashPower:
+	Death.KnifeStabPower:
+	Death.WakizashiSlash:
+	Death.WakizashiStab:
+	Death.WakizashiSlashPower:
+	Death.WakizashiStabPower:
+		GO99 H 5
+		GO99 I 5 A_PlaySound("KNI_HIT")
+	DeathFall:
+		GO99 J 5 A_Fall
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,0,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,20,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,40,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,60,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,80,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,100,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,120,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,140,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,160,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,180,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,-160,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,-140,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,-120,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,-100,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,-80,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,-60,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,-40,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,-20,0)
+		GO99 KLM 5
+		TNT1 A 0 A_Jump(5,"Regenerating")
+		GO99 N -1
+		stop
+	Regenerating:
+		GO99 NNNNNNNNNNNNNNN 70
+		GO99 N -1 Thing_Raise(0)
+		Wait
+	Splode:
+
+		XXLF O 5 A_SpawnItem("AeniBlood",0,32,0)
+		TNT1 A 0 A_SpawnItemEx ("AeniBlood", 0,34,0, random(-75,75)*0.01,random(-75,75)*0.01,random(-65,65)*0.01, 0, SXF_NOCHECKPOSITION|SXF_CLIENTSIDE|SXF_TRANSFERTRANSLATION, 0)	
+		XXLF P 5 A_SpawnItem("AeniBlood",0,34,0)
+		XXLF Q 5 A_SpawnItem("AeniBlood",0,26,0)
+		XXLF R 5 A_SpawnItem("AeniBlood",0,20,0)
+		XXLR S 5 A_SpawnItem("AeniBlood",0,14,0)
+		XXLR T 5 A_SpawnItem("AeniBlood",0,6,0)
+		XXLR U 5 A_SpawnItem("AeniBlood",0,0,0)
+		XXLR V 5 A_SpawnItem("AeniBlood",0,0,0)
+		XXLR W 5 // No extra blood needed here. He's dead, Jim.
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,0,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,20,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,40,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,60,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,80,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,100,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,120,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,140,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,160,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,180,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,-160,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,-140,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,-120,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,-100,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,-80,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,-60,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,-40,0)
+		TNT1 A 0 A_CustomMissile("GCSpawner",24,0,-20,0)
+		TNT1 A 0 A_XScream
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_SpawnItemEx("DEADStrikeKnightGib",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)
+		stop
+	Death.Fire2:
+		TNT1 A 1 A_SpawnItem("BurnDeath1",2,1)
+		TNT1 A 0 A_AlertMonsters
+		stop
+	Death.head:
+		GO99 O 9 A_PlaySound("headshot/splat")
+		TNT1 A 0 A_SpawnItem("AeniBlood",0,40,0)
+		TNT1 A 0 A_SpawnItem("AeniBlood",0,40,0)
+		GO99 P 9 A_XScream
+		GO99 Q 9 A_Fall
+		GO99 R 5
+		GO99 S 5 A_SpawnItemEx("DEADStrikeKnight",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)
+		stop
+	Raise: 
+		GO99 KJI 5
+		GO99 H 5 Thing_SetSpecial(0,226,642,0,random(30,40))
+		Goto See
+	}
+}
+
+ACTOR GCSpawner
+{
+   Radius 5
+   Height 5
+   Speed 50
+   RenderStyle ADD
+   Alpha 0.0
+   PROJECTILE
+   +THRUGHOST
+   -NOGRAVITY
+   +LOWGRAVITY 
+   States
+   {
+   Spawn:
+      TNT1 AAAA 40
+      TNT1 AAAA 40
+      TNT1 AAAA 40
+      TNT1 AAAA 40
+      TNT1 AAAA 40
+      TNT1 AAAA 40
+      loop
+   Death:
+      TNT1 A 1
+      TNT1 A 1 A_SpawnItem("FedSentinel",0,0)
+      TNT1 A 1
+      Stop
+   }
+}

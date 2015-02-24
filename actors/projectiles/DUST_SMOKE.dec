@@ -1,0 +1,76 @@
+/*------------------------------------------------------------------------------
+	 __________________________
+	|						   |
+	| <!> NOTE:				   |
+	| Use as such in DECORATE: |
+	|__________________________|
+	
+		TNT1 A 0 A_SpawnItemEx("DustCloudCluster",0,0,0,0,0,0,0,0,0)
+		
+------------------------------------------------------------------------------*/
+
+Actor DustCloudCluster {
+	Radius 5
+	Height 5
+	Mass 99999999
+	-SOLID
+	+NOGRAVITY
+	+NOTELEPORT
+	+CLIENTSIDEONLY
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 AAAAAAAA 0 A_SpawnItemEX("DirtBit",0,0,0,random(-10,10),random(-10,10),random(-15,15),random(0,255))
+			TNT1 AAAAAAAA 0 A_SpawnItemEx("DustCloud",random(-10,10),random(-10,10),random(-10,10),random(-0.5,0.5),random(-0.5,0.5),random(-0.5,0.5),0,0,0)
+			Goto Death
+		Death:
+			Stop
+	}
+}
+
+Actor DustCloudClusterLarge : DustCloudCluster {
+	+CLIENTSIDEONLY
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 AAAAAAAAAAAAAAAA 0 A_SpawnItemEX("DirtBit",0,0,0,random(-10,10),random(-10,10),random(-15,15),random(0,255))
+			TNT1 AAAAAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("DustCloud",random(-20,20),random(-20,20),random(-20,20),random(-1,1),random(-1,1),random(-1,1),0,0,0)
+			Goto Death
+	}
+}
+
+Actor DustCloudCluster_NoDirt : DustCloudCluster {
+	+CLIENTSIDEONLY
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 AAAA 0 A_SpawnItemEx("DustCloud",random(-10,10),random(-10,10),random(-10,10),random(-0.5,0.5),random(-0.5,0.5),random(-0.5,0.5),0,0,0)
+			Goto Death
+	}
+}
+
+Actor DustCloud {
+	Radius 8
+	Height 8
+	
+	-SOLID
+	-NOGRAVITY
+	+NOTELEPORT
+	+CLIENTSIDEONLY
+	
+	renderstyle translucent
+	alpha 0.30
+	
+	Gravity 0.02
+	Scale 2.5
+	
+	States {
+		Spawn:
+			TNT1 A 0
+			FDDG AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 5 A_CheckFloor("Death")
+			Goto Death
+		Death:
+			FDDG A 5 A_FadeOut(0.1)
+			Loop
+	}
+}

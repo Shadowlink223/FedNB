@@ -1,0 +1,1220 @@
+// * * * * * * * * * * * * * * * * * 
+
+// Federation Sound Index:
+
+      // Monster Sounds: FedSnd1
+	  // Weapon  Sounds: FedSnd2
+	  // Misc. Sounds: [Not organized yet...]
+	  
+// * * * * * * * * * * * * * * * * *
+
+// TODO list: Arrange sounds to share same nomenclature (Category/Sound versus Cat_SND)
+
+// * * * * * * * * * * * * * *
+// FedSnd1 - Monster Sounds  *
+// * * * * * * * * * * * * * *
+
+// Initate/Default Knight sounds
+	$pitchshiftrange 7
+
+	/*$random Knight/KnightSight { Knight/Defective1 Knight/Defective2 Knight/Defective3 Knight/Defective4 Knight/Defective5 }
+
+	$random Knight/CaptainSight { Knight/Defective1 Knight/Defective2 Knight/Defective3 Knight/Defective4 Knight/Defective5
+								  Knight/CaptainDefective }*/
+								  
+	$random Knight/KnightSight { Monster/KnightLaugh1 BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND
+							 Monster/KnightLaugh2 BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND
+							 Monster/KnightLaugh3 BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND }
+							 
+	$random Knight/CaptainSight { Monster/KnightLaugh1 BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND
+							 Monster/KnightLaugh2 BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND
+							 Monster/KnightLaugh3 BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND }
+
+	$random monster/inisit { Monster/KnightLaugh1 BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND
+							 Monster/KnightLaugh2 BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND
+							 Monster/KnightLaugh3 BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND }
+//Monster/KnightSight HUNTTAUN
+
+	$random monster/iniact { Monster/KnightLaugh1 BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND
+							 Monster/KnightLaugh2 BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND
+							 Monster/KnightLaugh3 BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND
+							 Monster/KnightRadio1 BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND
+							 Monster/KnightRadio2 BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND }
+//Monster/KnightLaugh1 HUNTTAUN
+	Monster/KnightLaugh1	LAUGHCRZ
+	Monster/KnightLaugh2	LAUGHLOW
+	Monster/KnightLaugh3	LAUGHMID
+	Monster/KnightRadio1	RDEFECT1
+	Monster/KnightRadio2	RDEFECT2
+	
+	Knight/Defective1	DEFECT1
+	Knight/Defective2	DEFECT2
+	Knight/Defective3	DEFECT3
+	Knight/Defective4	DEFECT4
+	Knight/Defective5	DEFECT5
+	Knight/CaptainDefective	CDEFECT1
+
+	$pitchshiftrange 0
+
+	monster/iniatk NAILFI
+	monster/iniat2 BLADELAU
+	$RANDOM Knight/KnightPain { monster/inipa1 monster/inipa2 monster/inipa3 } //Knight/Shit }
+	Knight/Shit		SHIT1
+	$RANDOM monster/inipai { monster/inipa1 monster/inipa2 monster/inipa3 }
+	monster/inipa1 ENGPAIN
+	monster/inipa2 ENGILAND
+	monster/inipa3 HUNTPAIN
+	$RANDOM monster/inidth { monster/inidt1 monster/inidt2 }
+	monster/inidt1 ENGIDEAT
+	monster/inidt2 HUNTDTH
+
+// These need to be removed when possible
+	$random ZSec/attack	{ ZSECMG1 ZSECMG2 ZSECMG3 }
+	ZSec/dryFire	ZDRYFIRE
+	ZSec/reload		ZRELOADG
+	ZSec/bounce		ZSECGBCE
+
+//Zone Knight sounds, from Infantry sounds from Zero-X, credit goes to Wild Weasel because some of the sounds are from Diaz
+	$random Infantry/death {infd1 infd2 infd3 infd4 infd5 infd6 infd7 infd8 infd9 }
+	infd1 DSINFDI1
+	infd2 DSINFDI2
+	infd3 DSINFDI3
+	infd4 DSINFDI4
+	infd5 DSINFDI5
+	infd6 DSINFDI6
+	infd7 DSINFDI7
+	infd8 DSINFDI8
+	infd9 DSINFDI9
+	$random Infantry/pain {infp1 infp2 infp3 infp4 infp5 infp6 infp7 infp8 }
+	infp1 DSINFPA1
+	infp2 DSINFPA2
+	infp3 DSINFPA3
+	infp4 DSINFPA4
+	infp5 DSINFPA5
+	infp6 DSINFPA6
+	infp7 DSINFPA7
+	infp8 DSINFPA8
+	$random Infantry/sight {infs1 infs2 infs3 infs4 BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND }
+	infs1 DSINFSI1
+	infs2 DSINFSI2
+	infs3 DSINFSI3
+	infs4 DSINFSI4
+	$random Infantry/active {infa1 infa2 infa3 infa4 infa5 infa6 infa7 infa8 infa9 BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND }
+	infa1 DSINFAC1
+	infa2 DSINFAC2
+	infa3 DSINFAC3
+	infa4 DSINFAC4
+	infa5 DSINFAC5
+	infa6 DSINFAC6
+	infa7 DSINFAC7
+	infa8 DSINFAC8
+	infa9 DSINFAC9
+
+// Old weapon sounds, these need to go
+	Infantry/pistol DSINFPIS
+	Infantry/SMG DSINFSMG
+	Infantry/shotgun DSINFSHT
+
+// Old Flash Knight phase sounds, need to go
+	$random wizard/tele 		{ wizard/dwiztel1  wizard/dwiztel2 }
+	wizard/tele1                    dwiztel1
+	wizard/tele2                    dwiztel2
+	wizard/active             DWIZACT
+	wizard/pain               DWIZPAIN
+	wizard/death              DWIZDTH
+
+// Might still be using the bounce sound, will need to change that though
+	dune/bounce BOUNCE2
+	catharsi/shotdth DSSLSHDT
+	catharsi/thermtick DSSLTHTI
+	catharsi/shotsit DSSLSHOT
+	catharsi/shotdth DSSLSHDT
+
+	monster/inipunc1 JNK3
+	monster/inipunc2 JNK4
+
+	monster/warning dsgberr
+	monster/railshot BLADELAU
+	monster/Spreadsh XMSHOTGN
+
+//Justicar Sounds
+	$random Justicar/sight { Justicar/sight1 Justicar/sight2 Justicar/sight3 }
+	Justicar/sight1 ARCHSIT1
+	Justicar/sight2 ARCHSIT2
+	Justicar/sight3 ARCHSIT3
+
+	Justicar/death ARCHDETH
+
+	$random Justicar/pain { Justicar/pain1 Justicar/pain2 Justicar/pain3 Justicar/anrgy1 Justicar/anrgy2 }
+	Justicar/pain1 ARCHPAIN
+	Justicar/pain2 ARCHPAI2
+	Justicar/pain3 DSCULPA
+	Justicar/anrgy1 ANGER1
+	Justicar/anrgy2 ANGER2
+
+	$random Justicar/Taunt { Justicar/taunt1 Justicar/taunt2 Justicar/taunt3 BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND BLANKSND}
+	Justicar/taunt1 LAUGH1
+	Justicar/taunt2 LAUGH2
+	Justicar/taunt3 LAUGH3
+	
+// Grenade sounds	
+	Grenade/Gassed STEAM
+	Grenade/Iced DSSLSHDT
+	Grenade/Flamed STEAMFIR
+	
+// Ice sounds (OP19)	
+	weapons/iceshot		DSICESHT
+	weapons/icehit		DSICEHIT
+	
+	dragonfam/attack dfattack
+	weapon/flame DSGBSO
+
+//Flame sounds (OP19)
+	weapons/flamer        dsflamer
+	weapons/scorch        dsscorch
+	weapons/onfire        dsonfire
+
+	scanner/see scansee
+	scanner/active scanact
+	scanner/death scandth
+	scanner/fire scanfire
+	scanner/charge scanchr
+	$volume scanner/charge 2.5
+
+	cyborg/step1 dststep1
+	cyborg/step2 dststep2
+	cyborg/death tdeath
+	cyborg/pain tpain1
+	cyborg/see tsight
+	cyborg/active1 dsteact1
+	cyborg/active2 dsteact2
+	cyborg/fire1 dstshot1
+	cyborg/fire2 dstshot2
+	cyborg/fly multifly
+	$random cyborg/active { cyborg/active1 cyborg/active2 }
+	$limit cyborg/fire1 0
+	$limit cyborg/fire2 0
+
+	weapons/nuclearmissilecharge	dsnukcrg
+	weapons/nuclearmissileexplode	dsnukxpl
+	weapons/nuclearmissileburn	dsnukbrn
+	weapons/nuclearmissileflamehit	dsflwexp
+	weapons/nuclearmissileflamewall	dsflwgrn
+
+	DSPGSEE1	DSPGSEE1
+	DSPGSEE2	DSPGSEE2
+
+	$random Phage/Sight	{ DSPGSEE1 DSPGSEE2 }
+
+	DSPGDIE1	DSPGDIE1
+	DSPGDIE2	DSPGDIE2
+
+	$random Phage/Death	{ DSPGDIE1 DSPGDIE2 }
+
+	Phage/Active	DSPGIDLE
+	Phage/Attack	DSPGFIRE
+	Phage/Pain		DSPGPAIN
+	Phage/Leap		DSPGLEAP
+
+	Spectrum/Rainbows     RAINBOWS
+
+	DSZAPHT1	DSZAPHT1
+	DSZAPHT2	DSZAPHT2
+	DSZAPHT3	DSZAPHT3
+
+
+	$random ForceBarrier/Hit	{ DSZAPHT1 DSZAPHT2 DSZAPHT3 }
+	$limit ForceBarrier/Hit	0
+	
+// Flesh sounds
+
+	dsflesh1	dsflesh1
+	dsflesh2	dsflesh2
+	dsflesh3	dsflesh3
+	dsflesh4	dsflesh4
+	$random flesh/hit { dsflesh1 dsflesh2 dsflesh4 dsflesh1 dsflesh2 dsflesh3 dsflesh4 null null null }
+	$limit flesh/hit 1
+	
+// Blood sounds (Penetration / Actual blood splatter
+
+	bloodsplt1 dsblud01
+	bloodsplt2 dsblud02
+	bloodsplt3 dsblud03
+	bloodsplt4 dsblud04
+	bloodsplt5 dsblud05
+	bloodsplt6 dsblud06
+	
+	$random flesh/gush { bloodsplt1 bloodsplt2 bloodsplt3 bloodsplt4 bloodsplt5 bloodsplt6 }
+	$limit flesh/gush 1
+	
+	// Code patch until flesh/hit & flesh/blood are actually in game properly
+	bloodsplat flesh/gush
+	$limit bloodsplat 1
+
+// Plasma Tank Sounds
+	ZPTank/see DSZTANK1
+	ZPTank/attack DSZTPLAZ
+	ZPTank/pain DSZTANKP
+	ZPTank/death DSZTANKD
+	ZPTank/Run DSZTANK2
+	ZPTank/explode DSZTANKX
+
+	monster/dissit dsdissit
+
+	monster/disdth dsdisdth
+	monster/disact dsdisact
+	monster/blur dsblur
+	monster/disat1 dsdisat1
+	monster/disat2 dsdisat2
+	monster/disht1 dsdisht1
+	monster/disht2 dsdisht2
+
+	monster/avasit dsavasit
+	monster/avapai dsavapai
+	monster/avadth dsavadth
+	monster/avaact dsavaact
+	monster/avaatk dsavaatk
+	$volume monster/avaatk 5
+	MageLightningFire dslight
+	weapons/justfi dsjustfi
+	weapons/gntini dsgntini
+	weapons/devexp dsdevexp
+	weapons/bwoosh dsbwoosh
+	weapons/firex2 dsfirex2
+	weapons/devzap dsdevzap
+	$limit weapons/devzap 0
+	weapons/gnthit dsgnthit
+	monster/hadsit dshadsit
+	monster/bomb FIREBALL
+	monster/explode DSCMTEXP
+
+	pyro/see BE-SEE
+	pyro/idle BE-IDLE
+	pyro/tele BE-TELE
+	pyro/pain DE_PAIN_
+	pyro/death BE-DEATH
+	pyro/blast DP_ATTAC
+	
+	pyro/flame DSFLAMER
+	pyro/explosion DSPIPEX1
+	pyro/flamepoof DSHITW
+	pyro/blastexplosion DSFRBXPL
+	pyro/comet DSCMTLNC
+	pyro/cometdeath DSCMTEXP
+	pyro/bomb DSRDSHOT
+	pyro/bombhit DSRDHIT
+	
+
+	groundfirestart  flamstrt
+
+	Riot/shotgun     DSSHOTGN
+
+
+	FEAGRAC1         FEAGRAC1
+	FEAGRAC2         FEAGRAC2
+	FEAGRAC3         FEAGRAC3
+	FEAGRAC4         FEAGRAC4
+	FEAGRDTH         FEAGRDTH
+	FEAGRSEE         FEAGRSEE
+	FEAIRLCK         FEAIRLCK
+	FEALARM          FEALARM
+	$limit FEALARM 1
+	FEALMACT         FEALMACT
+	FEALNDTH         FEALNDTH
+	FEALNPN          FEALNPN
+	FEALNSEE         FEALNSEE
+	FEAMALN1         FEAMALN1
+	FEAMALN5         FEAMALN5
+	FEAMALN3         FEAMALN3
+	FEAMALN4         FEAMALN4
+	FEAMALN5         FEAMALN5
+	FEAMALN6         FEAMALN6
+	FEBURNME         FEBURNME
+	FECHANT          FECHANT
+	FEDIFOOL         FEDIFOOL
+	FEDRCHNC         FEDRCHNC
+	FEDRCHNO         FEDRCHNO
+	FEDSRPTR         FEDSRPTR
+	FEITEMUP         FEITEMUP
+	FEMNALDT         FEMNALDT
+	FEMNALSE         FEMNALSE
+	FEPLDETH         FEPLDETH
+	FEPSDTHA         FEPSDTHA
+	FERADIO          FERADIO
+	FEREACTR         FEREACTR
+	FEREBACT         FEREBACT
+	FEREBDTH         FEREBDTH
+	FESGLHIT         FESGLHIT
+	FESIGIL          FESIGIL
+	FESLOP           FESLOP
+	FESWSCAN         FESWSCAN
+	FESWTCHN         FESWTCHN
+	FEVALVE          FEVALVE
+	FEWDRIP          FEWDRIP
+	FEWFALL          FEWFALL
+	FEWPNUP          FEWPNUP
+	FEWRIVER         FEWRIVER
+	FEYEAH           FEYEAH
+
+//Smoke bomb sounds
+	items/sbomb				SMOKEEXP
+	items/sbombf          SMOKEBF //Smoke bomb launch sound
+	items/sbombx          SMOKEBX //Smoke bomb explosion sound
+	items/sbombs          SMOKEBS //Smoke bomb smoke spread sound(after explosion)
+	
+	thor/attackr2 FIREBALL
+	thor/smoke SORSMOKE
+	thor/activel SORACTL
+	thor/hitl SORHITL
+	thor/spawnl SORSPWNL
+
+// Crusader Sounds
+	darkinquisitor/sight inqalert
+	darkinquisitor/pain inqpain
+	darkinquisitor/death inqdeath
+	darkinquisitor/empfire inqempfi
+	darkinquisitor/empdie inqempex
+	darkinquisitor/bigdeathexpl inqbigxp
+	darkinquisitor/deathexplosion inqdthxp
+	darkinquisitor/step step2
+	darkinquisitor/darkmatterdie inqdrkxp
+	darkinquisitor/flight inqfly
+
+	inqv1 inqact1
+	inqv2 inqact2
+	inqv3 inqact3
+	inqv4 inqact4
+	inqv5 inqact5  
+	inqv6 inqact6
+	inqv7 inqact7  
+	inqv8 inqact8  
+	$RANDOM darkinquisitor/active { inqv1 inqv2 inqv3 inqv4 inqv5 inqv6 inqv7 inqv8 }
+
+	darkinquisitor/darkmatterfire INQDRKFI
+
+	shrapnel1 shrapnl1
+	shrapnel2 shrapnl2
+	shrapnel3 shrapnl3
+	$RANDOM darkinquisitor/shrapnel { shrapnel1 shrapnel2 shrapnel3 }
+
+	flier/explosion EXPLOSIO
+	lizard/laser    GBLASR01
+	flyer/flying	STRIKEMS
+
+	flyer/lasernew  DSBWOOSH
+
+//headshot/splat  DSHEADEX
+
+	$random headshot/splat { headshot/hit0 headshot/hit1 headshot/hit2 headshot/hit3 headshot/hit4 headshot/hit5 headshot/hit6 headshot/hit7 headshot/hit8 headshot/hit9 headshot/hitA headshot/hitB headshot/hitC headshot/hitD headshot/hitE headshot/hitF headshot/hitG headshot/hitH headshot/hitI headshot/hitJ headshot/hitK headshot/hitL }
+	headshot/hit0	HEADHIT0
+	headshot/hit1	HEADHIT1
+	headshot/hit2	HEADHIT2
+	headshot/hit3	HEADHIT3
+	headshot/hit4	HEADHIT4
+	headshot/hit5	HEADHIT5
+	headshot/hit6	HEADHIT6
+	headshot/hit7	HEADHIT7
+	headshot/hit8	HEADHIT8
+	headshot/hit9	HEADHIT9
+	headshot/hitA	HEADHITA
+	headshot/hitB	HEADHITB
+	headshot/hitC	HEADHITC
+	headshot/hitD	HEADHITD
+	headshot/hitE	HEADHITE
+	headshot/hitF	HEADHITF
+	headshot/hitG	HEADHITG
+	headshot/hitH	HEADHITH
+	headshot/hitI	HEADHITI
+	headshot/hitJ	HEADHITJ
+	headshot/hitK	HEADHITK
+	headshot/hitL	HEADHITL
+
+	Tremor/Tunnel   DSHITW
+	Tremor/Popup    DSDISHT1
+
+	Bishop/Taunt    KNIGHTL3
+
+	BishopKnife/swing	bknifesw
+
+	WHISPER2    WHISPER2
+	$limit      WHISPER2 32
+	$singular   WHISPER2
+
+// Terrormite sounds?
+	Terror/Walk      TERRORWA
+	Terror/Sight     TERRORSE
+	Terror/Active    TERRORAC
+	Terror/Death     DSSPIDTH
+	Terror/Leap      TERRORAT
+
+	Legionary/sight		dsrevsee
+	Legionary/pain		dsreavpn
+	Legionary/death		dsrevdth
+	Legionary/active	dsrevact
+	Legionary/attack	dsreavat
+	Legionary/blade		dsrevbld
+
+	Hoplite/sight	 dsrb2see
+	Hoplite/pain	 dsrb2pn
+	Hoplite/death	 dsrb2dth
+	Hoplite/active	 dsrb2act
+	Hoplite/misl	 HOPLITER
+	Hoplite/mislx	 dsmislht
+	Hoplite/Swish    DSSWISH
+	Hoplite/Hit      DSXBOW
+
+	farexp                   farexp
+	Artillery/KABOOM         MORT_EXP
+	Artillery/Incoming       MORT_FAL
+	Artillery/Launch         MORT_FIR
+	Artillery/FireMission    DSPLT078
+	
+	$limit Artillery/FireMission 1
+	$limit Artillery/KABOOM 0
+	$limit Artillery/Launch 0
+	$limit Artillery/Incoming 0
+
+	RiotKnight/ShieldBash	bladedth
+
+	IceGuyAttack            frosty2
+	IceGuyMissileExplode    shards1b
+
+	Justicar/CASTFIST		CASTFIST
+
+	Initiate/FireM9		M9FIRE
+	Initiate/ReloadM9	USP_R1
+
+	Teleport/Teleport	FEDTELEP // Strife teleport sound right now.
+	Glass/Glass			FEDGLASS // Strife breaking glass sound right now.
+
+	pickup/armorshard	AMRSHRD
+
+// Sky Knight
+	JetpackZombie/Fly		JPZMFLY
+
+// Land Mines and Flares
+	Mine/LandMineExplosion			BSR_FIRE
+	Mine/LandMineExplosionDistant	FAREXP
+	Mine/TripFlare					FNS_F2
+
+// Random Quit Sounds, Doom 1 and 2
+
+	$random menu/quit1 { Monster/KnightLaugh2 Lance/Hit M60/Cock Justicar/sight3 infa4 darkinquisitor/sight Door/Close1 KNI_DEPL }
+	$random menu/quit2 { Monster/KnightLaugh2 Lance/Hit M60/Cock Justicar/sight3 infa4 darkinquisitor/sight Door/Close1 KNI_DEPL }
+
+//==================================================================
+// SMASH FIGHT - FLETTO
+//==================================================================
+
+	Weapon/Hit1 HIT1
+	Weapon/Hit2 HIT2
+	Weapon/Hit3 HIT3
+	Weapon/Hit4 SWING
+	Weapon/Hit5 BLOCK
+	Weapon/Hit6 FALL
+	$random Weapon/Hit {Weapon/Hit1 Weapon/Hit2 Weapon/Hit3 Weapon/Hit4 Weapon/Hit5 Weapon/Hit6}
+
+	Civilian/Active1 CIVI_A1
+	Civilian/Active2 CIVI_A2
+	Civilian/Active3 CIVI_A3
+	Civilian/Active4 CIVI_A4
+	Civilian/Active5 CIVI_A5
+	Civilian/Active6 CIVI_A6
+	Civilian/Active7 CIVI_A7
+	$random Civilian/Active {Sound/NoReload1 Sound/NoReload2 Sound/NoReload3 Sound/NoReload4 Civilian/Active1 Civilian/Active2 Civilian/Active3 Civilian/Active4 Civilian/Active5 Civilian/Active6 Civilian/Active7}
+	$rolloff Civilian/Active1 50 200
+	$rolloff Civilian/Active2 50 200
+	$rolloff Civilian/Active3 50 200
+	$rolloff Civilian/Active4 50 200
+	$rolloff Civilian/Active5 50 200
+	$rolloff Civilian/Active6 50 200
+	$rolloff Civilian/Active7 50 200
+	$rolloff Civilian/Active 50 200
+
+	Civilian/See1 CIVI_S1
+	Civilian/See2 CIVI_S2
+	Civilian/See3 CIVI_S3
+	Civilian/See4 CIVI_S4
+	Civilian/See5 CIVI_S5
+	$random Civilian/See {Civilian/See1 Civilian/See2 Civilian/See3 Civilian/See4 Civilian/See5}
+	$rolloff Civiilian/See1 50 200
+	$rolloff Civiilian/See2 50 200
+	$rolloff Civiilian/See3 50 200
+	$rolloff Civiilian/See4 50 200
+	$rolloff Civiilian/See5 50 200
+	$rolloff Civiilian/See 50 200
+	
+	Alcoholic/Active1 ALCO_A1
+	Alcoholic/Active2 ALCO_A2
+	Alcoholic/Active3 ALCO_A3
+	Alcoholic/Active4 ALCO_A4
+	Alcoholic/Active5 ALCO_A5
+	Alcoholic/Active6 ALCO_A6
+	Alcoholic/Active7 ALCO_A7
+	Alcoholic/Active8 ALCO_A8
+	$random Alcoholic/Active {Sound/NoReload1 Sound/NoReload2 Sound/NoReload3 Sound/NoReload4 Alcoholic/Active1 Alcoholic/Active2 Alcoholic/Active3 Alcoholic/Active4 Alcoholic/Active5 Alcoholic/Active6 Alcoholic/Active7 Alcoholic/Active8}
+	$rolloff Alcoholic/Active1 50 200
+	$rolloff Alcoholic/Active2 50 200
+	$rolloff Alcoholic/Active3 50 200
+	$rolloff Alcoholic/Active4 50 200
+	$rolloff Alcoholic/Active5 50 200
+	$rolloff Alcoholic/Active6 50 200
+	$rolloff Alcoholic/Active7 50 200
+	$rolloff Alcoholic/Active8 50 200
+	$rolloff Alcoholic/Active 50 200
+	
+	Alcoholic/See1 ALCO_S1
+	Alcoholic/See2 ALCO_S2
+	Alcoholic/See3 ALCO_S3
+	Alcoholic/See4 ALCO_S4
+	Alcoholic/See5 ALCO_S5
+	$random Alcoholic/See {Alcoholic/See1 Alcoholic/See2 Alcoholic/See3 Alcoholic/See4 Alcoholic/See5}
+	$rolloff Alcoholic/See1 50 200
+	$rolloff Alcoholic/See2 50 200
+	$rolloff Alcoholic/See3 50 200
+	$rolloff Alcoholic/See4 50 200
+	$rolloff Alcoholic/See5 50 200
+	$rolloff Alcoholic/See 50 200
+	
+	Bigman/Active1 BIGM_A1
+	Bigman/Active2 BIGM_A2
+	Bigman/Active3 BIGM_A3
+	Bigman/Active4 BIGM_A4
+	Bigman/Active5 BIGM_A5
+	Bigman/Active6 BIGM_A6
+	Bigman/Active7 BIGM_A7
+	$random Bigman/Active {Sound/NoReload1 Sound/NoReload2 Sound/NoReload3 Sound/NoReload4 Bigman/Active1 Bigman/Active2 Bigman/Active3 Bigman/Active4 Bigman/Active5 Bigman/Active6 Bigman/Active7}
+	$rolloff Bigman/Active1 50 200
+	$rolloff Bigman/Active2 50 200
+	$rolloff Bigman/Active3 50 200
+	$rolloff Bigman/Active4 50 200
+	$rolloff Bigman/Active5 50 200
+	$rolloff Bigman/Active6 50 200
+	$rolloff Bigman/Active7 50 200
+	$rolloff Bigman/Active 50 200
+	
+	Bigman/See1 BIGM_S1
+	Bigman/See2 BIGM_S2
+	Bigman/See3 BIGM_S3
+	$random Bigman/See {Bigman/See1 Bigman/See2 Bigman/See3}
+	$rolloff Bigman/See1 50 200
+	$rolloff Bigman/See2 50 200
+	$rolloff Bigman/See3 50 200
+	$rolloff Bigman/See 50 200
+	
+	Sound/NoReload1 -
+	Sound/NoReload2 -
+	Sound/NoReload3 -
+	Sound/NoReload4 -
+	
+	Pink/See1 PINK_S1
+	Pink/See2 PINK_S2
+	Pink/See3 PINK_S3
+	$random Pink/See {Pink/See1 Pink/See2 Pink/See3}
+	$random Pink/Active {Sound/NoReload1 Sound/NoReload2 Sound/NoReload3 Sound/NoReload4 Pink/See1 Pink/See2 Pink/See3}
+	$rolloff Pink/See1 50 200
+	$rolloff Pink/See2 50 200
+	$rolloff Pink/See3 50 200
+	$rolloff Pink/See 50 200
+	$rolloff Pink/Active 50 200
+	
+	White/See1 WHIT_S1
+	White/See2 WHIT_S2
+	White/See3 WHIT_S3
+	$random White/See {White/See1 White/See2 White/See3}
+	$random White/Active {Sound/NoReload1 Sound/NoReload2 Sound/NoReload3 Sound/NoReload4 White/See1 White/See2 White/See3}
+	$rolloff White/See1 50 200
+	$rolloff White/See2 50 200
+	$rolloff White/See3 50 200
+	$rolloff White/See 50 200
+	$rolloff White/Active 50 200
+
+//==================================================================
+// SENTINEL SOUNDS
+//==================================================================
+
+	$random Sentinel/Fire { Sentinel/Fire1 Sentinel/Fire2 }
+		Sentinel/Fire1	SENTFIR1
+		Sentinel/Fire2	SENTFIR2
+	$limit Sentinel/Fire1 0
+	$limit Sentinel/Fire2 0
+	
+//==================================================================
+// BIO SLUDGE SOUNDS
+//==================================================================
+
+	$random BioSludge/Decay { BioSludge/Decay0 BioSludge/Decay1 BioSludge/Decay2 }
+		BioSludge/Decay0	BDECAY0
+		BioSludge/Decay1	BDECAY1
+		BioSludge/Decay2	BDECAY2
+
+//==================================================================
+// ITEM PICKUP SOUNDS
+//==================================================================
+
+	$random Item/PickUp { Item/PickUp0 Item/PickUp1 Item/PickUp2 }
+		Item/PickUp0	IPICKUP0
+		Item/PickUp1	IPICKUP1
+		Item/PickUp2	IPICKUP2
+
+	$alias misc/i_pkup	Item/PickUp
+	$alias misc/k_pkup	Item/PickUp
+	$alias misc/w_pkup	Item/PickUp
+	$alias misc/p_pkup	Item/PickUp
+
+//==================================================================
+// DOOR SOUNDS
+//==================================================================
+
+	Door/Open1		DOOROPE1
+	Door/Close1		DOORCLO1
+	Door/Open2		DOOROPE2
+	Door/Close2		DOORCLO2
+
+	$alias doors/dr1_open	Door/Open1
+	$alias doors/dr1_clos	Door/Close1
+	$alias doors/dr2_open	Door/Open2
+	$alias doors/dr2_clos	Door/Close2
+
+//==================================================================
+// FEDERATION WEAPON SOUNDS FedSnd2 -- WHY IS THIS EVEN HERE?
+//==================================================================
+//Ricochet
+	$random pings {gen/ping1 gen/ping2 gen/ping3}
+		gen/ping1	P_RICOCH
+		gen/ping2	P_RICOC1
+		gen/ping3	P_RICOC2
+
+// Desert Eagle
+	DE_FIRE		DE_FIRE
+	DE_RISE		DE_RISE
+	DE_R1		DE_R1
+	DE_R2		DE_R2
+	DE_R3		DE_R3
+	DE_R4		DE_R4
+
+	$Limit DE_FIRE	0
+	$Limit DE_RISE	0
+	$Limit DE_R1	0
+	$Limit DE_R2	0
+	$Limit DE_SLIDE 0
+	
+// Glock
+	GLK/Clothing	GLK_Clth
+	GLK/Fire		GLK_Fire
+	GLK/FireSup		GLK_Fsup
+	GLK/MagDrop		GLK_MagD
+	GLK/MagIn		GLK_MagI
+	GLK/MagOut		GLK_MagO
+	GLK/Slide		GLK_SR
+	
+	$limit GLK/Clothing 0
+	$limit GLK/Fire 0
+	$limit GLK/FireSup 0
+	$limit GLK/MagDrop 0
+	$limit GLK/MagIn 0
+	$limit GLK/MagOut 0
+	$limit GLK/Slide 0
+	
+	
+// HACR
+	HCR/BoltRelease	HCR_BR
+	HCR/BoltTap		HCR_BT
+	HCR/Clothing	HCR_Clth
+	HCR/Draw		HCR_Draw
+	HCR/Fire		HCR_Fire
+	HCR/MagIn		HCR_MagI
+	HCR/MagOut		HCR_MagO
+	
+	$limit HCR_BR 0
+	$limit HCR_BT 0
+	$limit HCR_Clth 0
+	$limit HCR_Draw 0
+	$limit HCR_Fire 0
+	$limit HCR_MagI 0
+	$limit HCR_MagO 0
+	
+//LAHNS
+	LNS/Bolt	LNS_Bolt
+	LNS/Fire	LNS_Fire
+	LNS/MagIn	LNS_MagI
+	LNS/MagOut	LNS_MagO
+	
+	$limit LNS_Bolt 0
+	$limit LNS_Fire 0
+	$limit LNS_MagI 0
+	$limit LNS_MagO 0
+
+// MP7
+	MP7/BoltRelease	MP7_BR
+	MP7/Draw		MP7_Draw
+	MP7/Fire		MP7_Fire
+	MP7/FireSup		MP7_FSup
+	MP7/Foregrip	MP7_Grip
+	MP7/Handle		MP7_hand
+	MP7/MagDraw		MP7_MagD
+	MP7/MagOut		MP7_MagO
+	MP7/MagIn1		MP7_MgI1
+	MP7/MagIn2		MP7_MgI2
+
+	$limit MP7_BR 	0
+	$limit MP7_Draw 0
+	$limit MP7_Fire 0
+	$limit MP7/Fire 0
+	$limit MP7_FSup 0
+	$limit MP7_Grip 0
+	$limit MP7_Hand 0
+	$limit MP7_MagD 0
+	$limit MP7_MagO 0
+	$limit MP7_MgI1 0
+	$limit MP7_MgI2 0
+	$Alias MP7_FIRE MP7/Fire
+	
+	USP/FIRE    USP_FIRE
+	$limit USP/FIRE 0
+	
+// MP5
+	MP5/MagIn		MP5_MAGI
+	MP5/MagOut		MP5_MAGO
+	MP5/MagTap		MP5_MAGT
+	MP5/Retract		MP5_RETR
+	MP5/BoltPull	MP5_BPUL
+	MP5/BoltRelease	MP5_BREL
+	MP5/Fire		MP5_FIRE
+	
+	$Limit MP5_MAGI	0
+	$Limit MP5_MAGO	0
+	$Limit MP5_MAGT	0
+	$Limit MP5_RETR	0
+	$Limit MP5_BPUL 0
+	$Limit MP5_BREL 0
+	$Limit MP5_FIRE 0
+	
+// OP19 
+	OPG/FIRE		MRC_FIRE // Sounds best with majority of OP19 sounds
+	OPG/FIREalt		OPGFIRE  //(This one doesn't synergize with the plasma/cryo sound as well)
+	OPG/SILENCED	OPGFIRES
+	OPG/CLIPIN		OPGCLIPI
+	OPG/CLIPOUT		OPGCLIPO
+	OPG/BOLT		OPGBOLTP
+	OPG/CLOSE		OPGCLOSE
+	OPG/DRAW		OPGDRAW
+	OPG/OPEN		OPGOPEN
+	$limit OPGFIRE 0
+	$limit OPGFIRES 0
+	$limit OPGCLIPI 0
+	$limit OPGCLIPO 0
+	$limit OPGBOLTP 0
+	$limit OPGCLOSE 0
+	$limit OPGDRAW 0
+	$limit OPGOPEN 0
+	
+
+
+//Python Sounds
+	PTH_FIRE     PTH_FIRE
+	PTH_R1       PTH_R1
+	PTH_R2       PTH_R2
+	PTH_R3       PTH_R3
+	PTH_R4       PTH_R4
+
+	$Limit 357_Fire 0
+	$Limit 357_R1 0
+	$Limit 357_R2 0
+	$Limit 357_R3 0
+	$Limit 357_R4 0
+
+//MP7 Sounds //I keep these only because they're _useful_ for the monster sound.
+	MP7_R1		 MP7_R1
+	$Limit MP7_R1	 0
+
+
+//Lance Sounds
+	BSR_FIRE	BSR_FIRE
+	BSR_R1		BSR_R1
+	BSR_R2		BSR_R2
+	BSR_Z1		BSR_Z1
+	BSR_Z2		BSR_Z2
+
+	$Limit BSR_FIRE	0
+	$Limit BSR_R1	0
+	$Limit BSR_R2	0
+	$Limit BSR_Z1	0
+	$Limit BSR_Z2	0
+
+	Lance/Impact	L_IMPACT
+	Lance/Hit		L_IMPHIT
+
+	$Limit L_IMPACT 0
+	$Limit L_IMPHIT 0
+
+//AWM Sounds
+	AWM_B1		AWM_B1
+	AWM_B2		AWM_B2
+	AWM_B3		AWM_B3
+	AWM_R1		AWM_R1
+	AWM_R2		AWM_R2
+	AWM_R3		AWM_R3
+	AWM/Draw	AWM_RISE
+	AWM_Fire	AWM_FIRE
+
+//M4 Carbine Sounds
+	M4_BOLT		M4_BOLT
+	M4_CLIPI	M4_CLIPI
+	M4_CLIPO	M4_CLIPO
+	M4_FIRE		M4_FIRE
+	M4_RISE		M4_RISE
+
+	$Limit M4_BOLT	0
+	$Limit M4_CLIPI	0
+	$Limit M4_CLIPO	0
+	$Limit M4_FIRE	0
+	$Limit M4_RISE	0
+
+
+
+//MP5 Sounds
+	MP5/MagIn		MP5_MAGI
+	MP5/MagOut		MP5_MAGO
+	MP5/MagTap		MP5_MAGT
+	MP5/Retract		MP5_RETR
+	MP5/BoltPull	MP5_BPUL
+	MP5/BoltRelease	MP5_BREL
+	MP5/Fire		MP5_FIRE
+
+	$Limit MP5_MAGI	0
+	$Limit MP5_MAGO	0
+	$Limit MP5_MAGT	0
+	$Limit MP5_RETR	0
+	$Limit MP5_BPUL 0
+	$Limit MP5_BREL 0
+	$Limit MP5_FIRE 0
+
+//M9 Sounds ---------------- Hey Min, are these even still in use? Delete files and entries if not. ~Avi
+	M9FIRE		M9FIRE
+	USP_R1		USP_R1
+
+	$Limit M9FIRE	0
+	$Limit USP_R1	0
+
+//USP Sounds
+	USP_F1		USP_F1
+	USP_F2		USP_F2
+	USP_R1		USP_R1
+	USP_R2		USP_R2
+	USP_R3		USP_R3
+	USP_R4		USP_R4
+	USP_R5		USP_R5
+	USP_R6		USP_R6
+	USP_RLD		USP_RLD
+	USP_HAM		USP_HAM
+
+	$Limit USP_F1	0
+	$Limit USP_F2	0
+	$Limit USP_R1	0
+	$Limit USP_R2	0
+	$Limit USP_R3	0
+	$Limit USP_R4	0
+	$Limit USP_R5	0
+	$Limit USP_R6	0
+	$Limit USP_RLD	0
+	$Limit USP_HAM	0
+
+//Sawed-Off Sounds
+	SOS_FIRE	SOS_FIRE
+	SOS_R1		SOS_R1
+	SOS_R2		SOS_R2
+	SOS_R3		SOS_R3
+
+	$Limit SOS_FIRE	0
+	$Limit SOS_R1	0
+	$Limit SOS_R2	0
+	$Limit SOS_R3	0
+
+//SCAR Sounds
+	FNS_F1		FNS_F1
+	FNS_F2		FNS_F2
+	FNS_R1		FNS_R1
+	FNS_R2		FNS_R2
+
+	$Limit FNS_F1 0
+	$Limit FNS_F2 0
+	$Limit FNS_R1 0
+	$Limit FNS_R2 0
+
+//Spas12 Sounds
+	S12_FIRE	S12_FIRE
+	S12_PUMP	S12_PUMP
+	$Random S12_R { S12_R1 S12_R2 S12_R3 }
+		S12_R1		S12_R1
+		S12_R2		S12_R2
+		S12_R3		S12_R3
+	
+	$Limit S12_FIRE	0
+	$Limit S12_PUMP	0
+
+//OICW Sounds
+	$random OICW_FIR { OICW_FI1 OICW_FI2 OICW_FI3 }
+		OICW_FI1    OICW_FI1
+		OICW_FI2    OICW_FI2
+		OICW_FI3    OICW_FI3
+		OICW_REL    OICW_REL
+
+//Grenade Sounds
+	$random Grenade/Explode { GRE_EXP1 GRE_EXP2 }
+		GRE_EXP1	GRE_EXP1
+		GRE_EXP2	GRE_EXP2
+
+	GRE_PIN		GRE_PIN
+	GRE_THRO	GRE_THRO
+	shock/empdie inqempex
+
+//RPG Sounds
+	RPG/MissileThrust     RPG_THRU
+	RPG/MissileLaunch   RPG_LAUN
+	$random RPG/Explosion { RPG_EXP1 RPG_EXP2 }
+	RPG_EXP1		RPG_EXP1
+	RPG_EXP2		RPG_EXP2
+
+//XR2 Sounds
+	XR2/BoltRelease	XR2_BR	
+	XR2/BoltPull	XR2_BP	
+	XR2/Fire		XR2_Fire
+	XR2/MagIn		XR2_MagI
+	XR2/MagOut		XR2_MagO
+	XR2/MagTap		XR2_MagT		
+	XR2/Safety		XR2_Safe	
+	
+	$Limit XR2_BR 0
+	$Limit XR2_BP 0
+	$Limit XR2_Fire 0
+	$Limit XR2_MagI 0
+	$Limit XR2_MagO 0
+	$Limit XR2_MagT 0
+	$Limit XR2_Safe 0
+	
+
+//Wakizashi Sounds
+	KNI_DEPL     KNI_DEPL
+	$random KNI_HIT { KNI_HIT1 KNI_HIT2 KNI_HIT3 KNI_HIT4 }
+		KNI_HIT1     KNI_HIT1
+		KNI_HIT2     KNI_HIT2
+		KNI_HIT3     KNI_HIT3
+		KNI_HIT4     KNI_HIT4
+	KNI_HITW     KNI_HITW
+	$random KNI_SLA { KNI_SLA1 KNI_SLA2 }
+		KNI_SLA1     KNI_SLA1
+		KNI_SLA2     KNI_SLA2
+		KNI_STAB     KNI_STAB
+    
+//Minigun Sounds
+	MINIFIRE    MINIFIRE
+	$limit MINIFIRE 0
+	MINIDOWN    MINIDOWN
+	MINIUP      MINIUP
+
+//M60 Sounds
+	M60/BeltIn	M60BELTI
+	M60/BeltOut	M60BELTO
+	M60/BoxIn	M60_BOXI
+	M60/BoxOut	M60_BOXO
+	M60/Close	M60CLOSE
+	M60/Cock	M60_COCK
+	M60/Fire	M60_FIRE
+	M60/Open	M60_OPEN
+
+	$Limit M60BELTI 0
+	$Limit M60BELTO 0
+	$Limit M60_BOXI 0
+	$Limit M60_BOXO 0
+	$Limit M60CLOSE 0
+	$Limit M60_COCK 0
+	$Limit M60_FIRE 0
+	$Limit M60_OPEN 0
+
+//Flamer Sounds
+	FLAMER		FLAMER
+	SCORCH		SORCH
+
+//Cryo Rifle Sounds
+	weapons/iceshot		DSICESHT
+	weapons/icehit		DSICEHIT
+	IceGuyAttack            frosty2
+	IceGuyMissileExplode    shards1b
+
+//HCR/FIRE		HCRFIRE
+//HCR/SILENCED	HCRFIRES
+//HCR/CLIPIN		HCRCLIPI
+//HCR/CLIPOUT		HCRCLIPO
+//HCR/BOLT		HCRBOLTP
+//HCR/CLOSE		HCRCLOSE
+//HCR/DRAW		HCRDRAW
+//HCR/OPEN		HCROPEN
+//$limit HCRFIRE 0
+//$limit HCRFIRES 0
+//$limit HCRCLIPI 0
+//$limit HCRCLIPO 0
+//$limit HCRBOLTP 0
+//$limit HCRCLOSE 0
+//$limit HCRDRAW 0
+//$limit HCROPEN 0
+
+//Stabby Drug Sounds
+	Stabby/Use	StimDrg
+	$Limit StimDrg 0
+
+//Misc Sounds
+	dryfire		dryfire
+	BANG_1		BANG_1
+	Weapon/Draw	MP5_RISE
+	
+//Jet Noise
+	JetNoise	FIGTFLYB
+	
+	
+//New Enemy Sounds
+enemy/magmagrel	knmarele
+enemy/magmagins	knmainst
+enemy/pismagrel	knpirele
+enemy/pismagins	knpiinst
+$volume enemy/pismagrel 1.5
+$volume enemy/pismagins 1.5
+enemy/shtshlins	knshinst
+enemy/shtpump	knshpump
+//enemy/shtfire	
+enemy/shellbounce	ssheboun
+enemy/piscasbounce	pcasboun
+$random enemy/step	{ enemy/step1 enemy/step2 }
+enemy/step1	knistep1
+enemy/step2	knistep2
+$random enemy/carpetstep	{ enemy/carpetstep1 enemy/carpetstep2 }
+enemy/carpetstep1	knicpst1
+enemy/carpetstep2	knicpst2
+$random enemy/grassstep	{ enemy/grassstep1 enemy/grassstep2 }
+enemy/grassstep1	knigrst1
+enemy/grassstep2	knigrst2
+$random enemy/woodstep	{ enemy/woodstep1 enemy/woodstep2 }
+enemy/woodstep1		kniwdst1
+enemy/woodstep2		kniwdst2
+enemy/dryfire		knidryfi
+
+//==================================================================
+// RADIO SOUNDS
+//==================================================================
+
+	misc/chata    FEAGRAD1
+	misc/chatb    FEAGRAD2
+	misc/chatc    FEAGRAD3
+	misc/chatd    FEAGRAD4
+
+$random misc/chat { misc/chata  misc/chatb  misc/chatc misc/chatd }
+
+/******************************************************************\
+::::::::::::::::::::::::::::::DIALOGUE::::::::::::::::::::::::::::::
+\******************************************************************/
+
+Dialogue/CJ_Chat_Excuse			CJ_C_EMS // "Excuse me, sir"
+$limit CJ_C_EMS 1
+$rolloff CJ_C_EMS 50 512
+
+Dialogue/CJ_Attack_Jackin		CJ_A_IDT // "I do the jackin' around here, bitch"
+Dialogue/CJ_Attack_Crap			CJ_A_NTC // "Not this crap again"
+Dialogue/CJ_Attack_Rip			CJ_A_RYH // "I'll rip your head off, you fuck"
+Dialogue/CJ_Attack_Ruined		CJ_A_RYL // "You just ruined your life, bitch"
+Dialogue/CJ_Attack_Wrong		CJ_A_WTU // "Your life just took a very wrong turn"
+$random Dialogue/CJ_Attack_Random { Dialogue/CJ_Attack_Jackin Dialogue/CJ_Attack_Crap Dialogue/CJ_Attack_Rip Dialogue/CJ_Attack_Ruined Dialogue/CJ_Attack_Wrong }
+$limit CJ_A_IDT 1
+$limit CJ_A_NTC 1
+$limit CJ_A_RYH 1
+$limit CJ_A_RYL 1
+$limit CJ_A_WTU 1
+$rolloff CJ_A_IDT 50 512
+$rolloff CJ_A_NTC 50 512
+$rolloff CJ_A_RYH 50 512
+$rolloff CJ_A_RYL 50 512
+$rolloff CJ_A_WTU 50 512
+
+Dialogue/CJ_Pain_Damn			CJ_P_DAM // "Ah, Damn"
+Dialogue/CJ_Pain_Sauce			CJ_P_SYS // "I'll split your sauce for that"
+Dialogue/CJ_Pain_Fool			CJ_P_WFT // "You picked the wrong fool to jack, homey"
+$random Dialogue/CJ_Pain_Random { Dialogue/CJ_Pain_Damn Dialogue/CJ_Pain_Sauce Dialogue/CJ_Pain_Fool }
+$limit CJ_P_DAM 1
+$limit CJ_P_SYS 1
+$limit CJ_P_WFT 1
+$rolloff CJ_P_DAM 50 512
+$rolloff CJ_P_SYS 50 512
+$rolloff CJ_P_WFT 50 512
+
+Dialogue/CJ_PlayerHurt_Fun		CJ_H_ATF // "Hey, ain't this fun?"
+Dialogue/CJ_PlayerHurt_Week		CJ_H_BWH // "You have a bad week huh?"
+Dialogue/CJ_PlayerHurt_Get		CJ_H_GOH // "Hey, get outta here"
+Dialogue/CJ_PlayerHurt_Die		CJ_H_WDD // "You don't wanna die, do you?"
+Dialogue/CJ_PlayerHurt_Okay		CJ_H_YOK // "You okay?"
+$random Dialogue/CJ_PlayerHurt_Random { Dialogue/CJ_PlayerHurt_Fun Dialogue/CJ_PlayerHurt_Week Dialogue/CJ_PlayerHurt_Get Dialogue/CJ_PlayerHurt_Die Dialogue/CJ_PlayerHurt_Okay }
+$limit CJ_H_ATF 1
+$limit CJ_H_BWH 1
+$limit CJ_H_GOH 1
+$limit CJ_H_WDD 1
+$limit CJ_H_YOK 1
+$rolloff CJ_H_ATF 50 512
+$rolloff CJ_H_BWH 50 512
+$rolloff CJ_H_GOH 50 512
+$rolloff CJ_H_WDD 50 512
+$rolloff CJ_H_YOK 50 512
+
+Dialogue/CJ_EpicWeapon_All		CJ_W_AOY // "It's all on you now, homey"
+Dialogue/CJ_EpicWeapon_Got		CJ_W_SMW // "Show me what you got"
+$random Dialogue/CJ_EpicWeapon_Random { Dialogue/CJ_EpicWeapon_All Dialogue/CJ_EpicWeapon_Got }
+$limit CJ_W_AOY 1
+$limit CJ_W_SMW 1
+$rolloff CJ_W_AOY 50 512
+$rolloff CJ_W_SMW 50 512
+
+Dialogue/CJ_FriendlyFire_Drunk	CJ_F_BBD // "You better be drunk"
+Dialogue/CJ_FriendlyFire_Loaded	CJ_F_LOA // "Hey guess what? It's loaded"
+Dialogue/CJ_FriendlyFire_Cool	CJ_F_TAC // "Come on, that ain't cool"
+$random Dialogue/CJ_FriendlyFire_Random { Dialogue/CJ_FriendlyFire_Drunk Dialogue/CJ_FriendlyFire_Loaded Dialogue/CJ_FriendlyFire_Cool }
+$limit CJ_F_BBD 1
+$limit CJ_F_LOA 1
+$limit CJ_F_TAC 1
+$rolloff CJ_F_BBD 50 512
+$rolloff CJ_F_LOA 50 512
+$rolloff CJ_F_TAC 50 512
+
+Dialogue/SK_A_01    			SK_A_01 // "Destination, Commander?"
+$limit SK_A_01 1
+
+HUD/CautionBeep	CAUTIONB
+
+HUD/LowHealth	HEARTBEA
+
+//Splatter Sounds
+bloodsplat1 dsblud01
+bloodsplat2 dsblud02
+bloodsplat3 dsblud03
+$random bloodsplat { bloodsplat1 bloodsplat2 bloodsplat3 }
+$limit bloodsplat 1
+
+Ambient/Rain	AMBRAIN
+$limit Ambient/Rain 1
+
+$random Federation/Thunder { Thunder/Thunder1 Thunder/Thunder2 Thunder/Thunder3 Thunder/Thunder4 Thunder/Thunder5 Thunder/Thunder6 }
+Thunder/Thunder1    THUNDER1
+Thunder/Thunder2    THUNDER2
+Thunder/Thunder3    THUNDER3
+Thunder/Thunder4    THUNDER4
+Thunder/Thunder5    THUNDER5
+Thunder/Thunder6    THUNDER6
+$limit Thunder/Thunder1 0
+$limit Thunder/Thunder2 0
+$limit Thunder/Thunder3 0
+$limit Thunder/Thunder4 0
+$limit Thunder/Thunder5 0
+$limit Thunder/Thunder6 0
+
+BLANKSND	BLANKSND
+
+$random pings {gen/ping1 , gen/ping2 , gen/ping3}
+    gen/ping1	P_RICOCH
+    gen/ping2	P_RICOC1
+    gen/ping3	P_RICOC2

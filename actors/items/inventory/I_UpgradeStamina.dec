@@ -1,0 +1,9 @@
+ACTOR UpgradeStamina2 : UpgradeStamina {
+	Inventory.MaxAmount 200
+	Inventory.PickupMessage "Max health increased by 10!"
+	States {
+		Spawn:
+			FULL AB 35
+			Loop
+	}
+}

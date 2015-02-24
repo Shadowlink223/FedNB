@@ -1,0 +1,2063 @@
+ACTOR MuzzleFlashAligner {
+	Radius 1
+	Height 2
+	RenderStyle None
+	PROJECTILE
+	-RANDOMIZE
+	+NOCLIP
+	+CLIENTSIDEONLY
+	+NOINTERACTION
+	+NOLIFTDROP
+	Speed 28
+	Damage 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("MuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			Stop
+	}
+}
+
+ACTOR MuzzleFlash {
+	Radius 1
+	Height 2
+	Renderstyle Add
+	Scale 0.20
+	Alpha 0.5
+	PROJECTILE
+	-RANDOMIZE
+	+NOCLIP
+	+CLIENTSIDEONLY
+	+NOINTERACTION
+	+NOLIFTDROP
+	Speed 2
+	Damage 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16","Muzzle17","Muzzle18","Muzzle19","Muzzle20")
+			Stop
+		Muzzle1:
+			MZSB A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZSB B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZSB C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZSB D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZSB E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZSB F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZSB G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZSB H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZSB I 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZSB J 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZSB K 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZSB L 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZSB M 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZSB N 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZSB O 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZSB P 2 BRIGHT
+			Stop
+		Muzzle17:
+			MZSB Q 2 BRIGHT
+			Stop
+		Muzzle18:
+			MZSB R 2 BRIGHT
+			Stop
+		Muzzle19:
+			MZSB S 2 BRIGHT
+			Stop
+		Muzzle20:
+			MZSB T 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR AWMMuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("AWMMuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR AWMMuzzleFlash : MuzzleFlash {
+	Scale 0.5
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16","Muzzle17","Muzzle18","Muzzle19","Muzzle20")
+			Stop
+		Muzzle1:
+			MZSB A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZSB B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZSB C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZSB D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZSB E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZSB F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZSB G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZSB H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZSB I 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZSB J 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZSB K 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZSB L 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZSB M 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZSB N 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZSB O 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZSB P 2 BRIGHT
+			Stop
+		Muzzle17:
+			MZSB Q 2 BRIGHT
+			Stop
+		Muzzle18:
+			MZSB R 2 BRIGHT
+			Stop
+		Muzzle19:
+			MZSB S 2 BRIGHT
+			Stop
+		Muzzle20:
+			MZSB T 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR CryoMuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("CryoMuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR CryoMuzzleFlash : MuzzleFlash {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16","Muzzle17","Muzzle18","Muzzle19","Muzzle20")
+			Stop
+		Muzzle1:
+			MZSB A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZSB B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZSB C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZSB D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZSB E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZSB F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZSB G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZSB H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZSB I 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZSB J 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZSB K 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZSB L 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZSB M 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZSB N 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZSB O 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZSB P 2 BRIGHT
+			Stop
+		Muzzle17:
+			MZSB Q 2 BRIGHT
+			Stop
+		Muzzle18:
+			MZSB R 2 BRIGHT
+			Stop
+		Muzzle19:
+			MZSB S 2 BRIGHT
+			Stop
+		Muzzle20:
+			MZSB T 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR CryoLargeMuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("CryoLargeMuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR CryoLargeMuzzleFlash : MuzzleFlash {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16","Muzzle17","Muzzle18","Muzzle19","Muzzle20")
+			Stop
+		Muzzle1:
+			MZSB A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZSB B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZSB C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZSB D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZSB E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZSB F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZSB G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZSB H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZSB I 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZSB J 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZSB K 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZSB L 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZSB M 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZSB N 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZSB O 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZSB P 2 BRIGHT
+			Stop
+		Muzzle17:
+			MZSB Q 2 BRIGHT
+			Stop
+		Muzzle18:
+			MZSB R 2 BRIGHT
+			Stop
+		Muzzle19:
+			MZSB S 2 BRIGHT
+			Stop
+		Muzzle20:
+			MZSB T 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR DBSDoubleMuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("DBSDoubleMuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR DBSDoubleMuzzleFlash : MuzzleFlash {
+	Scale 0.6
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16","Muzzle17","Muzzle18","Muzzle19","Muzzle20")
+			Stop
+		Muzzle1:
+			MZSB A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZSB B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZSB C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZSB D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZSB E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZSB F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZSB G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZSB H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZSB I 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZSB J 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZSB K 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZSB L 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZSB M 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZSB N 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZSB O 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZSB P 2 BRIGHT
+			Stop
+		Muzzle17:
+			MZSB Q 2 BRIGHT
+			Stop
+		Muzzle18:
+			MZSB R 2 BRIGHT
+			Stop
+		Muzzle19:
+			MZSB S 2 BRIGHT
+			Stop
+		Muzzle20:
+			MZSB T 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR DBSSingleMuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("DBSSingleMuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR DBSSingleMuzzleFlash : MuzzleFlash {
+	Scale 0.3
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16","Muzzle17","Muzzle18","Muzzle19","Muzzle20")
+			Stop
+		Muzzle1:
+			MZSB A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZSB B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZSB C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZSB D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZSB E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZSB F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZSB G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZSB H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZSB I 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZSB J 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZSB K 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZSB L 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZSB M 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZSB N 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZSB O 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZSB P 2 BRIGHT
+			Stop
+		Muzzle17:
+			MZSB Q 2 BRIGHT
+			Stop
+		Muzzle18:
+			MZSB R 2 BRIGHT
+			Stop
+		Muzzle19:
+			MZSB S 2 BRIGHT
+			Stop
+		Muzzle20:
+			MZSB T 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR DeagleMuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("DeagleMuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR DeagleMuzzleFlash : MuzzleFlash {
+	Scale 0.375
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16","Muzzle17","Muzzle18","Muzzle19","Muzzle20")
+			Stop
+		Muzzle1:
+			MZSB A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZSB B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZSB C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZSB D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZSB E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZSB F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZSB G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZSB H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZSB I 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZSB J 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZSB K 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZSB L 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZSB M 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZSB N 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZSB O 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZSB P 2 BRIGHT
+			Stop
+		Muzzle17:
+			MZSB Q 2 BRIGHT
+			Stop
+		Muzzle18:
+			MZSB R 2 BRIGHT
+			Stop
+		Muzzle19:
+			MZSB S 2 BRIGHT
+			Stop
+		Muzzle20:
+			MZSB T 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR HACRMuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("HACRMuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR HACRMuzzleFlash : MuzzleFlash {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16")
+			Stop
+		Muzzle1:
+			MZ5S A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZ5S B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZ5S C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZ5S D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZ5S E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZ5S F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZ5S G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZ5S H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZ5S I 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZ5S J 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZ5S K 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZ5S L 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZ5S M 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZ5S N 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZ5S O 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZ5S P 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR HACR3TMuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("HACR3TMuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR HACR3TMuzzleFlash : MuzzleFlash {
+	Scale 0.6
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16","Muzzle17","Muzzle18","Muzzle19","Muzzle20")
+			Stop
+		Muzzle1:
+			MZSB A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZSB B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZSB C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZSB D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZSB E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZSB F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZSB G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZSB H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZSB I 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZSB J 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZSB K 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZSB L 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZSB M 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZSB N 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZSB O 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZSB P 2 BRIGHT
+			Stop
+		Muzzle17:
+			MZSB Q 2 BRIGHT
+			Stop
+		Muzzle18:
+			MZSB R 2 BRIGHT
+			Stop
+		Muzzle19:
+			MZSB S 2 BRIGHT
+			Stop
+		Muzzle20:
+			MZSB T 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR HACRRailMuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("HACRRailMuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR HACRRailMuzzleFlash : MuzzleFlash {
+	Scale 0.4
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9")
+			Stop
+		Muzzle1:
+			MZBL A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZBL B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZBL C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZBL D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZBL E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZBL F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZBL G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZBL H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZBL I 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR LAHNSMuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("LAHNSMuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR LAHNSMuzzleFlash : MuzzleFlash {
+	Scale 0.5
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16","Muzzle17","Muzzle18","Muzzle19","Muzzle20")
+			Stop
+		Muzzle1:
+			MZSB A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZSB B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZSB C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZSB D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZSB E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZSB F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZSB G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZSB H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZSB I 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZSB J 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZSB K 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZSB L 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZSB M 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZSB N 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZSB O 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZSB P 2 BRIGHT
+			Stop
+		Muzzle17:
+			MZSB Q 2 BRIGHT
+			Stop
+		Muzzle18:
+			MZSB R 2 BRIGHT
+			Stop
+		Muzzle19:
+			MZSB S 2 BRIGHT
+			Stop
+		Muzzle20:
+			MZSB T 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR LAHNSRailMuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("LAHNSRailMuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR LAHNSRailMuzzleFlash : MuzzleFlash {
+	Scale 0.4
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9")
+			Stop
+		Muzzle1:
+			MZBL A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZBL B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZBL C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZBL D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZBL E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZBL F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZBL G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZBL H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZBL I 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR XR2MuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("XR2MuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR XR2MuzzleFlash : MuzzleFlash {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16")
+			Stop
+		Muzzle1:
+			MZ5S A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZ5S B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZ5S C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZ5S D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZ5S E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZ5S F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZ5S G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZ5S H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZ5S I 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZ5S J 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZ5S K 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZ5S L 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZ5S M 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZ5S N 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZ5S O 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZ5S P 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR M60MuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("M60MuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR M60MuzzleFlash : MuzzleFlash {
+	Scale 0.375
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16")
+			Stop
+		Muzzle1:
+			MZ5S A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZ5S B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZ5S C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZ5S D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZ5S E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZ5S F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZ5S G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZ5S H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZ5S I 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZ5S J 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZ5S K 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZ5S L 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZ5S M 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZ5S N 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZ5S O 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZ5S P 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR MinigunMuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("MinigunMuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR MinigunMuzzleFlash : MuzzleFlash {
+	Scale 0.375
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16","Muzzle17","Muzzle18","Muzzle19","Muzzle20")
+			Stop
+		Muzzle1:
+			MZSB A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZSB B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZSB C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZSB D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZSB E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZSB F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZSB G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZSB H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZSB I 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZSB J 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZSB K 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZSB L 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZSB M 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZSB N 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZSB O 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZSB P 2 BRIGHT
+			Stop
+		Muzzle17:
+			MZSB Q 2 BRIGHT
+			Stop
+		Muzzle18:
+			MZSB R 2 BRIGHT
+			Stop
+		Muzzle19:
+			MZSB S 2 BRIGHT
+			Stop
+		Muzzle20:
+			MZSB T 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR MP5MuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("MP5MuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR MP5MuzzleFlash : MuzzleFlash {
+	Scale 0.125
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16","Muzzle17","Muzzle18","Muzzle19","Muzzle20")
+			Stop
+		Muzzle1:
+			MZSB A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZSB B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZSB C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZSB D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZSB E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZSB F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZSB G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZSB H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZSB I 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZSB J 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZSB K 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZSB L 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZSB M 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZSB N 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZSB O 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZSB P 2 BRIGHT
+			Stop
+		Muzzle17:
+			MZSB Q 2 BRIGHT
+			Stop
+		Muzzle18:
+			MZSB R 2 BRIGHT
+			Stop
+		Muzzle19:
+			MZSB S 2 BRIGHT
+			Stop
+		Muzzle20:
+			MZSB T 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR MP7MuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("MP7MuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR MP7MuzzleFlash : MuzzleFlash {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16")
+			Stop
+		Muzzle1:
+			MZ5S A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZ5S B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZ5S C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZ5S D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZ5S E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZ5S F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZ5S G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZ5S H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZ5S I 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZ5S J 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZ5S K 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZ5S L 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZ5S M 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZ5S N 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZ5S O 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZ5S P 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR MP7SupressedMuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("MP7SupressedMuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR MP7SupressedMuzzleFlash : MuzzleFlash {
+	Scale 0.0625
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16")
+			Stop
+		Muzzle1:
+			MZ5S A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZ5S B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZ5S C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZ5S D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZ5S E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZ5S F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZ5S G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZ5S H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZ5S I 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZ5S J 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZ5S K 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZ5S L 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZ5S M 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZ5S N 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZ5S O 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZ5S P 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR OP19BallMuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("OP19BallMuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR OP19BallMuzzleFlash : MuzzleFlash {
+	Scale 0.4
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16")
+			Stop
+		Muzzle1:
+			MZBL J 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZBL K 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZBL L 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZBL M 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZBL N 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZBL O 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZBL P 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZBL Q 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZBL R 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZBL S 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZBL T 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZBL U 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZBL V 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZBL W 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZBL X 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZBL Y 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR OP19CryoMuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("OP19CryoMuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR OP19CryoMuzzleFlash : MuzzleFlash {
+	Scale 0.4
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16")
+			Stop
+		Muzzle1:
+			MZBL J 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZBL K 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZBL L 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZBL M 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZBL N 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZBL O 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZBL P 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZBL Q 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZBL R 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZBL S 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZBL T 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZBL U 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZBL V 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZBL W 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZBL X 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZBL Y 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR OP19FireMuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("OP19FireMuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR OP19FireMuzzleFlash : MuzzleFlash {
+	Scale 0.6
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16","Muzzle17","Muzzle18","Muzzle19","Muzzle20")
+			Stop
+		Muzzle1:
+			MZSB A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZSB B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZSB C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZSB D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZSB E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZSB F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZSB G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZSB H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZSB I 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZSB J 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZSB K 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZSB L 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZSB M 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZSB N 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZSB O 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZSB P 2 BRIGHT
+			Stop
+		Muzzle17:
+			MZSB Q 2 BRIGHT
+			Stop
+		Muzzle18:
+			MZSB R 2 BRIGHT
+			Stop
+		Muzzle19:
+			MZSB S 2 BRIGHT
+			Stop
+		Muzzle20:
+			MZSB T 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR OP19ZeusMuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("OP19ZeusMuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR OP19ZeusMuzzleFlash : MuzzleFlash {
+	Scale 0.6
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16","Muzzle17","Muzzle18","Muzzle19","Muzzle20")
+			Stop
+		Muzzle1:
+			MZSB A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZSB B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZSB C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZSB D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZSB E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZSB F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZSB G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZSB H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZSB I 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZSB J 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZSB K 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZSB L 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZSB M 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZSB N 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZSB O 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZSB P 2 BRIGHT
+			Stop
+		Muzzle17:
+			MZSB Q 2 BRIGHT
+			Stop
+		Muzzle18:
+			MZSB R 2 BRIGHT
+			Stop
+		Muzzle19:
+			MZSB S 2 BRIGHT
+			Stop
+		Muzzle20:
+			MZSB T 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR PythonMuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("PythonMuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR PythonMuzzleFlash : MuzzleFlash {
+	Scale 0.375
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16","Muzzle17","Muzzle18","Muzzle19","Muzzle20")
+			Stop
+		Muzzle1:
+			MZSB A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZSB B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZSB C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZSB D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZSB E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZSB F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZSB G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZSB H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZSB I 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZSB J 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZSB K 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZSB L 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZSB M 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZSB N 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZSB O 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZSB P 2 BRIGHT
+			Stop
+		Muzzle17:
+			MZSB Q 2 BRIGHT
+			Stop
+		Muzzle18:
+			MZSB R 2 BRIGHT
+			Stop
+		Muzzle19:
+			MZSB S 2 BRIGHT
+			Stop
+		Muzzle20:
+			MZSB T 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR ScarMuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("ScarMuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR ScarMuzzleFlash : MuzzleFlash {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16")
+			Stop
+		Muzzle1:
+			MZ5S A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZ5S B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZ5S C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZ5S D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZ5S E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZ5S F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZ5S G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZ5S H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZ5S I 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZ5S J 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZ5S K 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZ5S L 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZ5S M 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZ5S N 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZ5S O 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZ5S P 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR SpasMuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("SpasMuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR SpasMuzzleFlash : MuzzleFlash {
+	Scale 0.3
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16","Muzzle17","Muzzle18","Muzzle19","Muzzle20")
+			Stop
+		Muzzle1:
+			MZSB A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZSB B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZSB C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZSB D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZSB E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZSB F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZSB G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZSB H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZSB I 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZSB J 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZSB K 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZSB L 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZSB M 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZSB N 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZSB O 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZSB P 2 BRIGHT
+			Stop
+		Muzzle17:
+			MZSB Q 2 BRIGHT
+			Stop
+		Muzzle18:
+			MZSB R 2 BRIGHT
+			Stop
+		Muzzle19:
+			MZSB S 2 BRIGHT
+			Stop
+		Muzzle20:
+			MZSB T 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR GlockMuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("GlockMuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR GlockMuzzleFlash : MuzzleFlash {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16","Muzzle17","Muzzle18","Muzzle19","Muzzle20")
+			Stop
+		Muzzle1:
+			MZSB A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZSB B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZSB C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZSB D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZSB E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZSB F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZSB G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZSB H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZSB I 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZSB J 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZSB K 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZSB L 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZSB M 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZSB N 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZSB O 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZSB P 2 BRIGHT
+			Stop
+		Muzzle17:
+			MZSB Q 2 BRIGHT
+			Stop
+		Muzzle18:
+			MZSB R 2 BRIGHT
+			Stop
+		Muzzle19:
+			MZSB S 2 BRIGHT
+			Stop
+		Muzzle20:
+			MZSB T 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR GlockSupressedMuzzleFlashAligner : MuzzleFlashAligner {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_SpawnItemEx("GlockSupressedMuzzleFlash",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+			stop
+	}
+}
+
+ACTOR GlockSupressedMuzzleFlash : MuzzleFlash {
+	Scale 0.0625
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Jump(255,"Muzzle1","Muzzle2","Muzzle3","Muzzle4","Muzzle5",
+								"Muzzle6","Muzzle7","Muzzle8","Muzzle9","Muzzle10",
+								"Muzzle11","Muzzle12","Muzzle13","Muzzle14","Muzzle15",
+								"Muzzle16","Muzzle17","Muzzle18","Muzzle19","Muzzle20")
+			Stop
+		Muzzle1:
+			MZSB A 2 BRIGHT
+			Stop
+		Muzzle2:
+			MZSB B 2 BRIGHT
+			Stop
+		Muzzle3:
+			MZSB C 2 BRIGHT
+			Stop
+		Muzzle4:
+			MZSB D 2 BRIGHT
+			Stop
+		Muzzle5:
+			MZSB E 2 BRIGHT
+			Stop
+		Muzzle6:
+			MZSB F 2 BRIGHT
+			Stop
+		Muzzle7:
+			MZSB G 2 BRIGHT
+			Stop
+		Muzzle8:
+			MZSB H 2 BRIGHT
+			Stop
+		Muzzle9:
+			MZSB I 2 BRIGHT
+			Stop
+		Muzzle10:
+			MZSB J 2 BRIGHT
+			Stop
+		Muzzle11:
+			MZSB K 2 BRIGHT
+			Stop
+		Muzzle12:
+			MZSB L 2 BRIGHT
+			Stop
+		Muzzle13:
+			MZSB M 2 BRIGHT
+			Stop
+		Muzzle14:
+			MZSB N 2 BRIGHT
+			Stop
+		Muzzle15:
+			MZSB O 2 BRIGHT
+			Stop
+		Muzzle16:
+			MZSB P 2 BRIGHT
+			Stop
+		Muzzle17:
+			MZSB Q 2 BRIGHT
+			Stop
+		Muzzle18:
+			MZSB R 2 BRIGHT
+			Stop
+		Muzzle19:
+			MZSB S 2 BRIGHT
+			Stop
+		Muzzle20:
+			MZSB T 2 BRIGHT
+			Stop
+	}
+}

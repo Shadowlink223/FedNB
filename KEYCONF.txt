@@ -1,0 +1,28 @@
+addkeysection "Federation" FederationKeys
+
+addmenukey "Reload" Reload
+alias Reload "puke -500"
+
+addmenukey "Special Fire" SpecialFire
+alias SpecialFire "puke -510"
+
+addmenukey "Knife" Knife 
+alias Knife "puke -515"
+
+addmenukey "Grenade" Grenade
+alias Grenade "Puke -516"
+
+addmenukey "Stimpack" Stimpack
+alias Stimpack "Puke -517"
+
+addmenukey "Rate of Fire" RateOfFire
+alias RateOfFire "puke -520"
+
+addmenukey "Ammo Swap" AmmoSwap
+alias AmmoSwap "puke -530"
+
+addmenukey "Grenade Swap" GrenadeSwap
+alias GrenadeSwap "puke -540"
+
+addmenukey "Flashlight" Flashlight
+alias Flashlight "puke -570"

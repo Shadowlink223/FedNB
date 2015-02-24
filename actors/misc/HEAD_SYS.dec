@@ -1,0 +1,801 @@
+actor HeadshotTargetBase {
+	damagefactor "KillMe", 0.0
+	damagefactor "WakizashiStab", 5.0
+	damagefactor "WakizashiSlash", 5.0
+	damagefactor "NormalBullet", 1.5
+	damagefactor "PlayerBullet", 1.5
+	damagefactor "FriendBullet", 1.5
+	Health 60
+	Gibhealth 60
+	Radius 7
+	Height 18
+	DamageType head
+	BloodType "AeniBlood"
+	PainChance 255
+	
+	Species "Knight"
+	
+	+NOGRAVITY
+	+SHOOTABLE
+	+NOTELEPORT
+	+NODAMAGETHRUST
+	+THRUGHOST
+	+NORADIUSDMG
+	//+FORCERADIUSDMG
+	+SERVERSIDEONLY
+	+DEHEXPLOSION
+	+ACTIVATEMCROSS
+	+NOTARGET
+	+GHOST
+	-SOLID
+	+DONTHURTSPECIES
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 6
+			Stop
+		Pain:
+			TNT1 A 4 A_SpawnItem ("HeadshotMinorHit", 0, 0)
+			TNT1 A 1 //A_PlaySoundEx("Lance/Hit","SoundSlot5")
+			TNT1 A 1
+			TNT1 A 0 A_SpawnDebris("HelmetChunkGibber",0,1.0,0.5)
+			//TNT1 A 1 A_Print("Minor")
+			Stop
+		Death:
+			TNT1 A 1 A_SpawnItem ("HeadshotHit", 0, 0)
+			TNT1 A 1 //A_PlaySoundEx("Lance/Hit","SoundSlot5")
+			TNT1 AA 0 A_SpawnDebris("HelmetChunkGibber",0,1.0,0.5)
+			//TNT1 A 1 A_Print("Normal")
+			Stop
+		XDeath:
+			TNT1 A 1 A_SpawnItem ("HeadshotX", 0, 0)
+			TNT1 A 1 //A_PlaySoundEx("Lance/Hit","SoundSlot5")
+			TNT1 AAA 0 A_SpawnDebris("HelmetChunkGibber",0,1.0,0.5)
+			//TNT1 A 1 A_Print("Major")
+			Stop
+	
+		/*Spawn:
+			TNT1 A 0
+			XXXX A 3 //XXXX
+			XXXX A 1 //XXXX
+			Stop
+		Pain:
+			XDT3 A 0 A_Explode(40,25,0)
+			XDT3 A 0 A_Explode(40,25,0)
+			TNT1 ABC 3 // TNT1 ABC
+			Stop
+		Death:
+			XDT3 A 0 A_Explode(80,28,0)
+			XDT3 A 0 A_Explode(80,28,0)
+			TNT1 ABC 1 // TNT1 ABC
+			Stop
+		XDeath:
+			XDT3 A 0 A_Explode(120,28,0)
+			XDT3 A 0 A_Explode(120,28,0)
+			TNT1 ABC 1 // TNT1 ABC
+			Stop*/
+	}
+}
+
+actor HeadshotTargetBaseFriendly: HeadshotTargetBase {
+	Species "FriendlyKnight"
+	
+	DamageFactor "FriendBullet", 0.0
+	PainChance "FriendBullet", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 6
+			Stop
+	}
+}
+
+actor HeadshotTarget1: HeadshotTargetBase {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 1
+			Stop
+	}
+}
+
+actor HeadshotTarget1a: HeadshotTargetBaseFriendly {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 1
+			Stop
+	}
+}
+
+actor HeadshotTarget1b: HeadshotTargetBase {
+	DamageFactor "poison", 0.0
+	PainChance "poison", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 1
+			Stop
+	}
+}
+
+actor HeadshotTarget1ab: HeadshotTargetBaseFriendly {
+	DamageFactor "poison", 0.0
+	PainChance "poison", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 1
+			Stop
+	}
+}
+
+actor HeadshotTarget1f: HeadshotTargetBase {
+	DamageFactor "fire2", 0.0
+	PainChance "fire2", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 1
+			Stop
+	}
+}
+
+actor HeadshotTarget1af: HeadshotTargetBaseFriendly {
+	DamageFactor "fire2", 0.0
+	PainChance "fire2", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 1
+			Stop
+	}
+}
+
+actor HeadshotTarget1i: HeadshotTargetBase {
+	DamageFactor ice, 0.0
+	PainChance ice, 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 1
+			Stop
+	}
+}
+
+actor HeadshotTarget1ai: HeadshotTargetBaseFriendly {
+	DamageFactor ice, 0.0
+	PainChance ice, 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 1
+			Stop
+	}
+}
+
+actor HeadshotTarget1s: HeadshotTargetBase {
+	DamageFactor "Shock", 0.0
+	PainChance "Shock", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 1
+			Stop
+	}
+}
+
+actor HeadshotTarget1as: HeadshotTargetBaseFriendly {
+	DamageFactor "Shock", 0.0
+	PainChance "Shock", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 1
+			Stop
+	}
+}
+
+actor HeadshotTarget1x: HeadshotTargetBase {
+	+NORADIUSDMG
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 1
+			Stop
+	}
+}
+
+actor HeadshotTarget2: HeadshotTargetBase {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 2
+			Stop
+	}
+}
+
+actor HeadshotTarget2a: HeadshotTargetBaseFriendly {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 2
+			Stop
+	}
+}
+
+actor HeadshotTarget2b: HeadshotTargetBase {
+	DamageFactor "poison", 0.0
+	PainChance "poison", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 2
+			Stop
+	}
+}
+
+actor HeadshotTarget2ab: HeadshotTargetBaseFriendly {
+	DamageFactor "poison", 0.0
+	PainChance "poison", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 2
+			Stop
+	}
+}
+
+actor HeadshotTarget2f: HeadshotTargetBase {
+	DamageFactor "fire2", 0.0
+	PainChance "fire2", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 2
+			Stop
+	}
+}
+
+actor HeadshotTarget2af: HeadshotTargetBaseFriendly {
+	DamageFactor "fire2", 0.0
+	PainChance "fire2", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 2
+			Stop
+	}
+}
+
+actor HeadshotTarget2i: HeadshotTargetBase {
+	DamageFactor ice, 0.0
+	PainChance ice, 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 2
+			Stop
+	}
+}
+
+actor HeadshotTarget2ai: HeadshotTargetBaseFriendly {
+	DamageFactor ice, 0.0
+	PainChance ice, 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 2
+			Stop
+	}
+}
+
+actor HeadshotTarget2s: HeadshotTargetBase {
+	DamageFactor "Shock", 0.0
+	PainChance "Shock", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 2
+			Stop
+	}
+}
+
+actor HeadshotTarget2as: HeadshotTargetBaseFriendly {
+	DamageFactor "Shock", 0.0
+	PainChance "Shock", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 2
+			Stop
+	}
+}
+
+actor HeadshotTarget3: HeadshotTargetBase {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 3
+			Stop
+	}
+}
+
+actor HeadshotTarget3a: HeadshotTargetBaseFriendly {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 3
+			Stop
+	}
+}
+
+actor HeadshotTarget3b: HeadshotTargetBase {
+	DamageFactor "poison", 0.0
+	PainChance "poison", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 3
+			Stop
+	}
+}
+
+actor HeadshotTarget3ab: HeadshotTargetBaseFriendly {
+	DamageFactor "poison", 0.0
+	PainChance "poison", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 3
+			Stop
+	}
+}
+
+actor HeadshotTarget3f: HeadshotTargetBase {
+	DamageFactor "fire2", 0.0
+	PainChance "fire2", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 3
+			Stop
+	}
+}
+
+actor HeadshotTarget3af: HeadshotTargetBaseFriendly {
+	DamageFactor "fire2", 0.0
+	PainChance "fire2", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 3
+			Stop
+	}
+}
+
+actor HeadshotTarget3i: HeadshotTargetBase {
+	DamageFactor ice, 0.0
+	PainChance ice, 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 3
+			Stop
+	}
+}
+
+actor HeadshotTarget3ai: HeadshotTargetBaseFriendly {
+	DamageFactor ice, 0.0
+	PainChance ice, 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 3
+			Stop
+	}
+}
+
+actor HeadshotTarget3s: HeadshotTargetBase {
+	DamageFactor "Shock", 0.0
+	PainChance "Shock", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 3
+			Stop
+	}
+}
+
+actor HeadshotTarget3as: HeadshotTargetBaseFriendly {
+	DamageFactor "Shock", 0.0
+	PainChance "Shock", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 3
+			Stop
+	}
+}
+
+actor HeadshotTarget4: HeadshotTargetBase {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 4
+			Stop
+	}
+}
+
+actor HeadshotTarget4a: HeadshotTargetBaseFriendly {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 4
+			Stop
+	}
+}
+
+actor HeadshotTarget4b: HeadshotTargetBase {
+	DamageFactor "poison", 0.0
+	PainChance "poison", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 4
+			Stop
+	}
+}
+
+actor HeadshotTarget4ab: HeadshotTargetBaseFriendly {
+	DamageFactor "poison", 0.0
+	PainChance "poison", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 4
+			Stop
+	}
+}
+
+actor HeadshotTarget4f: HeadshotTargetBase {
+	DamageFactor "fire2", 0.0
+	PainChance "fire2", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 4
+			Stop
+	}
+}
+
+actor HeadshotTarget4af: HeadshotTargetBaseFriendly {
+	DamageFactor "fire2", 0.0
+	PainChance "fire2", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 4
+			Stop
+	}
+}
+
+actor HeadshotTarget4i: HeadshotTargetBase {
+	DamageFactor ice, 0.0
+	PainChance ice, 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 4
+			Stop
+	}
+}
+
+actor HeadshotTarget4ai: HeadshotTargetBaseFriendly {
+	DamageFactor ice, 0.0
+	PainChance ice, 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 4
+			Stop
+	}
+}
+
+actor HeadshotTarget4s: HeadshotTargetBase {
+	DamageFactor "Shock", 0.0
+	PainChance "Shock", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 4
+			Stop
+	}
+}
+
+actor HeadshotTarget4as: HeadshotTargetBaseFriendly {
+	DamageFactor "Shock", 0.0
+	PainChance "Shock", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 4
+			Stop
+	}
+}
+
+actor HeadshotTarget10: HeadshotTargetBase {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 10
+			Stop
+	}
+}
+
+actor HeadshotTarget10a: HeadshotTargetBaseFriendly {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 10
+			Stop
+	}
+}
+
+actor HeadshotTarget10b: HeadshotTargetBase {
+	DamageFactor "poison", 0.0
+	PainChance "poison", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 10
+			Stop
+	}
+}
+
+actor HeadshotTarget10ab: HeadshotTargetBaseFriendly {
+	DamageFactor "poison", 0.0
+	PainChance "poison", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 10
+			Stop
+	}
+}
+
+actor HeadshotTarget10f: HeadshotTargetBase {
+	DamageFactor "fire2", 0.0
+	PainChance "fire2", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 10
+			Stop
+	}
+}
+
+actor HeadshotTarget10af: HeadshotTargetBaseFriendly {
+	DamageFactor "fire2", 0.0
+	PainChance "fire2", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 10
+			Stop
+	}
+}
+
+actor HeadshotTarget10i: HeadshotTargetBase {
+	DamageFactor ice, 0.0
+	PainChance ice, 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 10
+			Stop
+	}
+}
+
+actor HeadshotTarget10ai: HeadshotTargetBaseFriendly {
+	DamageFactor ice, 0.0
+	PainChance ice, 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 10
+			Stop
+	}
+}
+
+actor HeadshotTarget10s: HeadshotTargetBase {
+	DamageFactor "Shock", 0.0
+	PainChance "Shock", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 10
+			Stop
+	}
+}
+
+actor HeadshotTarget10as: HeadshotTargetBaseFriendly {
+	DamageFactor "Shock", 0.0
+	PainChance "Shock", 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 10
+			Stop
+	}
+}
+
+actor HeadshotTargetBaseVR : HeadShotTargetBase {
+	BloodType "VRBlood"
+
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 6
+			Stop
+		Pain:
+			TNT1 A 4 A_SpawnItem ("HeadshotMinorHit", 0, 0)
+			TNT1 A 1
+			TNT1 A 1
+			TNT1 A 0 A_SpawnDebris("HelmetChunkGibber",0,1.0,0.5)
+			Stop
+		Death:
+			TNT1 A 1 A_SpawnItem ("HeadshotHit", 0, 0)
+			TNT1 A 1
+			TNT1 AA 0 A_SpawnDebris("HelmetChunkGibber",0,1.0,0.5)
+			Stop
+		XDeath:
+			TNT1 A 1 A_SpawnItem ("HeadshotX", 0, 0)
+			TNT1 A 1
+			TNT1 AAA 0 A_SpawnDebris("HelmetChunkGibber",0,1.0,0.5)
+			Stop
+	}
+}
+
+actor HeadshotTarget1VR: HeadshotTargetBaseVR {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 1
+			Stop
+	}
+}
+
+actor HeadshotTarget2VR: HeadshotTargetBase {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 2
+			Stop
+	}
+}
+
+actor HeadshotTarget3VR: HeadshotTargetBase {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 3
+			Stop
+	}
+}
+
+actor HeadshotTarget4VR: HeadshotTargetBase {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 4
+			Stop
+	}
+}
+
+actor HeadshotTarget10VR: HeadshotTargetBase {
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 10
+			Stop
+	}
+}
+
+actor HeadshotMinorHit {
+	Radius 2
+	Height 10
+	DamageType head
+	PROJECTILE
+	+NOGRAVITY
+	+NOTELEPORT
+	+NODAMAGETHRUST
+	+THRUGHOST
+	+NORADIUSDMG
+	+FORCERADIUSDMG
+	+DEHEXPLOSION
+	+ACTIVATEMCROSS
+	+NOEXTREMEDEATH
+	+NOTARGET
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Explode(100,2,0)//A_Explode(70,20,0)
+			TNT1 ABCD 1 //HDSH
+			Stop
+	}
+}
+
+actor HeadshotHit {
+	Radius 2
+	Height 10
+	DamageType head
+	PROJECTILE
+	+NOGRAVITY
+	+NOTELEPORT
+	+NODAMAGETHRUST
+	+THRUGHOST
+	+NORADIUSDMG
+	+NOEXTREMEDEATH
+	+FORCERADIUSDMG
+	+DEHEXPLOSION
+	+ACTIVATEMCROSS
+	+NOTARGET
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Explode(250,2,0)//A_Explode(150,20,0)
+			TNT1 ABCD 1 //HDSH
+			Stop
+	}
+}
+
+actor HeadshotX {
+	Radius 2
+	Height 10
+	DamageType head
+	PROJECTILE
+	+NOGRAVITY
+	+NOTELEPORT
+	+NODAMAGETHRUST
+	+THRUGHOST
+	+NORADIUSDMG
+	+NOEXTREMEDEATH
+	+FORCERADIUSDMG
+	+DEHEXPLOSION
+	+ACTIVATEMCROSS
+	+NOTARGET
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Explode(500,2,0)//A_Explode(250,20,0)
+			TNT1 ABCD 1 //HDSH
+			Stop
+	}
+}
+
+Actor HelmetChunkGibber {
+	Health 3
+	radius 2
+	height 2
+	Scale 0.2
+    PROJECTILE
+    +DOOMBOUNCE
+    -NOGRAVITY
+    +NOBLOCKMAP
+    +CANNOTPUSH
+    -NOTELEPORT
+    -SOLID
+	//+GRENADETRAIL
+    mass 5
+    bouncefactor 0.5
+	Gravity 0.75
+    Speed 25
+	states {
+	Spawn:
+		SHRP L -1
+		SHRP M -1
+		SHRP N -1
+		stop
+	}
+}

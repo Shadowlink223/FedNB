@@ -1,0 +1,35 @@
+ClearTeams
+
+Team "Resistance" {
+	PlayerColor "00 99 66"
+	TextColor "Cyan"
+	RailColor "FF FF FF"
+	FlagItem "BlueFlag"
+	SkullItem "BlueSkullST"
+	SmallFlagHUDIcon "STFLA1"
+	SmallSkullHUDIcon "STKEYS3"
+	LargeFlagHUDIcon "BFLASMAL"
+	LargeSkullHUDIcon "BSKUA0"
+	WinnerTheme "D_HURRY"
+	LoserTheme "D_PEEPGG"
+	WinnerPic "REBELWIN"
+	LoserPic "REBELOSE"
+	AllowCustomPlayerColor
+}
+
+Team "Federation" {
+	PlayerColor "FF 00 00"
+	TextColor "Red"
+	RailColor "FF FF FF"
+	FlagItem "RedFlag"
+	SkullItem "RedSkullST"
+	SmallFlagHUDIcon "STFLA2"
+	SmallSkullHUDIcon "STKEYS5"
+	LargeFlagHUDIcon "RFLASMAL"
+	LargeSkullHUDIcon "RSKUA0"
+	WinnerTheme "D_GODBIT"
+	LoserTheme "D_FELLOW"
+	WinnerPic "FEDERWIN"
+	LoserPic "FEDELOSE"
+	AllowCustomPlayerColor
+}

@@ -1,0 +1,30 @@
+ACTOR FighterJet {
+	Health 4000
+	Height 4
+	Radius 32
+	Speed 30
+	MONSTER
+	+NOTARGET
+	+NOCLIP
+	+SPAWNCEILING
+	+CEILINGHUGGER
+	+NOGRAVITY
+	States {
+		Spawn:
+			FIGT A 0
+			FIGT A 0 Thing_Hate(0,31999,0)
+			FIGT A 0 A_FaceTarget
+			FIGT A 1 ACS_ExecuteAlways(558,0)
+			Goto See
+		See:
+			TNT1 A 0 A_JumpIf(ceilingz < 1024, "Hidden")
+			FIGT A 1
+			Loop
+		Hidden:
+			TNT1 A 1
+			Goto See
+		Death:
+			TNT1 A 0
+			Stop
+	}
+}

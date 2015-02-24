@@ -1,0 +1,21 @@
+/*Submitted: Infirnex
+Decorate: Infirnex
+GLDefs: Infirnex
+Sounds: id Software
+Sprites: id Software
+Sprite Edit: Infirnex
+Idea Base: Quake 2/3/4 Armor Shard*/
+
+actor Stimbonus : Health { // replaces HealthBonus
+	+COUNTITEM
+	+INVENTORY.ALWAYSPICKUP
+	Inventory.Pickupmessage "Picked up a Stim Bonus."
+	Inventory.Amount 5
+	Inventory.MaxAmount 200
+	Scale 0.75
+	States {
+	Spawn:
+		SMBS A -1
+		Stop
+	}
+}

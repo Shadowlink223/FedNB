@@ -1,0 +1,964 @@
+#library "FEDHACS"
+#include "zcommon.acs"
+/*------------------------------------------------------------------------------
+    ______ ______ _____  ______ _____              _______ _____ ____  _   _ 
+   |  ____|  ____|  __ \|  ____|  __ \       /\   |__   __|_   _/ __ \| \ | |
+   | |__  | |__  | |  | | |__  | |__) |     /  \     | |    | || |  | |  \| |
+   |  __| |  __| | |  | |  __| |  _  /     / /\ \    | |    | || |  | | . ` |
+   | |    | |____| |__| | |____| | \ \    / /  \ \   | |   _| || |__| | |\  |
+   |_|    |______|_____/|______|_|  \_\ _/ /____\ \_ |_|  |_____\____/|_| \_|
+                                       / __________ \
+								      / / ___  ___ \ \
+								     / / |  //\\  | \ \
+								    | |  | //__\\ |  | |
+								    | |  /\||__||/\  | |
+								    | | /__\\__//__\ | |
+								   / \ \    \  /    / / \
+								  / /\\ \____\/____/ //\ \
+							     / / _\\____________//_ \ \
+						        / /_/__/            \__\_\ \
+							   /____/                  \____\
+ 
+--------------------------------------------------------------------------------
+
+Table of Contents
+[1] Constants
+	[1.01] Script Constants
+	[1.02] ID Constants
+	[1.03] Buy Menu Position Constants
+	[1.04] Utility Constants
+	[1.05] Miscellanious Constants
+	[1.06] Variables
+[2] Scripts
+	[2.01] Server Settings
+	[2.02] HUD
+		[2.02.01] Display Visor
+		[2.02.02] Damage Checker
+		[2.02.03] Damage Caution
+		[2.02.04] Damage Armor
+		[2.02.05] Damage Health
+		[2.02.06] Damage Tunnel Vision
+		[2.02.07] Spawn Fade In And Clear
+		[2.02.08] Coordinate Display
+		[2.02.09] Death Display
+		[2.02.10] Death Tunnel Vision
+		[2.02.11] Respawn Fade In And Clear
+		[2.02.12] Death Screen Clear
+		[2.02.13] Ally Marker
+		[2.02.14] Set Ally ID
+		[2.02.15] Set Grenade ID
+	[2.03] Weapon
+		[2.03.01] Reload
+		[2.03.02] Kickback
+		[2.03.03] Special Kickback
+		[2.03.04] Special Fire
+		[2.03.05] Spas-12 Shell Handling
+		[2.03.06] Melee Attack
+		[2.03.07] Knife Swap
+		[2.03.08] Throw Grenade
+		[2.03.09] Drug Needle
+		[2.03.10] Apply Drugs
+		[2.03.11] Rate Of Fire
+		[2.03.12] Ammo Swap
+		[2.03.13] Ammo Swap Token
+		[2.03.14] Ammo Swap Input
+		[2.03.15] Ammo Swap Do Input
+		[2.03.16] Ammo Swap Display
+		[2.03.17] Ammo Swap Secondary
+	[2.04] TID
+		[2.04.01] TID Set Enter
+		[2.04.02] TID Set Respawn
+		[2.04.03] TID Set Death
+	[2.05] Flashlight
+		[2.05.01] Player Flashlight
+		[2.05.02] Bot Flashlight
+	[2.06] Notifications
+		[2.06.01] Enemy Killed
+		[2.06.02] Ally Killed
+	[2.07] Civilian Death Count
+	[2.08] Level Checks
+		[2.08.01] Sky Check
+		[2.08.02] Deathmatch Check
+	[2.09] Inventory
+		[2.09.01] Inventory Leave
+		[2.09.02] Inventory Return
+		[2.09.03] Regive Non Permanent Items
+		[2.09.04] Use Syringe
+	[2.10] Dialogue
+		[2.10.01] Chat Item
+		[2.10.02] Ally Dialogue System
+	[2.11] Recon Camera
+		[2.11.01] Recon Camera
+		[2.11.02] Recon Camera Client
+		[2.11.03] Recon Camera Do Input
+	[2.12] Fighter Jet Targeting
+	[2.13] Buy Menu
+		[2.13.01] Buy Menu Debug
+		[2.13.02] Buy Menu Server
+		[2.13.03] Buy Menu Client
+		[2.13.04] Buy Menu Input
+		[2.13.05] Buy Menu Reset
+		[2.13.06] Buy Menu Death Reset
+[3] Functions
+	[3.01] Buy Menu
+		[3.01.01] Display Menu Graphics
+		[3.01.02] Display Cursor
+		[3.01.03] Clear Menu
+		[3.01.04] Buy Do Input
+		[3.01.05] Buy Items
+		[3.01.06] Check Points
+		[3.01.07] Give Items
+	[3.02] Distance
+[A] Notes
+
+--------------------------------------------------------------------------------
+[1.01] Script Constants
+------------------------------------------------------------------------------*/
+
+#define SCRIPT_ENEMY_FOOTSTEP			448
+#define SCRIPT_SERVER_SETTINGS			449
+#define SCRIPT_DISPLAY_VISOR			450
+#define SCRIPT_DAMAGE_CHECKER			451
+#define SCRIPT_DAMAGE_CAUTION			452
+#define SCRIPT_DAMAGE_ARMOR				453
+#define SCRIPT_DAMAGE_HEALTH			454
+#define SCRIPT_DAMAGE_TUNNEL_VISION		455
+#define SCRIPT_SPAWN_FADE_CLEAR			456
+#define SCRIPT_COORDINATE_DISPLAY		457
+#define SCRIPT_DEATH_DISPLAY			458
+#define SCRIPT_DEATH_TUNNEL_VISION		459
+#define SCRIPT_RESPAWN_FADE_CLEAR		460
+#define SCRIPT_DEATH_FADE_CLEAR			462
+#define SCRIPT_KICKBACK_SPECIAL			506
+#define SCRIPT_SPECIAL_FIRE				510
+#define SCRIPT_SPAS_SHELL_HANDLING		512
+#define SCRIPT_MELEE					515
+#define SCRIPT_GRENADE					516
+#define SCRIPT_DRUGS					517
+#define SCRIPT_KNIFE_SWAP				518
+#define SCRIPT_DRUGS_APPLY				519
+#define SCRIPT_TID_SET_DEATH			552
+#define SCRIPT_TID_SET_ENTER			550
+#define SCRIPT_TID_SET_RESPAWN			551
+#define SCRIPT_ENEMY_SET_ID				554
+#define SCRIPT_ALLY_MARKER				555
+#define SCRIPT_ALLY_SET_ID				556
+#define SCRIPT_GRENADE_SET_ID			557
+#define SCRIPT_FIGHTER_TARGETING		558
+#define SCRIPT_ENEMY_KILLED				642
+#define SCRIPT_ALLY_KILLED				757
+#define SCRIPT_SKY_CHECK				759
+#define SCRIPT_CIVILIAN_DEATH_TOLL		760
+#define SCRIPT_DEATHMATCH_CHECK			761
+#define SCRIPT_INVENTORY_LEAVE			762
+#define SCRIPT_INVENTORY_RETURN			763
+#define SCRIPT_ALLY_DIALOGUE			764
+#define SCRIPT_RECON_CAMERA				765
+#define SCRIPT_RECON_CAMERA_CLIENT		766
+#define SCRIPT_RECON_CAMERA_DO_INPUT	767
+#define SCRIPT_REGIVE_NONPERMANENT		768
+#define SCRIPT_USE_SYRINGE				769
+
+
+
+//#define SCRIPT_CHAT					758
+//#define SCRIPT_BUY_MENU_DEATH_RESET	995
+
+/*------------------------------------------------------------------------------
+[1.02] ID Constants
+------------------------------------------------------------------------------*/
+
+#define DefaultGrenadeID						32000
+#define JetTargetID								31999
+#define HUD_COORDINATE_MESSAGE_ID				3000
+#define HUD_COORDINATE_X_ID						3200
+#define HUD_COORDINATE_Y_ID						3100
+#define HUD_COORDINATE_Z_ID						3000
+#define HUD_DOWN_ID								5000
+#define HUD_UP_ID								5100
+#define HUD_RIGHT_ID							5200
+#define HUD_LEFT_ID								5300
+#define HUD_ALLY_ID								500
+#define HUD_ENEMY_ID							600
+#define RECON_CAMERA_ID							4400
+#define HUD_RECON_CAMERA_ID						25000
+#define FINISH_ID								1
+#define INITIATE_ID								2
+#define STRIKE_ID								3
+#define HEAVY_ID								4
+#define HUNTER_ID								5
+#define HEALTH_UPGRADE_ID						10
+#define EXTRA_AMMO_ID							14
+#define ALT_AMMO_PACK_ID						19
+#define STRIKE_BEACON_ID						20
+#define SHIELD_GENERATOR_ID						30
+
+/*------------------------------------------------------------------------------
+[1.04] Utility Constants
+------------------------------------------------------------------------------*/
+
+// Byte Angles
+#define EAST							0
+#define NORTHEAST						32
+#define NORTH							64
+#define NORTHWEST						96
+#define WEST							128
+#define SOUTHWEST						160
+#define SOUTH							192
+#define SOUTHEAST						224
+
+/*------------------------------------------------------------------------------
+[1.05] Miscellanious Constants
+------------------------------------------------------------------------------*/
+
+#define SWAP_TIME								52 //1.5 Second(s)
+//#define SWAP_KEY_BUFFER						7
+#define TID_DEFAULT								1000
+
+/*------------------------------------------------------------------------------
+[1.06] Variables
+------------------------------------------------------------------------------*/
+
+//CVARS
+bool fedbuymenu = true;
+bool feddebug = false;
+
+// Weather
+/*int weather_rain = 0;
+int weather_thunder = 0;
+int weather_snow = 0;
+int weather_ash = 0;
+int weather_fog = 0;*/
+
+//str[] nameList
+
+/* Multiplayer purpose, may need alternate solution to make the buy menu work
+   with multiplayer. Keeps track of the status of each player's buy menu. */
+int selectionID[64] = {2,2,2,2,2,2,2,2,
+					   2,2,2,2,2,2,2,2,
+					   2,2,2,2,2,2,2,2,
+					   2,2,2,2,2,2,2,2,
+					   2,2,2,2,2,2,2,2,
+					   2,2,2,2,2,2,2,2,
+					   2,2,2,2,2,2,2,2,
+					   2,2,2,2,2,2,2,2};
+					   
+int CurrentGrenadeID = 32000;
+int CurrentEnemyID = 60000;
+int CurrentAllyID = 0;
+int NameSeed = 1;
+str NameChars[144] = {"A","I","U","E","O","YA","YU","YO","KA","KI",
+					  "KU","KE","KO","KYA","KYU","KYO","SA","SHI","SI","SU",
+					  "SE","SO","SHA","SYA","SHU","SYU","SHO","SYO","TA","CHI",
+					  "TI","TSU","TU","TE","TO","CHA","TYA","CHU","TYU","CHO",
+					  "TYO","NA","NI","NU","NE","NO","NYA","NYU","NYO","HA",
+					  "HI","FU","HU","HE","HO","HYA","HYU","HYO","MA","MI",
+					  "MU","ME","MO","MYA","MYU","MYO","YA","YU","YO","RA",
+					  "RI","RU","RE","RO","RYA","RYU","RYO","WA","I","WI",
+					  "I","E","WE","E","O","WO","O","N-N","GA","GI",
+					  "GU","GE","GO","GYA","GYU","GYO","ZA","JI","ZI","ZU",
+					  "ZE","ZO","JA","ZYA","JU","ZYU","JO","ZYO","DA","JI",
+					  "DI","ZI","ZU","DU","ZU","DE","DO","JA","DYA","ZYA",
+					  "JU","DYU","ZYU","JO","DYO","ZYO","BA","BI","BU","BE",
+					  "BO","BYA","BYU","BYO","PA","PI","PU","PE","PO","PYA",
+					  "PYU","PYO","-","-"};
+
+world int 1:inv_PoisonSmokeBombItem[];
+world int 2:inv_IceSmokeBombItem[];
+world int 3:inv_FireBombItem[];
+world int 4:inv_ShockBombItem[];
+//world int 5:inv_MortarStrikeItem[];
+//world int 6:inv_1beacon[];
+world int 7:inv_2beacon[];
+//world int 8:inv_3beacon[];
+//world int 9:inv_4beacon[];
+world int 10:inv_5beacon[];
+world int 11:inv_6beacon[];
+world int 12:inv_7beacon[];
+world int 13:inv_8beacon[];
+world int 14:inv_9beacon[];
+world int 15:inv_0beacon[];
+world int 16:inv_Abeacon[];
+world int 17:inv_Bbeacon[];
+world int 18:inv_Cbeacon[];
+world int 19:inv_Dbeacon[];
+world int 20:inv_Ebeacon[];
+world int 21:inv_Fbeacon[];
+world int 22:inv_Gbeacon[];
+world int 23:inv_ShieldGenerator[];
+world int 24:inv_ReconCameraItem[];
+world int 25:inv_AdrenalineKit[];
+world int 26:inv_StimKit[];
+
+world int 27:civilian_death_count;
+
+/*------------------------------------------------------------------------------
+[2.01.01] Server Settings
+------------------------------------------------------------------------------*/
+
+Script SCRIPT_SERVER_SETTINGS OPEN {
+	NameSeed = random(1,144);
+	if(GetCVAR("fed_rga2") == 0)
+		ConsoleCommand("set fed_rga2 0");
+	if(GetCVAR("fed_rga3") == 0)
+		ConsoleCommand("set fed_rga3 0");
+	/*if(GetCVAR("fedbuymenu") == 0)
+		ConsoleCommand("set sv_fedbuymenu 1");*/
+}
+
+/*------------------------------------------------------------------------------
+[2.02.08] Coordinate Display
+------------------------------------------------------------------------------*/
+
+// Coordinate display.
+Script SCRIPT_COORDINATE_DISPLAY (void) {
+	SetFont("DOOMFONT");
+	if(!PlayerIsSpectator(PlayerNumber()) && GetLevelInfo(LEVELINFO_LEVELNUM) != 99 && CheckInventory("Health") > 0) {
+		HudMessage(s:"X: ", f:GetActorX(0);HUDMSG_FADEOUT,HUD_COORDINATE_X_ID + ActivatorTID() - TID_DEFAULT,9,0.05,0.12,1.0,1.0);
+		HudMessage(s:"Y: ", f:GetActorY(0);HUDMSG_FADEOUT,HUD_COORDINATE_Y_ID + ActivatorTID() - TID_DEFAULT,9,0.05,0.14,1.0,1.0);
+		HudMessage(s:"Z: ", f:GetActorZ(0);HUDMSG_FADEOUT,HUD_COORDINATE_Z_ID + ActivatorTID() - TID_DEFAULT,9,0.05,0.16,1.0,1.0);
+		if((GetActorAngle(0) >> 8) >= 240 || (GetActorAngle(0) >> 8) <= 16) {
+			//East
+			HudMessage(s:"EAST";HUDMSG_FADEOUT,HUD_COORDINATE_MESSAGE_ID + ActivatorTID() - TID_DEFAULT,9,0.05,0.10,1.0,1.0);
+		}
+		else if((GetActorAngle(0) >> 8) > 208) {
+			//SouthEast
+			HudMessage(s:"SOUTHEAST";HUDMSG_FADEOUT,HUD_COORDINATE_MESSAGE_ID + ActivatorTID() - TID_DEFAULT,9,0.05,0.10,1.0,1.0);
+		}
+		else if((GetActorAngle(0) >> 8) > 176) {
+			//South
+			HudMessage(s:"SOUTH";HUDMSG_FADEOUT,HUD_COORDINATE_MESSAGE_ID + ActivatorTID() - TID_DEFAULT,9,0.05,0.10,1.0,1.0);
+		}
+		else if((GetActorAngle(0) >> 8) > 144) {
+			//SouthWest
+			HudMessage(s:"SOUTHWEST";HUDMSG_FADEOUT,HUD_COORDINATE_MESSAGE_ID + ActivatorTID() - TID_DEFAULT,9,0.05,0.10,1.0,1.0);
+		}
+		else if((GetActorAngle(0) >> 8) > 112) {
+			//West
+			HudMessage(s:"WEST";HUDMSG_FADEOUT,HUD_COORDINATE_MESSAGE_ID + ActivatorTID() - TID_DEFAULT,9,0.05,0.10,1.0,1.0);
+		}
+		else if((GetActorAngle(0) >> 8) > 80) {
+			//NorthWest
+			HudMessage(s:"NORTHWEST";HUDMSG_FADEOUT,HUD_COORDINATE_MESSAGE_ID + ActivatorTID() - TID_DEFAULT,9,0.05,0.10,1.0,1.0);
+		}
+		else if((GetActorAngle(0) >> 8) > 48) {
+			//North
+			HudMessage(s:"NORTH";HUDMSG_FADEOUT,HUD_COORDINATE_MESSAGE_ID + ActivatorTID() - TID_DEFAULT,9,0.05,0.10,1.0,1.0);
+		}
+		else if((GetActorAngle(0) >> 8) > 16) {
+			//NorthEast
+			HudMessage(s:"NORTHEAST";HUDMSG_FADEOUT,HUD_COORDINATE_MESSAGE_ID + ActivatorTID() - TID_DEFAULT,9,0.05,0.10,1.0,1.0);
+		}
+		delay(1);
+		restart;
+	}
+	else if(!PlayerIsSpectator(PlayerNumber()) && GetLevelInfo(LEVELINFO_LEVELNUM) != 99) {
+		HudMessage(s:"X: ---";HUDMSG_FADEOUT,HUD_COORDINATE_X_ID + ActivatorTID() - TID_DEFAULT,9,0.05,0.12,1.0,1.0);
+		HudMessage(s:"Y: ---";HUDMSG_FADEOUT,HUD_COORDINATE_Y_ID + ActivatorTID() - TID_DEFAULT,9,0.05,0.14,1.0,1.0);
+		HudMessage(s:"Z: ---";HUDMSG_FADEOUT,HUD_COORDINATE_Z_ID + ActivatorTID() - TID_DEFAULT,9,0.05,0.16,1.0,1.0);
+		HudMessage(s:"6 FEET UNDER";HUDMSG_FADEOUT,HUD_COORDINATE_MESSAGE_ID + ActivatorTID() - TID_DEFAULT,9,0.05,0.10,1.0,1.0);
+		while(CheckInventory("Health") <= 0) {
+			Delay(1);
+		}
+		restart;
+	}
+	
+}
+
+/*------------------------------------------------------------------------------
+[2.02.13] Ally Marker
+------------------------------------------------------------------------------*/
+
+Script SCRIPT_ALLY_MARKER ENTER clientside {
+	int GrenadeBlinker = 1;
+	While(true) {
+		For(int curAllyID = -1; curAllyID >= CurrentAllyID; curAllyID--) {
+			hudmessageonactor(curAllyID,768,"ALLYMRK5","A",0);
+			//Log(s:assignedname(curAllyID));
+			hudmessageonactor(curAllyID,512,-1,assignedname(curAllyID),1);
+			//Log(s:"Displaying Ally ID ",i:curAllyID);
+		}
+		For(int grenID = DefaultGrenadeID; grenID <= DefaultGrenadeID + 15; grenID++) {
+			If(GrenadeBlinker <= 16) {
+				hudmessageonactor(grenID,768,"GRENMRK2","A",2);
+			}
+			Else {
+				hudmessageonactor(grenID,768,"GRENMRK3","A",2);
+			}
+			//Log(s:"Displaying Grenade ID ",i:grenID);
+		}
+		If(GrenadeBlinker < 32) {
+			GrenadeBlinker++;
+		}
+		Else {
+			GrenadeBlinker = 1;
+		}
+		Delay(1);
+	}
+}
+
+/*------------------------------------------------------------------------------
+[2.02.14] Set Ally ID
+------------------------------------------------------------------------------*/
+
+Script SCRIPT_ALLY_SET_ID (void) {
+	CurrentAllyID--;
+	Thing_ChangeTID(0,CurrentAllyID);
+	//Log(s:"Current Ally ID set at ",i:CurrentAllyID);
+}
+
+/*------------------------------------------------------------------------------
+[2.02.15] Set Grenade ID
+------------------------------------------------------------------------------*/
+
+Script SCRIPT_GRENADE_SET_ID (void) {
+	Thing_ChangeTID(0,CurrentGrenadeID);
+	//Log(s:"Current Grenade ID set to ",i:CurrentGrenadeID);
+	If(CurrentGrenadeID < DefaultGrenadeID + 15) {
+		CurrentGrenadeID++;
+	}
+	Else {
+		CurrentGrenadeID = DefaultGrenadeID;
+	}
+}
+
+/*------------------------------------------------------------------------------
+[2.04.01] TID Set Enter
+------------------------------------------------------------------------------*/
+
+Script SCRIPT_TID_SET_ENTER ENTER {
+	Thing_ChangeTID(0, TID_DEFAULT + PlayerNumber());
+}
+
+/*------------------------------------------------------------------------------
+[2.04.02] TID Set Respawn
+------------------------------------------------------------------------------*/
+
+Script SCRIPT_TID_SET_RESPAWN RESPAWN {
+    Thing_ChangeTID(0, TID_DEFAULT + PlayerNumber());
+}
+
+/*------------------------------------------------------------------------------
+[2.04.03] TID Set Death
+------------------------------------------------------------------------------*/
+
+Script SCRIPT_TID_SET_DEATH DEATH {
+    Thing_ChangeTID(0, 0);
+}
+
+/*------------------------------------------------------------------------------
+[2.06.02] Ally Killed
+------------------------------------------------------------------------------*/
+
+// Ally death notification
+Script SCRIPT_ALLY_KILLED (int nameNum) {
+
+}
+
+/*------------------------------------------------------------------------------
+[2.07.01] Civilian Death Count
+------------------------------------------------------------------------------*/
+
+// Civilian death toll - Moved here from Monster pk3
+Script SCRIPT_CIVILIAN_DEATH_TOLL (void) {
+	civilian_death_count++;
+}
+
+/*------------------------------------------------------------------------------
+[2.08.01] Sky Check
+------------------------------------------------------------------------------*/
+
+Script SCRIPT_SKY_CHECK (void) { // Terror Mite and Mortar Sky Check
+   if(CheckActorCeilingTexture(0, "F_SKY1")) {
+      SetResultValue( 1 );
+   }
+   else {
+      SetResultValue( 0 );
+   }
+}
+
+/*------------------------------------------------------------------------------
+[2.08.02] Deathmatch Check
+------------------------------------------------------------------------------*/
+
+//Deathmatch checker
+Script SCRIPT_DEATHMATCH_CHECK (void) {
+	if(GameType() == GAME_NET_DEATHMATCH) {
+		SetResultValue( 1 );
+	}
+	else {
+		SetResultValue( 0 );
+	}
+}
+
+/*------------------------------------------------------------------------------
+[2.09.01] Inventory Leave
+------------------------------------------------------------------------------*/
+
+// Inventory save scripts, credit to Voltlock for FOR loop idea
+Script SCRIPT_INVENTORY_LEAVE UNLOADING {
+	for(int counter = 0; counter < 32; counter++) {
+		inv_PoisonSmokeBombItem[counter] = CheckActorInventory(TID_DEFAULT + counter,"PoisonSmokeBombItem");
+		inv_IceSmokeBombItem[counter] = CheckActorInventory(TID_DEFAULT + counter,"IceSmokeBombItem");
+		inv_FireBombItem[counter] = CheckActorInventory(TID_DEFAULT + counter,"FireBombItem");
+		inv_ShockBombItem[counter] = CheckActorInventory(TID_DEFAULT + counter,"ShockBombItem");
+		//inv_MortarStrikeItem[counter] = CheckActorInventory(TID_DEFAULT + counter,"MortarStrikeItem");
+		//inv_1beacon[counter] = CheckActorInventory(TID_DEFAULT + counter,"1beacon");
+		inv_2beacon[counter] = CheckActorInventory(TID_DEFAULT + counter,"2beacon");
+		//inv_3beacon[counter] = CheckActorInventory(TID_DEFAULT + counter,"3beacon");
+		//inv_4beacon[counter] = CheckActorInventory(TID_DEFAULT + counter,"4beacon");
+		inv_5beacon[counter] = CheckActorInventory(TID_DEFAULT + counter,"5beacon");
+		inv_6beacon[counter] = CheckActorInventory(TID_DEFAULT + counter,"6beacon");
+		inv_7beacon[counter] = CheckActorInventory(TID_DEFAULT + counter,"7beacon");
+		inv_8beacon[counter] = CheckActorInventory(TID_DEFAULT + counter,"8beacon");
+		inv_9beacon[counter] = CheckActorInventory(TID_DEFAULT + counter,"9beacon");
+		inv_0beacon[counter] = CheckActorInventory(TID_DEFAULT + counter,"0beacon");
+		inv_Abeacon[counter] = CheckActorInventory(TID_DEFAULT + counter,"Abeacon");
+		inv_Bbeacon[counter] = CheckActorInventory(TID_DEFAULT + counter,"Bbeacon");
+		inv_Cbeacon[counter] = CheckActorInventory(TID_DEFAULT + counter,"Cbeacon");
+		inv_Dbeacon[counter] = CheckActorInventory(TID_DEFAULT + counter,"Dbeacon");
+		inv_Ebeacon[counter] = CheckActorInventory(TID_DEFAULT + counter,"Ebeacon");
+		inv_Fbeacon[counter] = CheckActorInventory(TID_DEFAULT + counter,"Fbeacon");
+		inv_Gbeacon[counter] = CheckActorInventory(TID_DEFAULT + counter,"Gbeacon");
+		inv_ShieldGenerator[counter] = CheckActorInventory(TID_DEFAULT + counter,"ShieldGenerator");
+		inv_ReconCameraItem[counter] = CheckActorInventory(TID_DEFAULT + counter,"ReconCameraItem");
+		inv_AdrenalineKit[counter] = CheckActorInventory(TID_DEFAULT + counter,"AdrenalineKit");
+		inv_StimKit[counter] = CheckActorInventory(TID_DEFAULT + counter,"StimKit");
+	}
+}
+
+/*------------------------------------------------------------------------------
+[2.09.02] Inventory Return
+------------------------------------------------------------------------------*/
+
+Script SCRIPT_INVENTORY_RETURN OPEN {
+	for(int counter = 0; counter < 32; counter++) {
+		giveActorInventory(TID_DEFAULT + counter,"PoisonSmokeBombItem",inv_PoisonSmokeBombItem[counter]-1);
+		giveActorInventory(TID_DEFAULT + counter,"IceSmokeBombItem",inv_IceSmokeBombItem[counter]-1);
+		giveActorInventory(TID_DEFAULT + counter,"FireBombItem",inv_FireBombItem[counter]-1);
+		giveActorInventory(TID_DEFAULT + counter,"ShockBombItem",inv_ShockBombItem[counter]-1);
+		//giveActorInventory(TID_DEFAULT + counter,"MortarStrikeItem",inv_MortarStrikeItem[counter]-1);
+		//giveActorInventory(TID_DEFAULT + counter,"1beacon",inv_1beacon[counter]-1);
+		giveActorInventory(TID_DEFAULT + counter,"2beacon",inv_2beacon[counter]-1);
+		//giveActorInventory(TID_DEFAULT + counter,"3beacon",inv_3beacon[counter]-1);
+		//giveActorInventory(TID_DEFAULT + counter,"4beacon",inv_4beacon[counter]-1);
+		giveActorInventory(TID_DEFAULT + counter,"5beacon",inv_5beacon[counter]-1);
+		giveActorInventory(TID_DEFAULT + counter,"6beacon",inv_6beacon[counter]-1);
+		giveActorInventory(TID_DEFAULT + counter,"7beacon",inv_7beacon[counter]-1);
+		giveActorInventory(TID_DEFAULT + counter,"8beacon",inv_8beacon[counter]-1);
+		giveActorInventory(TID_DEFAULT + counter,"9beacon",inv_9beacon[counter]-1);
+		giveActorInventory(TID_DEFAULT + counter,"0beacon",inv_0beacon[counter]-1);
+		giveActorInventory(TID_DEFAULT + counter,"Abeacon",inv_Abeacon[counter]-1);
+		giveActorInventory(TID_DEFAULT + counter,"Bbeacon",inv_Bbeacon[counter]-1);
+		giveActorInventory(TID_DEFAULT + counter,"Cbeacon",inv_Cbeacon[counter]-1);
+		giveActorInventory(TID_DEFAULT + counter,"Dbeacon",inv_Dbeacon[counter]-1);
+		giveActorInventory(TID_DEFAULT + counter,"Ebeacon",inv_Ebeacon[counter]-1);
+		giveActorInventory(TID_DEFAULT + counter,"Fbeacon",inv_Fbeacon[counter]-1);
+		giveActorInventory(TID_DEFAULT + counter,"Gbeacon",inv_Gbeacon[counter]-1);
+		giveActorInventory(TID_DEFAULT + counter,"ShieldGenerator",inv_ShieldGenerator[counter]-1);
+		giveActorInventory(TID_DEFAULT + counter,"ReconCameraItem",inv_ReconCameraItem[counter]-1);
+		giveActorInventory(TID_DEFAULT + counter,"AdrenalineKit",inv_AdrenalineKit[counter]-1);
+		giveActorInventory(TID_DEFAULT + counter,"StimKit",inv_StimKit[counter]-1);
+	}
+}
+
+/*------------------------------------------------------------------------------
+[2.09.03] Regive Non Permanent Items
+------------------------------------------------------------------------------*/
+
+Script SCRIPT_REGIVE_NONPERMANENT ENTER {
+	If(CheckInventory("Armor") && CheckInventory("GiveHunterArmor")) {
+		GiveInventory("HunterStealthItem",1);
+	}
+	Else If(CheckInventory("GiveHunterArmor")) {
+		TakeInventory("GiveHunterArmor",1);
+	}
+	If(CheckInventory("GiveComputerMap")) {
+		GiveInventory("Allmap",1);
+	}
+}
+
+/*------------------------------------------------------------------------------
+[2.10.01] Chat Item
+------------------------------------------------------------------------------*/
+
+/*Script SCRIPT_CHAT ENTER
+{
+   Print(s:"Chat item given.");
+   GiveInventory("FedChatItem",1);
+}*/
+
+/*------------------------------------------------------------------------------
+[2.10.02] Ally Dialogue System
+------------------------------------------------------------------------------*/
+
+// Ally Dialogue System
+Script SCRIPT_ALLY_DIALOGUE (void) {
+	
+}
+
+/*------------------------------------------------------------------------------
+[2.11.01] Recon Camera
+------------------------------------------------------------------------------*/
+
+// Remote control for recon camera
+Script SCRIPT_RECON_CAMERA (void) {
+	
+	ACS_ExecuteAlways(SCRIPT_RECON_CAMERA_CLIENT,0);
+
+	If(GetCVAR("sv_feddebug")) {
+		GiveInventory("ReconCameraOn",1);
+	}
+	SetPlayerProperty(0,1,0);
+	GiveInventory("RemoteControl",1);
+	SetWeapon("RemoteControl");
+	delay(30);
+	
+	//ConsoleCommand("fov 120");
+	
+	//Change cam to the recon camera, does not revert until destroyed
+	int reconactive = 1;
+	while(reconactive && GetActorProperty(0,APROP_Health) > 0) { //ThingCount(T_NONE,RECON_CAMERA_ID) > 0 && GetActorProperty(0,APROP_Health) > 0) {
+		int buttons = GetPlayerInput(PlayerNumber(), INPUT_BUTTONS);
+
+		SetActorPitch(RECON_CAMERA_ID + ActivatorTID() - TID_DEFAULT,GetActorPitch(0));
+		SetActorAngle(RECON_CAMERA_ID + ActivatorTID() - TID_DEFAULT,GetActorAngle(0));
+		if(buttons & BT_ATTACK)
+			reconactive = 0;
+		if(buttons & BT_ALTATTACK)
+			reconactive = 0;
+		delay(1);
+	}
+	
+	TakeInventory("PowerLightAmp",1);
+	Thing_Destroy(RECON_CAMERA_ID + ActivatorTID() - TID_DEFAULT,0);
+	//ConsoleCommand("fov 90");
+	delay(30);
+
+	If(GetCVAR("sv_feddebug")) {
+		TakeInventory("ReconCameraOn",1);
+	}
+	SetPlayerProperty(0,0,0);
+	TakeInventory("RemoteControl",1);
+}
+
+/*------------------------------------------------------------------------------
+[2.11.02] Recon Camera Client
+------------------------------------------------------------------------------*/
+
+Script SCRIPT_RECON_CAMERA_CLIENT (void) Clientside {
+	
+	If(GetCVAR("sv_feddebug")) {
+		SetCameraToTexture(RECON_CAMERA_ID + ActivatorTID() - TID_DEFAULT,"RCTEX_03",90);
+	}
+	Else {
+		FadeRange(0,0,0,0.0,0,0,0,1.0,0.6);
+		delay(30);
+		ChangeCamera(RECON_CAMERA_ID + ActivatorTID() - TID_DEFAULT,0,0);
+		FadeRange(0,0,0,1.0,0,0,0,0.0,0.6);
+	}
+	
+	//Change cam to the recon camera, does not revert until destroyed
+	int reconActive = 1;
+	int reconBattery = 0;
+	while(reconActive && GetActorProperty(0,APROP_Health) > 0) {
+		int buttons = GetPlayerInput(PlayerNumber(), INPUT_BUTTONS);
+
+		if(buttons & BT_FORWARD)
+			doCameraInput(1);
+		if(buttons & BT_BACK)
+			doCameraInput(2);
+		if(buttons & BT_MOVERIGHT)
+			doCameraInput(3);
+		if(buttons & BT_MOVELEFT)
+			doCameraInput(4);
+		if(buttons & BT_JUMP)
+			doCameraInput(5);
+		if(buttons & BT_CROUCH)
+			doCameraInput(6);
+		if(buttons & BT_ATTACK) {
+			doCameraInput(7);
+			reconActive = 0;
+		}
+		if(buttons & BT_ALTATTACK) {
+			doCameraInput(8);
+			reconActive = 0;
+		}
+
+		If(GetCVAR("sv_feddebug")) {
+			SetFont("RCTEX_03");
+			HudMessage(s:"A";HUDMSG_PLAIN,HUD_RECON_CAMERA_ID + ActivatorTID() - TID_DEFAULT,CR_UNTRANSLATED,1.0,0.5,0);
+		}
+		Else {
+			SetFont("BIGFONT");
+			HudMessage(s:"--[     ]--";HUDMSG_PLAIN,HUD_RECON_CAMERA_ID + ActivatorTID() - TID_DEFAULT,CR_WHITE,0.5,0.5,0);
+		}
+		
+		If(reconBattery >= 2100) {
+			reconActive = 0;
+		}
+		
+		delay(1);
+	}
+	
+	HudMessage(s:" ";HUDMSG_PLAIN,HUD_RECON_CAMERA_ID + ActivatorTID() - TID_DEFAULT,CR_WHITE,0.5,0.5,1);
+	
+	If(!GetCVAR("sv_feddebug")) {
+		FadeRange(0,0,0,0.0,0,0,0,1.0,0.0);
+		delay(30);
+		
+		FadeRange(0,0,0,1.0,0,0,0,0.0,0.6);
+	}
+}
+
+/*------------------------------------------------------------------------------
+[2.11.03] Recon Camera Do Input
+------------------------------------------------------------------------------*/
+
+function void doCameraInput (int Command) {
+	If(Command == 1)
+		ThrustThing(GetActorAngle(0) >> 8, 5, 0, RECON_CAMERA_ID + ActivatorTID() - TID_DEFAULT);
+	If(Command == 2)
+		ThrustThing((GetActorAngle(0) >> 8)+128, 5, 0, RECON_CAMERA_ID + ActivatorTID() - TID_DEFAULT);
+	If(Command == 3)
+		ThrustThing((GetActorAngle(0) >> 8)-64, 5, 0, RECON_CAMERA_ID + ActivatorTID() - TID_DEFAULT);
+	If(Command == 4)
+		ThrustThing((GetActorAngle(0) >> 8)+64, 5, 0, RECON_CAMERA_ID + ActivatorTID() - TID_DEFAULT);
+	If(Command == 5)
+		ThrustThingZ(RECON_CAMERA_ID + ActivatorTID() - TID_DEFAULT, 10, 0, 1);
+	If(Command == 6)
+		ThrustThingZ(RECON_CAMERA_ID + ActivatorTID() - TID_DEFAULT, 10, 1, 1);
+	If(Command == 7)
+		Thing_Destroy(RECON_CAMERA_ID + ActivatorTID() - TID_DEFAULT,0);
+	If(Command == 8)
+		Thing_Destroy(RECON_CAMERA_ID + ActivatorTID() - TID_DEFAULT,0);
+}
+
+/*------------------------------------------------------------------------------
+[2.12.01] Fighter Jet Targeting
+------------------------------------------------------------------------------*/
+
+Script SCRIPT_FIGHTER_TARGETING (int SubScript) {
+	If(SubScript == 0) {
+		Log(s:"Fighter Inbound!");
+		int PayloadDropped = 0;
+		ThrustThing(GetActorAngle(0),30,0,0);
+		While(!PayloadDropped) {
+			If(fDistance(0,JetTargetID) < 256) {
+				Log(s:"Dropping Payload!");
+				ActivatorSound("JetNoise",127);
+				GiveInventory("DropPayload",1);
+				PayloadDropped = true;
+			}
+			Delay(1);
+		}
+		Delay(35 * 5);
+		Log(s:"Target Cleared.");
+		Thing_ChangeTID(JetTargetID,0);
+	}
+	Else If(SubScript == 1) {		
+		int angle = random(0, 1.0);
+		int radius = random(5120, 7168);
+		int secondaryRadius = Random(512,1024);
+		int x1 = GetActorX(0) + FixedMul(cos(angle), radius);
+		int y1 = GetActorY(0) + FixedMul(sin(angle), radius);
+		int x2 = x1 + FixedMul(cos(angle), secondaryRadius);
+		int y2 = y1 + FixedMul(sin(angle), secondaryRadius);
+		Spawn("JetFighter",x1,y1,0,0);
+		Spawn("JetFighter",x2,y2,0,0);
+	}
+}
+
+/*------------------------------------------------------------------------------
+[3.02] Distance
+------------------------------------------------------------------------------*/
+
+function int fdistance (int tid1, int tid2) {
+	int len;
+	int y = getactory(tid1) - getactory(tid2);
+	int x = getactorx(tid1) - getactorx(tid2);
+	int z = getactorz(tid1) - getactorz(tid2);
+
+	int ang = vectorangle(x,y);
+	if(((ang+0.125)%0.5) > 0.25) len = fixeddiv(y, sin(ang));
+	else len = fixeddiv(x, cos(ang));
+
+	ang = vectorangle(len, z);
+	if(((ang+0.125)%0.5) > 0.25) len = fixeddiv(z, sin(ang));
+	else len = fixeddiv(len, cos(ang));
+
+	return len;
+}
+
+/*------------------------------------------------------------------------------
+[3.03] HUD Message On Actor
+------------------------------------------------------------------------------*/
+
+function void hudmessageonactor(int tid, int range, str sprite, str text, int type) {
+	int dist, ang, vang, pitch, x, y;
+	int HUDX = 640;
+	int HUDY = 400;
+	int xoffset = 0;
+	int yoffset = 0;
+	int id = -tid;
+
+	if(sprite != -1) {
+		SetFont(sprite);
+		text = "A";
+		xoffset = 0.1;
+		yoffset = 0.1;
+	}
+	else {
+		SetFont("DOOMFONT");
+	}
+	
+	if(type == 1) { // Name Tags
+		id += 1000; // This is so the Name Tag stays 1000 above the Ally Marker.
+		xoffset = 0;
+		yoffset = -65.0;
+	}
+	if(type == 2) { // Grenade Alerts
+		yoffset = -3.0;
+	}
+
+	SetHudSize(HUDX, HUDY, 1);
+	x = GetActorX(tid) - GetActorX(0);
+	y = GetActorY(tid) - GetActorY(0); 
+
+	vang = VectorAngle(x,y);
+	ang = (vang - GetActorAngle(0) + 1.0) % 1.0;
+
+	if(((vang+0.125)%0.5) > 0.25) dist = FixedDiv(y, sin(vang));
+	else dist = FixedDiv(x, cos(vang));
+
+	if ((ang < 0.2 || ang > 0.8) && dist >> 16 < range && GetActorProperty(tid,APROP_HEALTH) > 0) {
+		pitch = VectorAngle(dist, GetActorZ(tid) - (GetActorZ(0) + 41.0));
+		pitch = (pitch + GetActorPitch(0) + 1.0) % 1.0;
+
+		x = HUDX/2 - ((HUDX/2) * sin(ang) / cos(ang));
+		y = HUDY/2 - ((HUDX/2) * sin(pitch) / cos(pitch));
+
+		if(type == 1) {
+			HudMessage(s:text; HUDMSG_PLAIN | HUDMSG_COLORSTRING, id + 30000, "ResistanceBlue", (x<<16)+xoffset, (y<<16)+yoffset, 0);
+		}
+		else {
+			HudMessage(s:text; HUDMSG_PLAIN, id + 30000, CR_UNTRANSLATED, (x<<16)+xoffset, (y<<16)+yoffset, 0);
+		}
+	}
+	else
+		HudMessage(s:""; HUDMSG_PLAIN, id + 30000, CR_UNTRANSLATED, 0, 0, 0);
+}
+
+/*------------------------------------------------------------------------------
+[3.04] Assigned Name
+------------------------------------------------------------------------------*/
+
+function str assignedname(int tid) {
+	//NameSeed(1,144)
+	//NameChars[0,143]
+	int nameid = -tid;
+	str name = "SOLDIER";
+	int nameval1 = 0;
+	int nameval2 = 0;
+	int nameval3 = 0;
+	//int nameval4 = 0;
+	//int nameval5 = 0;
+	str part1 = "";
+	str part2 = "";
+	str part3 = "";
+	//str part4 = "";
+	//str part5 = "";
+	int numparts = 2;
+	
+	While(nameid > 144) { nameid -= 144; }
+	
+	//if(Nameid % 7 == 4 || Nameid % 7 == 5) { numparts = 1; }
+	if(Nameid % 7 == 6) { numparts = 3; }
+	
+	nameval1 = nameid * 5 + NameSeed;
+	While(nameval1 > 144) { nameval1 -= 144; }
+	If(nameval1 == 143) { nameval1 = 1; }
+	If(nameval1 == 144) { nameval1 = 5; }
+	part1 = NameChars[nameval1 - 1];
+	
+	nameval2 = nameid * 4 + NameSeed;
+	While(nameval2 > 144) { nameval2 -= 144; }
+	part2 = NameChars[nameval2 - 1];
+	
+	If(numparts == 3) {
+		nameval3 = nameid * 3 + NameSeed;
+		While(nameval3 > 144) { nameval3 -= 144; }
+		If(nameval3 == 143) { nameval3 = 1; }
+		If(nameval3 == 144) { nameval3 = 5; }
+		part3 = NameChars[nameval3 - 1];
+	}
+	
+	/*If(numparts >= 4) {
+		nameval4 = nameid * 2 + NameSeed;
+		While(nameval4 > 144) { nameval4 -= 144; }
+		part4 = NameChars[nameval4 - 1];
+	}
+	
+	If(numparts == 5) {
+		nameval5 = nameid + NameSeed;
+		While(nameval5 > 144) { nameval5 -= 144; }
+		part5 = NameChars[nameval5 - 1];
+	}*/
+	
+	name = strparam(s:part1,s:part2,s:part3);
+	
+	return name;
+}
+
+/*------------------------------------------------------------------------------
+[3.05] RGA2 Compatibility
+------------------------------------------------------------------------------*/
+
+script SCRIPT_ENEMY_KILLED (int Amount)
+{
+	if(GetCVAR("fed_rga2"))
+	{
+		ACS_ExecuteAlways(613,0,Amount,0,0);
+	}
+	Else if(GetCVAR("fed_rga3"))
+	{
+		ACS_ExecuteAlways(611,0,Amount);
+	}
+	Else
+	{
+		Terminate;
+	}
+}
+
+Script SCRIPT_ENEMY_SET_ID (void) {
+	CurrentEnemyID++;
+	Thing_ChangeTID(0,CurrentEnemyID);
+	//Log(s:"Current Ally ID set at ",i:CurrentAllyID);
+}
+
+script SCRIPT_ENEMY_FOOTSTEP (void)
+{
+	int enemyactivator;
+	
+	enemyactivator = ActivatorTID();
+	
+	If (CheckActorFloorTexture(enemyactivator, "GRASS1")) { ThingSound(enemyactivator,"enemy/grassstep",127); }
+	If (CheckActorFloorTexture(enemyactivator, "FLAT5_2")) { ThingSound(enemyactivator,"enemy/woodstep",127); }
+	If (CheckActorFloorTexture(enemyactivator, "FLOOR1_6")) { ThingSound(enemyactivator,"enemy/carpetstep",127); }
+	Else { ThingSound(enemyactivator,"enemy/step",127); }
+	terminate;
+}
+
+/*------------------------------------------------------------------------------
+[A] Notes
+
+12/02/2013
+----------
+[2:26:26 PM] Minesae Hiromu: and has a nice ascii Federation logo at the top to 
+							 go with it, with the top of the order's eye as the 
+							 A in the name
+[2:27:21 PM] Avi: *squee*
+[2:27:26 PM] Avi: No, that did not just come out of me
+[2:27:31 PM] Avi: FUCK YOU IT DIDN'T HAPPEN
+
+------------------------------------------------------------------------------*/

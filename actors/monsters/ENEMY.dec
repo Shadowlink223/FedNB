@@ -1,0 +1,16 @@
+ACTOR Enemy {
+	MONSTER
+	+NOTARGET
+	+DONTHURTSPECIES
+	
+	Species "Knight"
+	
+	/*States {
+		See:
+			TNT1 A 1
+			Loop
+		Pain.KillMe:
+			TNT1 A 0
+			Goto See
+	}*/
+}

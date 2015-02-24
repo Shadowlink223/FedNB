@@ -1,0 +1,895 @@
+ACTOR BioKnight : Enemy 13979 {
+	//$Category Federation
+
+	Health 225
+	GibHealth 60
+	Radius 16
+	Height 40
+	Mass 100
+	Speed 20
+
+	+MISSILEMORE
+	+FASTER
+
+	DropItem "Clip" 128
+	DropItem "Clip" 64
+	DropItem "RocketAmmo" 16
+
+	DropItem "Stimpack" 32
+	DropItem "BioArmor" 4
+	DropItem "ArmorShardSpawner" 64
+
+	DropItem "Chaingun" 4
+	DropItem "PlasmaRifle" 1
+
+	//Dropitem "PDA" 4
+
+	Dropitem "DBeacon" 4
+
+	BloodType "AeniBlood"
+	Decal "BulletChip"
+	
+	DamageFactor "DU", 1.1
+	DamageFactor "HP", 1.25
+	DamageFactor "Trid", 1.5
+
+	PainChance 50
+	PainChance "Shock", 255
+	PainChance "ShockSlug", 255
+	DamageFactor "Poison", 0.05
+   	PainChance "Poison", 0
+
+	SeeSound "Knight/KnightSight"
+	AttackSound ""
+	PainSound "Knight/KnightPain"
+	DeathSound "monster/inidth"
+	ActiveSound "monster/iniact"
+
+	Obituary "%o was perforated by a Bio-Knight."
+
+	States {
+
+/******************************************************************************\
+==================================MAIN STATES===================================
+\******************************************************************************/
+
+	Spawn:
+		SKFA A 0
+		TNT1 A 0 Thing_SetSpecial(0,226,642,0,random(14,28))
+	SpawnLoop:
+		TNT1 A 0 A_SpawnItem("HeadshotTarget10b",15,40,0)
+		SKFA E 10 A_LookEx(0,0,random(512,2048),random(1024,4096),random(90,120),"See")
+		Loop
+	See:
+		SKFA A 1 // Infinite loop crash prevention?
+		TNT1 A 0 A_CheckSight("ChanceToCharge")
+		Goto TakeCharge
+	ChanceToCharge:
+		TNT1 A 0 A_Jump(128,"GiveCharge")
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto Chase
+	GiveCharge:
+		TNT1 A 0 A_JumpIfInventory("KnightCharge",1,"TakeCharge")
+		TNT1 A 0 A_GiveInventory("KnightCharge",1)
+		Goto IfLowHealth
+	TakeCharge:
+		TNT1 A 0 A_TakeInventory("KnightCharge",1)
+		Goto IfLowHealth
+	IfLowHealth:
+		TNT1 A 0 A_JumpIfHealthLower(50,"LowHealth")
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto HealthHigh
+	HealthHigh:
+		TNT1 A 0 A_ChangeFlag("Frightened",0)
+		Goto Chase
+	LowHealth:
+		TNT1 A 0 A_Jump(32,"HealUp")
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto Retreat
+	Retreat:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_ChangeFlag("Frightened",1)
+		Goto HealUp
+	HealUp:
+		TNT1 A 0 HealThing(1)
+		Goto Chase
+	Chase:
+		TNT1 A 0 A_JumpIfInventory("KnightCharge",1,"Charge")
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3b",15,40,0)
+		SKFA AA 3 A_FastChase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3b",15,40,0)
+		SKFA BB 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3b",15,40,0)
+		SKFA CC 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3b",15,40,0)
+		SKFA DD 3 A_Chase
+		Goto See
+	Charge:
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3b",15,40,0)
+		TNT1 A 0 A_Chase
+		SKFA A 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3b",15,40,0)
+		TNT1 A 0 A_Chase
+		SKFA B 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3b",15,40,0)
+		TNT1 A 0 A_Chase
+		SKFA C 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3b",15,40,0)
+		TNT1 A 0 A_Chase
+		SKFA D 3 A_Chase
+		Goto See
+
+/******************************************************************************\
+=================================ATTACK STATES==================================
+\******************************************************************************/
+
+	Missile:
+		TNT1 A 0 A_SpawnItem("HeadshotTarget10b",0,40,0)
+		SKFA E 10 A_FaceTarget
+		TNT1 A 0 A_Jump(64,"DistanceCheck")
+		Goto BulletAttack
+	BulletAttack:
+		TNT1 A 0 A_JumpIfInventory("KnightAmmo",30,"Reload")
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("FNS_F1",6)
+		TNT1 A 0 A_GiveInventory("KnightAmmo",1)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget1b",0,40,0)
+		//TNT1 A 0 A_CustomBulletAttack(5,5,1,random(2,5),BulletPuff)
+		SKFA F 1 BRIGHT A_CustomMissile("BioTracer",38,0,random(-5,5),0,random(-5,5))
+		SKFA E 2 A_SpawnItem("HeadshotTarget2b",0,40,0)
+		TNT1 A 0 A_JumpIfInventory("KnightAmmo",30,"Reload")
+		TNT1 A 0 A_MonsterRefire(224,"See")
+		Loop
+	Reload:
+		TNT1 A 0 A_ChangeFlag(NOPAIN,1)
+		TNT1 A 0 A_TakeInventory("KnightAmmo",30)
+		SKFA EE 3 A_SpawnItem("HeadshotTarget3b",0,40,0)
+		TNT1 A 0 A_PlaySound("FNS_R2")
+		SKFA E 2 A_SpawnItem("HeadshotTarget2b",0,40,0)
+		SKFA EEEEEEEEEEEEEEEEEEEEEEE 4 A_SpawnItem("HeadshotTarget4b",0,40,0)
+		TNT1 A 0 A_ChangeFlag(NOPAIN,0)
+		goto See
+	DistanceCheck:
+		TNT1 A 0 A_JumpIfCloser(1768,"CloseRangeSpecial")
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto BulletAttack
+	CloseRangeSpecial:
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4b",0,40,0)
+		SKFA E 4 A_FaceTarget
+		TNT1 A 0 A_JumpIfCloser(192,"KnifeLunge")
+		Goto LaunchBioGrenade
+	LaunchBioGrenade:
+		SKFA F 2 BRIGHT A_CustomMissile("KnightBioGrenadeShell",28,5,random(-15,15),2,random(0,10))
+		Goto LaunchGrenadeFinish
+	LaunchGrenadeFinish:
+		SKFA EE 3 A_SpawnItem("HeadshotTarget3b",0,40,0)
+		Goto GrenadeReload
+	GrenadeReload:
+		TNT1 A 0 A_ChangeFlag(NOPAIN,1)
+		TNT1 A 0 A_PlaySoundEx("M4_CLIPO","SoundSlot5")
+		SKFA E 2 A_SpawnItem("HeadshotTarget2b",0,40,0)
+		SKFA E 10 A_SpawnItem("HeadshotTarget10b",0,40,0)
+		TNT1 A 0 A_PlaySoundEx("M4_CLIPI","SoundSlot5")
+		SKFA E 2 A_SpawnItem("HeadshotTarget2b",0,40,0)
+		SKFA EEEEEE 10 A_SpawnItem("HeadshotTarget10b",0,40,0)
+		TNT1 A 0 A_ChangeFlag(NOPAIN,0)
+		Goto See
+	KnifeLunge:
+		TNT1 A 0 ThrustThing(angle*256/360,25,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4b",0,40,0)
+		SKFA E 4 A_FaceTarget
+		TNT1 A 0 A_PlaySound("knife/swing")
+		TNT1 A 0 A_SpawnItem("HeadshotTarget2b",0,40,0)
+		SKFA E 2 A_CustomMeleeAttack(34,"knife/swing","knife/swing","Knife",1)
+		Goto CloseRangeFinish
+	CloseRangeFinish:
+		SKFA EE 3 A_SpawnItem("HeadshotTarget3b",0,40,0)
+		Goto See
+
+/******************************************************************************\
+==================================PAIN STATES===================================
+\******************************************************************************/
+
+	Pain:
+		SKFA G 3 A_SpawnItem("HeadshotTarget4b",0,40,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4b",0,40,0)
+		SKFA G 3 A_Pain
+		Goto See
+	Pain.Shock:
+	Pain.ShockSlug:
+		TNT1 A 0 A_ChangeFlag(NOPAIN,1)
+		TNT1 A 0 A_Pain
+		SKFA GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 10 A_SpawnItem("HeadshotTarget10b",0,40,0)
+		TNT1 A 0 A_ChangeFlag(NOPAIN,0)
+		Goto See
+	Pain.KillMe:
+		Goto See
+
+/******************************************************************************\
+==================================DEATH STATES==================================
+\******************************************************************************/
+
+	Death:
+		TNT1 A 0 A_JumpIfHealthLower(-60,"Splode")
+		SKFA H 5 A_AlertMonsters
+		SKFA I 5 A_Scream
+		TNT1 A 0 A_Playsound("items/sbomb")
+		TNT1 A 0 A_SpawnItem("PoisonSmokeSpawner2")
+		TNT1 A 0 A_SpawnItem("BioSludgeExplosion")
+		TNT1 A 0 Radius_Quake(3,15,0,16,0)
+		Goto DeathFall
+	Death.KnifeSlash:
+	Death.KnifeStab:
+	Death.KnifeSlashPower:
+	Death.KnifeStabPower:
+	Death.WakizashiSlash:
+	Death.WakizashiStab:
+	Death.WakizashiSlashPower:
+	Death.WakizashiStabPower:
+		SKFA H 5
+		SKFA I 5 A_PlaySound("KNI_HIT")
+	DeathFall:
+		SKFA J 5 A_Fall
+		SKFA KLM 5
+		TNT1 A 0 A_Jump(5,"Regenerating")
+		SKFA N -1
+		Stop
+	Regenerating:
+		SKFA NNNNNNNNNNNNNNN 70
+		SKFA N -1 Thing_Raise(0)
+		Wait
+	Splode:
+		TNT1 A 0 A_XScream
+		TNT1 A 0 A_NoBlocking
+		XXLF O 5 A_SpawnItem("AeniBlood",0,32,0)
+		TNT1 A 0 A_SpawnItemEx ("AeniBlood", 0,34,0, random(-75,75)*0.01,random(-75,75)*0.01,random(-65,65)*0.01, 0, SXF_NOCHECKPOSITION|SXF_CLIENTSIDE|SXF_TRANSFERTRANSLATION, 0)	
+		XXLF P 5 A_SpawnItem("AeniBlood",0,34,0)
+		TNT1 A 0 A_Playsound("items/sbomb")
+		TNT1 A 0 A_SpawnItem("PoisonSmokeSpawner2")
+		TNT1 A 0 A_SpawnItem("BioSludgeExplosion")
+		XXLF Q 5 A_SpawnItem("AeniBlood",0,26,0)
+		XXLF R 5 A_SpawnItem("AeniBlood",0,20,0)
+		XXLR S 5 A_SpawnItem("AeniBlood",0,14,0)
+		XXLR T 5 A_SpawnItem("AeniBlood",0,6,0)
+		XXLR U 5 A_SpawnItem("AeniBlood",0,0,0)
+		XXLR V 5 A_SpawnItem("AeniBlood",0,0,0)
+		XXLR W 5 // No extra blood needed here. He's dead, Jim.
+		TNT1 A 0 A_SpawnItemEx("DEADStrikeKnightGib",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)
+		Stop
+	Death.Fire2:
+		TNT1 A 0 A_Playsound("items/sbomb")
+		TNT1 A 0 A_SpawnItem("PoisonSmokeSpawner2")
+		TNT1 A 0 A_SpawnItem("BioSludgeExplosion")
+		TNT1 A 0 Radius_Quake(3,15,0,16,0)
+		TNT1 A 1 A_SpawnItem("BurnDeath1", 2, 1)
+		TNT1 A 0 A_AlertMonsters
+		Stop
+	Death.head:
+		SKFA O 9 A_PlaySound("headshot/splat")
+		TNT1 A 0 A_SpawnItem("AeniBlood",0,40,0)
+		TNT1 A 0 A_SpawnItem("AeniBlood",0,40,0)
+		SKFA P 9 A_XScream
+		SKFA Q 9 A_Fall
+		SKFA R 5
+		SKFA S 5 A_SpawnItemEx("DEADStrikeKnight",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)
+		Stop
+	Raise:
+		SKFA KJI 5
+		SKFA H 5 Thing_SetSpecial(0,226,642,0,random(14,28))
+		Goto See
+	}
+}
+
+Actor BioKnightGrenade
+{
+  obituary "%o was gassed by a Bio-Knight's poison grenade."
+  radius 6
+  height 8
+  speed 20
+  damage (10)
+  seesound "ZSec/bounce"
+  PROJECTILE
+  +DOOMBOUNCE
+  -NOGRAVITY
+  +GRENADETRAIL
+  +DONTFALL
+  bouncefactor 0.5
+  bouncecount 10
+  states
+  {
+  Spawn:
+    GRND AAA 35 bright
+  Death:
+    MISL C 0 bright A_PlaySound("weapons/rocklx")
+    MISL C 5 bright A_Explode(0,32,0)
+    MISL C 0 A_PlaySound("Grenade/Gassed")
+    MISL C 0 A_Mushroom("PoisonShotCloud1", 4)
+    MISL C 0 A_Mushroom("PoisonShotCloud1", 8)
+    MISL C 0 A_Mushroom("PoisonShotCloud1", 12)
+    MISL C 0 A_Mushroom("PoisonShotCloud1", 16)
+    MISL D 4 bright
+    MISL E 3 bright
+    stop
+  }
+}
+
+ACTOR PoisonShotCloud1 //Weapon: Poison Gun, By: Daniel, using the gas clouds from it.
+{
+   Radius 24
+   Height 16
+   Speed 16
+   Mass 2000
+   damage 1
+   obituary "%o was gassed by a Bio-Knight."
+   +NOBLOCKMAP 
+   +DROPOFF 
+   +MISSILE 
+   +ACTIVATEIMPACT 
+   +ACTIVATEPCROSS 
+   +NOTARGET
+   poisondamage 1
+   RENDERSTYLE TRANSLUCENT
+   ALPHA 0.67
+   States
+   {
+   Spawn:
+      PSNE A 1 Bright
+      Loop
+   Death:
+      PSNE A 3 Bright
+      PSNE B 4 Bright
+      PSNE C 1 Bright
+      PSNE C 0 A_Jump(16,2)
+      PSNE C 1 Bright A_CustomMissile("PoisonShotCloud2",5,0,0)
+      PSNE C 0 A_Jump(16,2)
+      PSNE C 1 Bright A_CustomMissile("PoisonShotCloud2",5,0,90)
+      PSNE C 0 A_Jump(16,2)
+      PSNE C 1 Bright A_CustomMissile("PoisonShotCloud2",5,0,180)
+      PSNE C 0 A_Jump(16,2)
+      PSNE C 1 Bright A_CustomMissile("PoisonShotCloud2",5,0,270)
+      PSNE DEFGCBA 6 Bright
+      Stop
+   }
+}
+
+ACTOR PoisonShotCloud2
+{
+   Radius 16
+   Height 8
+   Speed 8
+   Mass 3000
+   damage 1
+   obituary "%o was gassed by a Bio-Knight."   
+   +NOBLOCKMAP 
+   +DROPOFF 
+   +MISSILE 
+   +ACTIVATEIMPACT 
+   +ACTIVATEPCROSS 
+   +NOTARGET
+   poisondamage 1
+   RENDERSTYLE TRANSLUCENT
+   ALPHA 0.33
+   States
+   {
+   Spawn:
+      PSNE A 1 Bright
+      Loop
+   Death:
+      PSNE A 3 Bright
+      PSNE B 4 Bright
+      PSNE C 1 Bright
+      PSNE C 0 A_Jump(32,2)
+      PSNE C 1 Bright A_CustomMissile("PoisonShotCloud3",5,0,0)
+      PSNE C 0 A_Jump(32,2)
+      PSNE C 1 Bright A_CustomMissile("PoisonShotCloud3",5,0,90)
+      PSNE C 0 A_Jump(32,2)
+      PSNE C 1 Bright A_CustomMissile("PoisonShotCloud3",5,0,180)
+      PSNE C 0 A_Jump(32,2)
+      PSNE C 1 Bright A_CustomMissile("PoisonShotCloud3",5,0,270)
+      PSNE DEFGCBA 6 Bright
+      Stop
+   }
+}
+
+ACTOR PoisonShotCloud3
+{
+   Radius 10
+   Height 8
+   Speed 8
+   Mass 4000
+   damage 1
+   obituary "%o was gassed by a Bio-Knight."
+   +NOBLOCKMAP 
+   +DROPOFF 
+   +MISSILE 
+   +ACTIVATEIMPACT 
+   +ACTIVATEPCROSS 
+   +NOTARGET
+   poisondamage 1
+   RENDERSTYLE TRANSLUCENT
+   ALPHA 0.15
+   States
+   {
+   Spawn:
+      PSNE A 1 Bright
+      Loop
+   Death:
+      PSNE A 3 Bright
+      PSNE B 4 Bright
+      PSNE C 5 Bright
+      PSNE DEFGCBA 6 Bright
+      Stop
+   }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+actor poisonsmokebomb
+{
+//Scale 0.25
+speed 15
+radius 6
+height 1
+damage 0
+gravity 0.85
+PROJECTILE
++RIPPER
+-NOGRAVITY
+translation "48:79=80:111", "112:255=80:111"
+states
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_PlaySound("items/sbombf")
+goto spawn2
+Spawn2:
+GRND AAAAAA 3
+loop
+Death:
+TNT1 A 0 A_Playsound("items/sbombx")
+//TNT1 A 0 A_SpawnItem("PoisonSmokeDamager")
+TNT1 A 0 A_SpawnItem("poisonsmokespawner2")
+TNT1 A 17 A_SpawnItem("BioSludgeExplosion")
+TNT1 A 0 A_PlaySound("items/sbombs")
+//GRND AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 2 A_CustomMissile("poisonsmoke9",0,0,random(0,359),2,random(22,90))
+stop
+}
+}
+
+actor poisonsmoke
+{
+Scale 5
+Radius 0
+Height 0
+obituary "%o was gassed by a Bio-Knight's poison grenade."
+renderstyle translucent
+alpha 0.20
+//damage 10
+//DamageType "Poison"
+//poisondamage 35
+//Health 1
+//+VULNERABLE
+// DamageFactor "Fire2", 20000
+//+SHOOTABLE
++NOGRAVITY
+//+NOBLOOD
+//+PIERCEARMOR
++RIPPER
+//+NOCLIP
++CLIENTSIDEONLY
+states
+{
+Spawn:
+FDPG A 0
+FDPG A 0 A_Jump(255,"1","2","3","4","5","6","7","8","9","10")
+stop
+1:
+FDPG A 0 A_FadeOut(0.25)
+FDPG A 70
+goto FadeOut
+2:
+FDPG A 0 A_FadeOut(0.25)
+FDPG A 75
+goto FadeOut
+3:
+FDPG A 0 A_FadeOut(0.25)
+FDPG A 80
+goto FadeOut
+4:
+FDPG A 0 A_FadeOut(0.25)
+FDPG A 85
+goto FadeOut
+5:
+FDPG A 0  A_FadeOut(0.25)
+FDPG A 90
+goto FadeOut
+6:
+FDPG A 0 A_FadeOut(0.25)
+FDPG A 95
+goto FadeOut
+7:
+FDPG A 0 A_FadeOut(0.25)
+FDPG A 100
+goto FadeOut
+8:
+FDPG A 0 A_FadeOut(0.25)
+FDPG A 105
+goto FadeOut
+9:
+FDPG A 0 A_FadeOut(0.25)
+FDPG A 110
+goto FadeOut
+10:
+FDPG A 0 A_FadeOut(0.25)
+FDPG A 115
+goto FadeOut
+FadeOut:
+FDPG A 1 A_FadeOut(0.005)
+loop
+Death:
+TNT1 A 0 A_JumpIfHealthLower(1,1)
+stop
+MISL C 5 bright A_Explode(8,128)
+MISL C 0 A_PlaySound("Grenade/Flamed")
+//MISL C 0 bright A_SpawnItemEx("dirtysmokebomb",0,0,0)
+MISL C 0 A_Mushroom("FKFire",4) //A_Burst("FKFire")
+/*MISL J 0 A_CustomMissile("FKFire", 5, 0, 90)
+MISL J 0 A_CustomMissile("FKFire", 5, 0, 45)
+MISL J 0 A_CustomMissile("FKFire", 5, 0, -90)
+MISL J 0 A_CustomMissile("FKFire", 5, 0, -45)
+MISL J 0 A_CustomMissile("FKFire", 5, 0, 180)
+MISL J 0 A_CustomMissile("FKFire", 5, 0, 135)
+MISL J 0 A_CustomMissile("FKFire", 5, 0, 0)
+MISL J 0 A_CustomMissile("FKFire", 5, 0, -135)*/
+MISL D 4 bright
+MISL E 3 bright
+Stop
+}
+}
+
+actor poisongravsmoke : poisonsmoke
+{
+radius 1
+height 1
+PROJECTILE
+-NOGRAVITY
++FLOORHUGGER
++CLIENTSIDEONLY
+}
+
+actor poisonsmoke1
+{
+Scale 2.2
+speed 25
+renderstyle translucent
+alpha 0.20
+damage 5
+DamageType "Poison"
+poisondamage 35
+PROJECTILE
++NOGRAVITY
++NOCLIP
+//+PIERCEARMOR
++CLIENTSIDEONLY
+states
+{
+Spawn:
+TNT1 A 0
+FDPG A 1
+TNT1 A 0 A_SpawnItem("poisonsmoke")
+stop
+}
+}
+
+actor poisonsmoke2 : poisonsmoke1
+{
++CLIENTSIDEONLY
+states
+{
+Spawn:
+TNT1 A 0
+FDPG A 2
+TNT1 A 0 A_SpawnItem("poisonsmoke")
+stop
+}
+}
+
+actor poisonsmoke3 : poisonsmoke1
+{
++CLIENTSIDEONLY
+states
+{
+Spawn:
+TNT1 A 0
+FDPG A 3
+TNT1 A 0 A_SpawnItem("poisonsmoke")
+stop
+}
+}
+
+actor poisonsmoke4 : poisonsmoke1
+{
++CLIENTSIDEONLY
+states
+{
+Spawn:
+TNT1 A 0
+FDPG A 4
+TNT1 A 0 A_SpawnItem("poisonsmoke")
+stop
+}
+}
+
+actor poisonsmoke5 : poisonsmoke1
+{
++CLIENTSIDEONLY
+states
+{
+Spawn:
+TNT1 A 0
+FDPG A 5
+TNT1 A 0 A_SpawnItem("poisonsmoke")
+stop
+}
+}
+
+actor poisonsmoke6 : poisonsmoke1
+{
++CLIENTSIDEONLY
+states
+{
+Spawn:
+TNT1 A 0
+FDPG A 6
+TNT1 A 0 A_SpawnItem("poisonsmoke")
+stop
+}
+}
+
+actor poisonsmoke7 : poisonsmoke1
+{
++CLIENTSIDEONLY
+states
+{
+Spawn:
+TNT1 A 0
+FDPG A 7
+TNT1 A 0 A_SpawnItem("poisonsmoke")
+stop
+}
+}
+
+actor poisonsmoke8 : poisonsmoke1
+{
++CLIENTSIDEONLY
+states
+{
+Spawn:
+TNT1 A 0
+FDPG A 8
+TNT1 A 0 A_SpawnItem("poisonsmoke")
+stop
+}
+}
+
+actor poisonsmoke9 : poisonsmoke1
+{
++CLIENTSIDEONLY
+states
+{
+Spawn:
+TNT1 A 0
+FDPG A 11
+TNT1 A 0 A_SpawnItem("poisonsmoke")
+stop
+}
+}
+
+actor poisonsmoke888 : poisonsmoke1
+{
++CLIENTSIDEONLY
+states
+{
+Spawn:
+TNT1 A 0
+FDPG A 2
+TNT1 A 0 A_SpawnItem("poisongravsmoke")
+FDPG A 2
+TNT1 A 0 A_SpawnItem("poisongravsmoke")
+FDPG A 2
+TNT1 A 0 A_SpawnItem("poisongravsmoke")
+FDPG A 2
+TNT1 A 0 A_SpawnItem("poisongravsmoke")
+stop
+}
+}
+
+actor poisonsmokespawner
+{
++CLIENTSIDEONLY
+states
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_Jump(255,"Spawn1","Spawn2")
+Spawn1:
+TNT1 A 0
+TNT1 A 0 A_CustomMissile("poisonsmoke1",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("poisonsmoke3",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("poisonsmoke5",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("poisonsmoke7",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("poisonsmoke888",0,0,0,2,-15)
+stop
+Spawn2:
+TNT1 A 0
+TNT1 A 0 A_CustomMissile("poisonsmoke2",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("poisonsmoke4",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("poisonsmoke6",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("poisonsmoke8",0,0,0,2,random(90,10))
+TNT1 A 0 A_CustomMissile("poisonsmoke888",0,0,0,2,-15)
+stop
+}
+}
+
+actor poisonsmokespawner2
+{
++CLIENTSIDEONLY
+states
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_SpawnItemEx ("poisonsmokespawner", 0, 0, 0, 0, 0, 0, 0, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("poisonsmokespawner", 0, 0, 0, 0, 0, 0, 30, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("poisonsmokespawner", 0, 0, 0, 0, 0, 0, 60, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("poisonsmokespawner", 0, 0, 0, 0, 0, 0, 90, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("poisonsmokespawner", 0, 0, 0, 0, 0, 0, 120, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("poisonsmokespawner", 0, 0, 0, 0, 0, 0, 150, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("poisonsmokespawner", 0, 0, 0, 0, 0, 0, 180, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("poisonsmokespawner", 0, 0, 0, 0, 0, 0, -30, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("poisonsmokespawner", 0, 0, 0, 0, 0, 0, -60, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("poisonsmokespawner", 0, 0, 0, 0, 0, 0, -90, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("poisonsmokespawner", 0, 0, 0, 0, 0, 0, -120, 128, 0)
+TNT1 A 0 A_SpawnItemEx ("poisonsmokespawner", 0, 0, 0, 0, 0, 0, -150, 128, 0)
+stop
+}
+}
+
+actor poisonsmokeDamager
+{
+radius 512
+height 1024
+speed 0
+damage 5
+DamageType "Poison"
+poisondamage 35
+PROJECTILE
++NOGRAVITY
++NOCLIP
++RIPPER
+//+PIERCEARMOR
+states
+{
+Spawn:
+TNT1 A 0
+TNT1 A 115
+stop
+}
+}
+
+/******************************************************************************\
+===============================BIO SLUDGE ACTORS================================
+\******************************************************************************/
+
+ACTOR BioSludgeExplosion {
+	Radius 16
+	Height 32
+	Speed 0
+	Damage 5
+	DamageType Poison
+	PoisonDamage 35
+	Scale 0.5
+	PROJECTILE
+	+RIPPER
+	Decal BioSludgeOoze
+	States {
+		Spawn:
+			TNT1 A 0
+		Death:
+			SLUD A 2 BRIGHT A_PlaySound("bloodsplat",CHAN_AUTO)
+			SLUD BC 2 BRIGHT
+			SLUD D 2 BRIGHT //A_Explode(32,64)
+			TNT1 AAAAAAAAAAAA 0 A_SpawnItemEx("BioSludgeBall",0,0,8,random(-10,10),random(-10,10),random(-10,10),SXF_NOCHECKPOSITION)
+			SLUD EFGHIJKLMN 2 BRIGHT
+			STOP
+	}
+}
+
+ACTOR BioSludgeBall {
+	Radius 4
+	Height 8
+	Speed 4
+	Damage 1
+	DamageType Poison
+	PoisonDamage 5
+	//Scale 0.5
+	PROJECTILE
+	-NOGRAVITY
+	Decal BioSludgeOoze
+	States {
+		Spawn:
+			SLUD OP 2 BRIGHT
+			LOOP
+		Death:
+			SLUD QRSTUVW 2 BRIGHT
+			TNT1 A 0 BRIGHT A_SpawnItemEx("BioSludge",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+			Stop
+		Xdeath:
+		Crash:
+			SLUG ABCDEFGHIJKLM 2 BRIGHT
+			Stop
+	}
+}
+
+ACTOR BioSludge {
+	Radius 14
+	Height 2
+	Speed 0
+	Damage 1
+	DamageType Poison
+	PoisonDamage 5
+	//Scale 0.5
+	PROJECTILE
+	-NOGRAVITY
+	+RANDOMIZE
+	States {
+		Spawn:
+			SLUD W 50
+			//TNT1 A 0 A_PlaySound("bloodsplat",CHAN_AUTO)
+		Puddle:
+			//TNT1 A 0 A_PlaySound("BioSludge/Decay",CHAN_AUTO)
+			//TNT1 A 0 A_SpawnItemEx("BioSludgeBubble",random(-32,32),random(-32,32),4,0,0,1,0,SXF_NOCHECKPOSITION)
+			SLUD WWWWWWWWW 50 BRIGHT A_SpawnItemEx("BioSludgeBubble",random(-32,32),random(-32,32),4,0,0,1,0,SXF_NOCHECKPOSITION) //A_FadeOut(0.002)
+			/*TNT1 A 0 A_SpawnItemEx("BioSludgeBubble",random(-32,32),random(-32,32),4,0,0,1,0,SXF_NOCHECKPOSITION)
+			SLUD W 2 BRIGHT A_FadeOut(0.002)
+			TNT1 A 0 A_SpawnItemEx("BioSludgeBubble",random(-32,32),random(-32,32),4,0,0,1,0,SXF_NOCHECKPOSITION)
+			SLUD W 2 BRIGHT A_FadeOut(0.002)
+			TNT1 A 0 A_SpawnItemEx("BioSludgeBubble",random(-32,32),random(-32,32),4,0,0,1,0,SXF_NOCHECKPOSITION)
+			SLUD W 2 BRIGHT A_FadeOut(0.002)
+			TNT1 A 0 A_SpawnItemEx("BioSludgeBubble",random(-32,32),random(-32,32),4,0,0,1,0,SXF_NOCHECKPOSITION)
+			SLUD W 2 BRIGHT A_FadeOut(0.002)*/
+			Goto Death
+		Death:
+			SLUE ABCDE 2 BRIGHT
+			STOP
+	}
+}
+
+ACTOR BioSludgeBubble {
+	Radius 2
+	Height 2
+	Speed 0
+	Damage 0
+	Scale 0.3
+	-NOGRAVITY
+	+CLIENTSIDEONLY
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_PlaySound("BioSludge/Decay",CHAN_AUTO)
+		Death:
+			SLUD OPQRSTUVW 1
+			Stop
+	}
+}

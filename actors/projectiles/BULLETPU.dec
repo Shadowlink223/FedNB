@@ -1,0 +1,58 @@
+ACTOR BurstPuff : bulletpuff replaces bulletpuff {
+	Radius 8
+	Height 6
+	Speed 0
+	VSpeed 0
+	+NOBLOCKMAP
+	+PUFFONACTORS
+	+ALWAYSPUFF
+	+BRIGHT
+	renderstyle normal
+	Scale 0.6
+	decal bulletchip
+	damagetype "NormalBullet"
+	AttackSound "pings" // Hit Wall
+	SeeSound "pings" // Hit Actor
+	States { 
+		Crash: // Hit Wall
+			HITM A 0 A_Jump(85,"ping1")
+			HITM A 0 A_Jump(85,"ping2")
+			SMKE ABCDEFGH 2
+			stop
+		Spawn: // Hit Actor
+			HITM A 0 A_Jump(85,"ping1")
+			HITM A 0 A_Jump(85,"ping2")
+			SMKE ABCDEFGH 2
+			stop
+		Ping1:
+			HITM A 1 //A_PlaySound("pings")
+			HITM BCD 1
+			stop
+		Ping2:
+			HITM E 1 //A_PlaySound("pings")
+			HITM FGH 1
+			stop
+		Death:
+			TNT1 A 0
+			stop
+	}
+}
+
+ACTOR FBulletPuff : BurstPuff { damagetype "FriendBullet" +NOEXTREMEDEATH }
+ACTOR PBulletPuff : BurstPuff { damagetype "PlayerBullet" +NOEXTREMEDEATH }
+ACTOR WeakBulletPuff : PBulletPuff { +NOEXTREMEDEATH }
+ACTOR MidBulletPuff : PBulletPuff { +NOEXTREMEDEATH }
+ACTOR HardBulletPuff : PBulletPuff { -NOEXTREMEDEATH }
+ACTOR HollowPointPuff : BurstPuff { damagetype "HollowPoint" +NOEXTREMEDEATH }
+ACTOR ArmorPiercingPuff : BurstPuff { damagetype "ArmorPiercing" +PIERCEARMOR }
+ACTOR DeaglePuff : PBulletPuff { +NOEXTREMEDEATH }
+ACTOR AWMBulletPuff : HardBulletPuff {
+	AttackSound "Lance/Impact" // Hit Wall
+	SeeSound "Lance/Hit" // Hit Actor
+	//DeathSound "Lance/Impact"
+}
+ACTOR LanceBulletPuff : HardBulletPuff {
+	AttackSound "Lance/Impact" // Hit Wall
+	//SeeSound "Lance/Impact" // Hit Actor
+	SeeSound "Lance/Hit" // Hit Actor
+}

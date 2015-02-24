@@ -1,0 +1,341 @@
+================================================================================
+------------------------:::::::::::CHANGE LOG:::::::::::------------------------
+================================================================================
+v0.12.16 [6/02/2014 2:05 PM EST]
+--------------------------------
+- Avi - Removed StikeKnight 0 tick chases, added nightmare speed to compensate.
+
+v0.12.15 [5/25/2014 9:39 PM EST]
+--------------------------------
+- MIN - Whatever changes Min made to the Rook were on this day.
+- AVI - Fixed a quick bug in the Rook code.
+
+v0.12.12 [5/10/2014 7:03 PM EST]
+--------------------------------
+Added:
+- AVI - New Divider graphic for HUD (left oriented version)
+Changed:
+- AVI - Graphics for HUD helmet have been replaced with modified versions of the
+		original. Same goes for all light-up indicators.
+- AVI - SBARINFO heavily modified to reposition all numbers related to total
+		ammo left, and health/armor.
+- AVI - Health/Armor graphics moved. The hud should feel more symetrical.
+- AVI - All weapons no longer fire hitscans. Everything has been modified for
+		fast projectiles. Given Fed combined projectiles and hitscans in the
+		past, this is more to unify the player bullet behavior with the monster
+		bullets. In the future, different speeds can be given to different ammo.
+- AVI - Reload related bugs not previously known due to poor display position-
+		ing fixed for the OP19.
+- AVI - All weapons now have Knife slash coding consistant in the weapon's
+		respective reload DECORATE. All weapons now have a QuickReady state that
+		makes use of the quick knife attack more time efficient.
+
+
+v0.12.14 [4/28/2014 9:38 PM EST]
+--------------------------------
+- MIN - Cleaned up the Crusader's DECORATE code some, added a new attack.
+
+v0.12.13 [4/25/2014 2:07 AM EST]
+--------------------------------
+Changed:
+- AVI - Replaced .50 BMG with .338 Lapua Magnum.
+- AVI - Added .338 Lapua Tungsten Core round
+      - Fully implemented Fire/Reload/AmmoSwap for the new ammotype.
+- AVI - Buffed the bullshit spread of the Desert Eagle. Players should be able
+		to actually hit an enemy within three feet of them via Hipfire.
+- AVI - Modifed AWM to have the quick knife availble during reloads.
+		- It will only do so BEFORE the point of ammo being in the gun.
+
+v0.12.12 [4/10/2014 7:52 PM EST]
+--------------------------------
+Changed:
+- MIN - Fixed Glock DryIron visual glitch.
+
+v0.12.11 [3/28/2014 3:47 PM EST]
+--------------------------------
+Changed:
+- AVI - Replaced icons for MOST AmmoWheel ammunition icons. Numbers still in GFX.
+       - Icons Listed: Buckshot, Acid Pop Rocket, Taser Slug, Dragon Breath,
+	     5.7 FMJ, 5.7 Trident, Triple Threat Shell, DPP Rail, 9mm Lugar, 9mm DU,
+	   - NEEDED: DPP Ball, DPP Cryo, Lightning Beam (What is the name of that shot?)
+- AVI - Adjusted LAHNS damage numbers to 100.
+- AVI - Adjusted AWM damage numbers to 200.
+- AVI - LAHNS ammunition now uses 7.9 x 55mm Wallman.
+- AVI - Acid Pop Rockets, Taser Slugs, and Dragon Breath added to AMMO DECORATE.
+
+v0.12.10 [3/24/2014 3:57 AM EST]
+--------------------------------
+Changed:
+- MIN - Replaced icons for beacons and inventory items.
+- MIN - Hunters displayed wrong final frame on normal death.
+- MIN - Hunters had leftover jump names from old code.
+
+v0.12.9  [3/24/2014 3:57 AM EST]
+--------------------------------
+Added:
+- MIN - Campaign Hub Test Map.
+- MIN - New ACS in preperation for new SPAS-12 ammo loading system.
+- AVI - Graphics for new SPAS-12 loading system.
+- AVI - Graphics for Rate of Fire of different weapons
+Changed:
+- AVI - Knife related code in Glock and MP7 DECORATE.
+- AVI - Changed Glock supressed firing sound.
+
+v0.12.8  [3/20/2014 5:50 PM EST]
+--------------------------------
+Added:
+- MIN - Basic firing of slugs for the SPAS-12 implemented.
+- MIN - Firing Range map.
+Changed:
+- MIN - Riot Shield sharpnel is spawned differently now.
+- MIN - Adjusted damage factors and pain chances in preperation for slugs.
+
+v0.12.7  [3/18/2014 4:42 PM EST]
+--------------------------------
+Changed:
+- MIN - Enemy Knight deaths are now silent when killed with a knife or wakizashi
+		to allow for more stealth options.
+
+v0.12.6  [3/17/2014 1:29 PM EST]
+--------------------------------
+Added:
+- MIN - Markers for Allies and Grenades that can be viewed through walls.
+- MIN - VR training map.
+Bugs:
+- MIN - Glock has issues with keeping ironsight while the DU ammotype is active.
+
+v0.12.5  [3/15/2014 3:31 AM EST]
+--------------------------------
+Changed:
+- AVI - SBARINFO Updated to display Glock's alt ammo. Had to add a line to all
+		of the guns in order to not have the double display glitch. Every gun
+		now manually displays Ammo1 instead of having a collective line for it.
+- AVI - Token Removed from TOKENS.txt (GLKDUBurst)
+- AVI - Glock Code:
+					- Fixed Firing issue with DU rounds: Token was not properly
+					  named in the first draft writing.
+					- Fire/FireIron and all substates of the two have been reor-
+					  ganized for efficiency.
+					- Reload has been expanded into three states: Reload,
+					  Reload9mmC, and ReloadDUC.
+
+v0.12.4  [3/14/2014 7:13 PM EST]
+--------------------------------
+Changed:
+- AVI - Glock code (DU states).
+- MIN - ArmorShard pickup text changed to "Picked up a Shield Battery."
+- MIN - ArmorShard now randomly gives 1-25 armor points.
+- MIN - Armor points from Armor Shards max out at 2000
+- MIN - Stimbonus pickup text changed to "Picked up a Stim Bonus."
+- MIN - Health points from StimBonus max out at 500.
+- MIN - Health points from UpgradeStamina2 max out at 500.
+- MIN - The majority of enemies now drop Shield Batteries of appropriate amount.
+
+v0.12.3   [3/5/2014 8:48 PM EST]
+--------------------------------
+Changed:
+- MIN - Prepared SNDINFO for new dialogue sounds.
+- MIN - Adjusted Damage Factors for blade weapons against machines and some
+		friendlies.
+- MIN - Added new actors to separate an active Morning Star from a husk. The
+		husk can be used for cover and is destructible.
+
+v0.12.2  [2/26/2014 7:51 PM EST]
+--------------------------------
+Added:
+- MIN - Shock and Bio shotgun slugs.
+- MIN - Glock ammo type tokens.
+
+Changed:
+- MIN - Dirt bits (such as from a Tremor Knight emerging) reduced to 1.5 scale
+		from 2.0.
+
+v0.12.1  [2/15/2014 5:57 AM EST]
+--------------------------------
+Bug Fixes:
+- MIN - Hunters stuck in infinite reload.
+	* Detail: Hunter did not take "KnightAmmo" tokens, looped back to Reload.
+
+v0.12.0
+--------------------------------
+- Tons of stuff fixed and added.
+
+================================================================================
+------------------------:::::::::::OLD STUFF:::::::::::-------------------------
+================================================================================
+
+SOON
+---
+- add Gordon Macarius
+- add suiciding sentinels
+
+v11
+---
+- Added a custom PLAYPAL and COLORMAP for Fed.
+- Added temporary civilian sounds.
+- Adjusted the jump states on some monsters.
+- Organized the Berserk Knight decorate.
+- Added Sky Knights.
+- Added 2 new scientist corpse decorations.
+- Adjusted elemental knight elemental attack rates to be more frequent.
+- Added a bubbling effect to bio sludge.
+- Added a hacky fix that allows for multiple inventory items to be carried over
+	to the next level.
+- Fixed some issues with the 20mm grenades.
+- Added health and armor to the HUD.
+- Added ammo counts to the HUD.
+- Added armor and health damage indicators to the HUD.
+- Fixed an annoying gunshot sound that only happened for Avi.
+- Fixed Mirage Knights disappearing when dying by headshot.
+- Added a flashlight for players in Open GL.
+- Created a "useable" HUD.
+- Added new bullet damage types for Players and Friendlies.
+- Adjusted Spawn frames of friendlies.
+- Added Dialogue ACS system.
+- Knight captains can now call mortar strikes.
+- Fixed fire spreading only in one direction when it hits the ground.
+- Buffed Riot Knight health.
+- Sentinels now fire bullet attacks, strafe dodge, and self destruct when out of
+	ammo.
+- Added Evil Templar Statues.
+- Changed M9 Pistol to USP Pistol.
+- Added Modular Rifle - Caseless.
+- Changed OICW to FN Scar.
+- Added 45ACP and MRC ammo.
+- Added MRCRail and MRCShell ammo counters to the HUD.
+- Added new low health and death effects.
+- Added Recon Knight and Recon cameras as a monster and usable item.
+- Added an adrenaline kit item and adrenaline pack which replaces the berserk.
+- Adjusted ammo drops from monsters.
+- Made more changes to existing monsters to fix minor errors.
+
+v10
+---
+- Working headshot animations
+- added elemental headshot boxes to keep elementals from killing themselves
+
+V09
+---
+- Berserk Knight speed boosted.
+- Smoother movement for more knight types
+
+v08
+---
+- Adjusted Spawn rates.
+- Strike Knights now have a chance of spawning as imp replacements.
+- Added Smooth movement to Initiates.
+- Longer Grenade Launches
+- Added health upgrades.
+
+v07
+---
+- Changed heavy grenade explosions.
+- Ice Knight projectile attacks no longer bounce on walls, they spread into ice
+	chunks on impact.
+- New Sekrit Justicar attack.
+- Adjusted projectile attack heights on the heavy knight and flash knight to 24
+	like the medic, hopefully to keep the attacks from hitting the headshot box.
+- Added the Federation Eye decoration.
+- Changed Initiate firing and reloading sound.
+- Changed Initiate firing rate.
+- Added tracers.
+- Gave Berserk Knights smoother movement.
+
+V06(Henceforth known as FederationMonsters.PK3)
+---
+- Reorganized the entire wad into a PK3 system.
+- Added new skill definitions and text colors.
+- Simplified monster decorates.
+- Added Shock and Fire Grenades.
+- Adjusted damage types on monsters.
+- Changed Pain.Stun states to Pain.Shock.
+- Made a change to the Bio Grenades.
+- Added Ice Templar.
+- Added Light Templar (Cheat summon).
+- Added Dark Templar (Cheat summon).
+
+V05
+---
+- Nerfed Initiate by lessening their damage, giving them a reload state, and
+	giving them a chance to stop firing.
+- Changed Initiate and Knight firing sounds.
+- Changed Zone Knight voices, made them deeper.
+- Added Tremor Knight.
+- Added Mirage Knight.
+- Added Bishop Knight.
+- Added Vegetation that spawns around trees.
+- Increased Beacon drop rate.
+- Fixed EXP again.
+- Added more traitor beacons and a shield generator.
+- Made traitor orbit markers disappear when the traitor dies, and reappear when
+	revived.
+- Added traitor obituaries.
+- Made Fire Knights explode with smoke and more smoke and fire with a gib death.
+- Made Poison gas and Nitrogen take the form of the smoke grenade's gas.
+- Added new poison gas and freezer grenades to player's inventory.
+- Changed Fire Knight's fire from Duke Nukem fire to the PNG fire.
+- Made Fire Templar's attacks leave behind flames.
+- Poison gas now explodes if it comes into contact with explosions.
+- Nerfed Crusader's EMP attack.
+- Added new armors.
+- Added new bullet puff.
+- Added new Rook Knight attack.
+- Knight Captains can now drop beacons for reinforcements.
+- Added Terror Mites.
+- Added Legionaries.
+- Added Hoplites.
+- Added Mortar Strike Comm inventory item.
+- Reorganized Monster DECORATES.
+
+V04
+---
+- Added respawn EXP.
+- Added in the Fire Templar's Hell Sword (Not yet added to Fire Templar's
+	attacks).
+- Added new headshot animation (Bugged).
+
+V03
+---
+- Added traitors.
+- Bugfixing.
+- Added glowing rings and orbit markers around traitors.
+- Raised Riot Knight health.
+- Added Zone Knights.
+- Added Strike Knight Flyers.
+
+V02
+---
+- Added Shock Knights.
+- Adjusted unit skins to be more logical.
+- Added regenerating health for more units to fix their live to fight again AI.
+- Remade the Crusader using ProjectAngel's Dark Inquisitor.
+- Increased damage of Captain's melee attack.
+- Made Captain and Justicar Decorates a little more logical.
+- Nerfed Grenade Knight and made his grenades fire one at a time.
+- Changed Heavy Knight's first frame to show their new skin, though it does not
+	actually use it at this time.
+- Nerfed Knight Plasma Tank damage and firing rate.
+- Crusader now has a rare chance of spawning where a Mancubus, Arachnotron, or
+	Cyberdemon spawns.
+- Nerfed Fire Templar Damage, mostly on fireball explosions.
+- Corrected all instances of "beserk" to "berserk".
+- Fixed Open GL lights appearing on Knights all the time.
+- Added new chat sounds.
+- Bugfixing.
+- Set all soldiers gib health to 30.
+- Lowered Justicar and Berserk Knight revival rate.
+- Fixed Captain's melee not doing damage.
+- Fixed Ice Knights killing themselves.
+- Adjusted Headshot damage.
+
+V01
+---
+- Added Brutal Doom Headshots.
+- Rewrote much of the Decorate.
+- Added comments.
+
+
+Alpha
+-----
+- All the old stuff added in here that I didn't keep track of.
+================================================================================

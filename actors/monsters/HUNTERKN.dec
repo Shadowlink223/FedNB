@@ -1,0 +1,396 @@
+ACTOR HunterKnight: Enemy 17342 {
+	//$Category Federation
+
+	Health 270
+	GibHealth 60
+	Radius 16
+	Height 40
+	Mass 100
+	Speed 21
+
+	+MISSILEMORE
+	+FASTER
+	+LOOKALLAROUND
+	+FIXMAPTHINGPOS
+	+QUICKTORETALIATE
+
+	DropItem "Clip" 64
+	DropItem "ClipBox" 16
+	DropItem "Cell" 4
+
+	DropItem "Stimpack" 32
+	DropItem "HunterArmor" 4
+	DropItem "ArmorShardSpawner" 64
+
+	DropItem "PlasmaRifle" 4
+	DropItem "PlasmaRifle" 4
+
+
+	//Dropitem "PDA" 4
+
+	Dropitem "EBeacon" 2
+
+	Translation 2
+
+	RenderStyle Translucent
+	Alpha 0.4
+
+	BloodType "AeniBlood"
+	Decal "BulletChip"
+	
+	DamageFactor "DU", 1.1
+	DamageFactor "HP", 1.25
+	DamageFactor "Trid", 1.5
+
+	PainChance 50
+	PainChance "Shock", 255
+	PainChance "ShockSlug", 255
+
+	SeeSound ""
+	AttackSound ""
+	PainSound "Knight/KnightPain"
+	DeathSound "monster/inidth"
+	ActiveSound "Bishop/taunt"
+
+	Obituary "A Hunter landed a shot on %o with exceptional accuracy." 
+	HitObituary "%o thought they could sneak up on a Hunter"
+
+	States {
+
+/******************************************************************************\
+==================================MAIN STATES===================================
+\******************************************************************************/
+
+	Spawn:
+		BISH A 0
+		TNT1 A 0 Thing_SetSpecial(0,226,642,0,random(14,28))
+	SpawnLoop:
+		TNT1 A 0 A_SpawnItem("HeadshotTarget10",15,40,0)
+		BISH E 10 A_LookEx(0,0,random(512,2048),random(1024,4096),random(90,180),"See")
+		Loop
+	See:
+		BISH A 1 A_FaceTarget
+		BISH A 1 A_Jump(1,"Chase")
+		BISH A 1 A_CheckSight("IfLowHealth")
+		BISH A 0 A_Chase("","TakeAim",CHF_NOPLAYACTIVE|CHF_DONTMOVE)
+		Loop
+	IfLowHealth:
+		TNT1 A 0 A_JumpIfHealthLower(50,"LowHealth")
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto HealthHigh
+	HealthHigh:
+		TNT1 A 0 A_ChangeFlag("Frightened",0)
+		Goto Chase
+	LowHealth:
+		TNT1 A 0 A_Jump(32,"HealUp")
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto Retreat
+	Retreat:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_ChangeFlag("Frightened",1)
+		Goto HealUp
+	HealUp:
+		TNT1 A 0 HealThing(1)
+		Goto Chase
+	Chase:
+		TNT1 A 0 A_JumpIfInventory("KnightCharge",1,"Charge")
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		BISH AA 3 A_FastChase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		BISH BB 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		BISH CC 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		BISH DD 3 A_Chase
+		Goto See
+	Charge:
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		TNT1 A 0 A_Chase
+		BISH A 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		TNT1 A 0 A_Chase
+		BISH B 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		TNT1 A 0 A_Chase
+		BISH C 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		TNT1 A 0 A_Chase
+		BISH D 3 A_Chase
+		Goto See
+
+/******************************************************************************\
+=================================ATTACK STATES==================================
+\******************************************************************************/
+
+	Missile:
+	TakeAim:
+		TNT1 A 0 A_TakeInventory("KnightSpecial",1000)
+		TNT1 A 0 A_JumpIfInventory("KnightAmmo",10,"Reload")
+		Goto TakeAimLoop
+	TakeAimLoop:
+		TNT1 A 0 A_JumpIfInventory("KnightSpecial",8,"TakeAimEnd")
+		TNT1 A 0 A_CustomMissile("BishopLaser",35,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4", 15, 40,0)
+		BISH E 4 A_FaceTarget
+		TNT1 A 0 A_GiveInventory("KnightSpecial",1)
+		Loop
+	TakeAimEnd:
+		TNT1 A 0 A_Jump(8,"See")
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto TakeTheShot
+	TakeTheShot:
+		TNT1 A 0 A_JumpIfCloser(192,"KnifeLunge")
+		TNT1 A 0 A_CustomMissile("BishopLaser",35,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4",15,40,0)
+		BISH E 4 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("BishopLaser",35,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4",15,40,0)
+		BISH E 4 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("BishopLaser",35,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4",15,40,0)
+		BISH E 4 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("BishopLaser",35,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4",15,40,0)
+		BISH E 4 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("BishopLaser",35,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4",15,40,0)
+		BISH E 4 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("BishopLaser",35,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4",15,40,0)
+		BISH E 4 A_FaceTarget
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("BSR_FIRE")
+		TNT1 A 0 A_GiveInventory("KnightAmmo",1)
+		//TNT1 A 0 A_CustomBulletAttack(0,0,1,random(1,3)*10,BishopPuff)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget2",0,40,0)
+		BISH F 2 BRIGHT A_CustomMissile("BishopTracer",38,0,0,0,0)
+		BISH E 2 A_SpawnItem("HeadshotTarget2",0,40,0)
+		TNT1 A 0 A_JumpIfInventory("KnightAmmo",10,"Reload")
+		BISH E 1 A_SpawnItem("HeadshotTarget1",0,40,0)
+		TNT1 A 0 A_MonsterRefire(32,"See")
+		Goto TakeTheShotRapid
+	TakeTheShotRapid:
+		TNT1 A 0 A_JumpIfCloser(192,"KnifeLunge")
+		TNT1 A 0 A_CustomMissile("BishopLaser",35,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4",15,40,0)
+		BISH E 4 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("BishopLaser",35,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4",15,40,0)
+		BISH E 4 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("BishopLaser",35,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4",15,40,0)
+		BISH E 4 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("BishopLaser",35,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4",15,40,0)
+		BISH E 4 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("BishopLaser",35,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4",15,40,0)
+		BISH E 4 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("BishopLaser",35,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4",15,40,0)
+		BISH E 4 A_FaceTarget
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("BSR_FIRE")
+		TNT1 A 0 A_GiveInventory("KnightAmmo",1)
+		//TNT1 A 0 A_CustomBulletAttack(2,2,1,random(1,3)*10,BishopPuff)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget2",0,40,0)
+		BISH F 2 BRIGHT A_CustomMissile("BishopTracer",38,0,random(-2,2),0,random(-2,2))
+		BISH E 2 A_SpawnItem("HeadshotTarget2",0,40,0)
+		TNT1 A 0 A_JumpIfInventory("KnightAmmo",10,"Reload")
+		BISH E 1 A_SpawnItem("HeadshotTarget1",0,40,0)
+		TNT1 A 0 A_MonsterRefire(32,"See")
+		Goto TakeTheShotRapid
+	Reload:
+		TNT1 A 0 A_ChangeFlag(NOPAIN,1)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget2",0,40,0)
+		BISH E 2 A_TakeInventory("KnightAmmo",10)
+		BISH EEE 10 A_SpawnItem("HeadshotTarget10",0,40,0)
+		TNT1 A 0 A_PlaySoundEx("LNS/MagOut","SoundSlot6")
+		BISH EEEE 10 A_SpawnItem("HeadshotTarget10",0,40,0)
+		TNT1 A 0 A_PlaySoundEx("LNS/MagIn","SoundSlot6")
+		BISH EE 2 A_SpawnItem("HeadshotTarget2",0,40,0)
+		BISH EEE 10 A_SpawnItem("HeadshotTarget10",0,40,0)
+		TNT1 A 0 A_PlaySoundEx("LNS/Bolt","SoundSlot6")
+		BISH EE 2 A_SpawnItem("HeadshotTarget2",0,40,0)
+		BISH EEEE 10 A_SpawnItem("HeadshotTarget10",0,40,0)
+		TNT1 A 0 A_ChangeFlag(NOPAIN,0)
+		goto See
+	KnifeLunge:
+		TNT1 A 0 ThrustThing(angle*256/360,25,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4",0,40,0)
+		BISH E 4 A_FaceTarget
+		TNT1 A 0 A_PlaySound("knife/swing")
+		TNT1 A 0 A_SpawnItem("HeadshotTarget2",0,40,0)
+		BISH E 2 A_CustomMeleeAttack(34,"knife/swing","knife/swing","Knife",1)
+		Goto CloseRangeFinish
+	CloseRangeFinish:
+		BISH EE 3 A_SpawnItem("HeadshotTarget3",0,40,0)
+		Goto See
+
+/******************************************************************************\
+==================================PAIN STATES===================================
+\******************************************************************************/
+
+	Pain:
+		BISH G 3 A_SpawnItem("HeadshotTarget4",0,40,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4",0,40,0)
+		BISH G 3 A_Pain
+		Goto See
+	Pain.Shock:
+	Pain.ShockSlug:
+		TNT1 A 0 A_ChangeFlag(NOPAIN,1)
+		TNT1 A 0 A_Pain
+		BISH GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 10 A_SpawnItem("HeadshotTarget10",0,40,0)
+		TNT1 A 0 A_ChangeFlag(NOPAIN,0)
+		Goto See
+	Pain.KillMe:
+		Goto See
+
+/******************************************************************************\
+==================================DEATH STATES==================================
+\******************************************************************************/
+
+	Death:
+		TNT1 A 0 A_JumpIfHealthLower(-60,"Splode")
+		BISD A 5 A_AlertMonsters
+		BISD B 5 A_Scream
+		Goto DeathFall
+	Death.KnifeSlash:
+	Death.KnifeStab:
+	Death.KnifeSlashPower:
+	Death.KnifeStabPower:
+	Death.WakizashiSlash:
+	Death.WakizashiStab:
+	Death.WakizashiSlashPower:
+	Death.WakizashiStabPower:
+		BISD H 5
+		BISD I 5 A_PlaySound("KNI_HIT")
+	DeathFall:
+		TNT1 A 0 A_SetTranslucent(1.0,0)
+		BISD C 5 A_Fall
+		BISD DEF 5
+		TNT1 A 0 A_Jump(5,"Regenerating")
+		BISD G -1
+		Stop
+	Regenerating:
+		BISD GGGGGGGGGGGGGGG 70
+		BISD G -1 Thing_Raise(0)
+		Wait
+	Splode:
+		BISD H 1 A_SpawnDebris("NashGore_Gib9",0)
+		TNT1 A 0 A_SpawnDebris("NashGore_Gib10",0)
+		TNT1 A 0 A_SpawnDebris("NashGore_Gib11",0)
+		TNT1 A 0 A_SpawnDebris("NashGore_Gib11",0)
+		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)
+		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)
+		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)
+		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)
+		TNT1 A 0 A_XScream
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_SpawnItemEx("DEADBishopKnightHead",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)
+		Stop
+	Death.Fire2:
+		TNT1 A 1 A_SpawnItem("BurnDeath1", 2, 1)
+		TNT1 A 0 A_AlertMonsters
+		Stop
+	Death.head:
+		BISD A 9 A_PlaySound("headshot/splat")
+		TNT1 A 0 A_SpawnDebris("NashGore_Gib3",0)
+		TNT1 A 0 A_SpawnDebris("NashGore_Gib11",0)
+		TNT1 A 0 A_SpawnDebris("NashGore_Gib11",0)
+		BISD B 9 A_XScream
+		BISD C 9 A_Fall
+		BISD DE 5
+		TNT1 A 0 A_SpawnItemEx("DEADBishopKnight",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)
+		Stop
+	Raise:
+		BISD DCB 5
+		BISD A 5 Thing_SetSpecial(0,226,642,0,random(14,28))
+		Goto See
+	}
+}
+
+ACTOR DEADBishopKnight {
+	Radius 12
+	Height 11
+	+FLOORCLIP
+	States {
+		Spawn:
+			BISD G 0
+			BISD G -1
+			stop
+	}
+}
+
+ACTOR DEADBishopKnightHead {
+	Radius 12
+	Height 11
+	+FLOORCLIP
+	States {
+		Spawn:
+			BISD O 0
+			BISD O -1
+			stop
+	}
+}
+
+ACTOR BishopPuff : bulletpuff {
+    Radius 8
+    Height 6
+    Speed 0
+    VSpeed 0
+    +NOBLOCKMAP
+    +BRIGHT
+	+PUFFONACTORS
+	+ALWAYSPUFF
+    renderstyle normal
+	Scale 0.6
+	decal bulletchip
+    damagetype "NormalBullet"
+	AttackSound "Lance/Impact" // Hit Wall
+	SeeSound "Lance/Hit" // Hit Actor
+    States { 
+		Crash: // Hit Wall
+			TNT1 A 0 A_Jump(85,"ping1")
+			TNT1 A 0 A_Jump(85,"ping2")
+			SMKE ABCDEFGH 2
+			stop
+		Spawn: // Hit Actor
+			TNT1 A 0 A_Jump(85,"ping1")
+			TNT1 A 0 A_Jump(85,"ping2")
+			SMKE ABCDEFGH 2
+			stop
+		Ping1:
+			HITM ABCD 1 //A_PlaySound("pings")
+			stop
+		Ping2:
+			HITM EFGH 1 //A_PlaySound("pings")
+			stop
+		Death:
+			stop
+    }
+}
+
+ACTOR BishopLaser : FastProjectile {
+	Radius 1
+	Height 1
+	damage 0
+	Speed 1000
+	PROJECTILE
+	+DONTREFLECT
+	+BLOODLESSIMPACT
+	+PAINLESS
+	RenderStyle Translucent
+	Alpha 0.75
+	//Scale 0.25
+	SeeSound ""
+	DeathSound ""
+	States {
+		Spawn:
+			TNT1 A 1
+			Loop
+		Death:
+			LASA A 4 BRIGHT
+			Stop
+	}
+}

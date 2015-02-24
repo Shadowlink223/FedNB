@@ -1,0 +1,25 @@
+[enu default]
+/* This section is both for American English (enu -> en US) and the default language
+   (used if there are no available translations for the user's own language).        */
+
+QUITMSG = "The Federation never loses!";
+QUITMSG1 = "Commit seppuku?";
+QUITMSG2 = "Are you going AWOL on me soldier?";
+QUITMSG3 = "To retreat today is to die tomorrow.";
+QUITMSG4 = "You leave us now, and we all die!";
+QUITMSG5 = "The hunters are coming for you.";
+QUITMSG6 = "Enter the light?";
+QUITMSG7 = "Betray your brothers in arms?";
+QUITMSG8 = "Never surrender!";
+QUITMSG9 = "Be swift in your return.";
+QUITMSG10 = "Prepare for the Knightmare.";
+QUITMSG11 = "Beware the shadows.";
+QUITMSG12 = "Release cyanide gas?";
+QUITMSG13 = "Initiate self-destruct sequence?";
+QUITMSG14 = "Will we ever win?";
+
+OB_FRIENDLY1 = "%k needs to check their fire!";
+OB_FRIENDLY2 = "%k has betrayed their squad!";
+OB_FRIENDLY3 = "%k is getting trigger happy.";
+OB_FRIENDLY4 = "%o was in %k's line of fire.";
+OB_KILLEDSELF = "%k was too reckless.";

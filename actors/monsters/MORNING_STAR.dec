@@ -1,0 +1,382 @@
+Actor MorningStar : Enemy 23223 {
+	//$Category Federation
+	
+	Radius 64
+	Height 57
+    Speed 6
+    Mass 100000
+	
+	Health 4000
+	GibHealth 200
+	Painchance 0
+    PainChance "Fire2", 0
+    Damagefactor "Fire2", 0.1
+    PainChance "Shock", 255
+	PainChance "ShockSlug", 255
+    Damagefactor "Shock", 1.5
+	DamageFactor "ShockSlug", 1.8
+	Damagefactor "head", 0.0
+	DamageFactor "KnifeSlash", 0.1
+	DamageFactor "KnifeStab", 0.2
+	DamageFactor "KnifeSlashPower", 0.1
+	DamageFactor "KnifeStabPower", 0.2
+	DamageFactor "WakizashiSlash", 0.1
+	DamageFactor "WakizashiStab", 0.2
+	DamageFactor "WakizashiSlashPower", 0.1
+	DamageFactor "WakizashiStabPower", 0.2
+	Decal "BulletChip"
+	
+	+FLOORCLIP
+    +NOBLOOD
+    +FASTER
+	+LOOKALLAROUND
+	+MISSILEMORE
+	+MISSILEEVENMORE
+    +DONTMORPH
+    +NOICEDEATH
+	+QUICKTORETALIATE
+	
+	DropItem "ArmorShardSpawner" 64
+	DropItem "ArmorShardSpawner" 64
+	DropItem "ArmorShardSpawner" 64
+	DropItem "ArmorShardSpawner" 64
+	
+	Translation 2
+	Scale 1.5
+	
+    Obituary "%o was smashed by a Morning Star."
+	
+    SeeSound "ZPTank/see"
+    AttackSound ""
+    PainSound ""
+    DeathSound ""
+	
+	States {
+		Spawn:
+			FTKB A 0
+			TNT1 A 0 Thing_SetSpecial(0,226,642,0,random(150,180))
+			//TNT1 A 0 A_JumpIfInventory("MorningStar_TurretSpawned",1,"SpawnLoop")
+			//TNT1 A 0 A_SpawnItemEx("MorningStarTurret",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION|SXF_SETMASTER)
+			//TNT1 A 0 A_GiveInventory("MorningStar_TurretSpawned",1)
+			Goto SpawnLoop
+		SpawnLoop:
+			TNT1 A 0 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			FTKB A 1 A_Look
+			Loop
+		See:
+			TNT1 A 0 A_AlertMonsters
+			TNT1 A 0 A_PlaySound ("ZPTank/Run")
+			TNT1 A 0 A_ChangeFlag(FRIGHTENED,0)
+			TNT1 A 0 A_Jump(64,"Drive")
+			TNT1 A 0 A_JumpIfTargetInLOS("TargetAquired")
+			FTKB A 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			//TNT1 A 0 A_JumpIfCloser(512,"Retreat")
+			Loop
+		Drive:
+			FTKB A 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_Chase("","")
+			FTKB A 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_Chase("","")
+			FTKB A 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_Chase("","")
+			FTKB A 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_Chase("","")
+			FTKB A 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_Chase("","")
+			FTKB A 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_Chase("","")
+			FTKB A 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_Chase("","")
+			FTKB A 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_Chase("","")
+			FTKB A 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_Chase("","")
+			FTKB A 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_Chase("","")
+			FTKB A 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_Chase("","")
+			FTKB A 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_Chase("","")
+			FTKB A 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_Chase("","")
+			FTKB A 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_Chase("","")
+			FTKB A 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_Chase("","")
+			FTKB A 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_Chase("","")
+			FTKB A 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_Chase("","")
+			FTKB A 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_Chase("","")
+			FTKB A 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_Chase("","")
+			FTKB A 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_Chase("","")
+			Goto See
+		TargetAquired:
+			FTKB A 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_Chase("","Missile",CHF_DONTMOVE)
+			TNT1 A 0 A_Jump(32,"See")
+			//FTKB A 1 A_JumpIfTargetInLOS("TargetAquired",0)
+			Loop
+		/*Retreat:
+			TNT1 A 0 A_ChangeFlag(FRIGHTENED,1)
+			Goto SeeLoop*/
+		/*TargetAquired:
+			//TNT1 A 0 A_JumpIfInventory("MorningStar_Timer",64,"LoseTarget")
+			TNT1 A 0 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			FTKB A 1 A_Chase("","PrepareBarrage",CHF_DONTMOVE)
+			//TNT1 A 0 A_GiveInventory("MorningStar_Timer",1)
+			Loop*/
+		/*LoseTarget:
+			TNT1 A 0 A_TakeInventory("MorningStar_Timer",64)
+			Goto See*/
+		Missile:
+			TNT1 A 0 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			FTKB A 1 A_FaceTarget
+			FTKB AAA 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_Jump(32,"See")
+			TNT1 A 0 A_JumpIfCloser(512,"BulletAttack")
+			TNT1 A 0 A_Jump(196,"BulletAttack")
+			TNT1 A 0 A_JumpIfTargetInLOS("MissileBarrage",20)
+			Goto BulletAttack
+		BulletAttack:
+			//TNT1 A 0 A_CustomBulletAttack(11.25,11.25,1,random(1,5)*3,"BulletPuff")
+			TNT1 A 0 A_PlaySoundEx("M60/Fire","SoundSlot6")
+			TNT1 A 0 A_CustomMissile("HeavyTracer",65,0,random(-11.25,11.25),0,random(-11.25,11.25))
+			Goto Missile
+		/*PrepareBarrage:
+			TNT1 A 0 A_JumpIfCloser(512,"TargetAquired")
+			TNT1 A 0 A_JumpIfTargetInLOS("MissileBarrage",20)
+			Goto TargetAquired*/
+		MissileBarrage:
+			FTKB AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			FTKB AAAA 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			FTKB A 1 A_CustomMissile("MorningStarMissile",77,6,0,CMF_AIMDIRECTION,10)
+			FTKB AAAA 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			FTKB A 1 A_CustomMissile("MorningStarMissile",77,-6,0,CMF_AIMDIRECTION,10)
+			FTKB AAAA 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			FTKB A 1 A_CustomMissile("MorningStarMissile",75,6,0,CMF_AIMDIRECTION,10)
+			FTKB AAAA 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			FTKB A 1 A_CustomMissile("MorningStarMissile",75,-6,0,CMF_AIMDIRECTION,10)
+			FTKB AAAA 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			FTKB A 1 A_CustomMissile("MorningStarMissile",73,6,0,CMF_AIMDIRECTION,10)
+			FTKB AAAA 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			FTKB A 1 A_CustomMissile("MorningStarMissile",73,-6,0,CMF_AIMDIRECTION,10)
+			FTKB AAAA 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			FTKB A 1 A_CustomMissile("MorningStarMissile",77,8,0,CMF_AIMDIRECTION,10)
+			FTKB AAAA 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			FTKB A 1 A_CustomMissile("MorningStarMissile",77,-8,0,CMF_AIMDIRECTION,10)
+			FTKB AAAA 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			FTKB A 1 A_CustomMissile("MorningStarMissile",75,8,0,CMF_AIMDIRECTION,10)
+			FTKB AAAA 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			FTKB A 1 A_CustomMissile("MorningStarMissile",75,-8,0,CMF_AIMDIRECTION,10)
+			FTKB AAAA 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			FTKB A 1 A_CustomMissile("MorningStarMissile",73,8,0,CMF_AIMDIRECTION,10)
+			FTKB AAAA 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			FTKB A 1 A_CustomMissile("MorningStarMissile",73,-8,0,CMF_AIMDIRECTION,10)
+			FTKB AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			Goto See
+		Pain:
+			TNT1 A 0
+			Goto See
+	Pain.KillMe:
+		Goto See
+		Death:
+			FTKB A 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_NoBlocking
+			TNT1 AAAAAAAAAAAA 0 A_CustomMissile("DarkInquisitorGibber",50,0,random(0,359))
+			TNT1 A 0 A_SpawnItemEx("MorningStarHusk",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION|SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_NoBlocking
+			Stop
+		XDeath:
+			FTKB A 1 A_SpawnItemEx("MorningStarTurret",0,0,64,0,0,0,0,SXF_TRANSFERTRANSLATION)
+			//TNT1 A 0 A_NoBlocking
+			TNT1 AAAAAAAAAAAAAAAAAAAAAAA 0 A_CustomMissile("DarkInquisitorGibber",50,0,random(0,359))
+			TNT1 A 0 A_CustomMissile("DarkInquisitorBigExplosion",0,0,0)
+			TNT1 A 0 A_SpawnItemEx("MorningStarHusk",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION|SXF_TRANSFERTRANSLATION)
+			TNT1 A 0 A_NoBlocking
+			Stop
+	}
+}
+
+Actor MorningStarTurret {
+	Radius 19
+	Height 22
+    //Mass 1000
+	
+	//Health 2000
+	//Painchance 0
+    //PainChance "Fire2", 0
+    //Damagefactor "Fire2", 0.1
+    //PainChance "Shock", 255
+    //Damagefactor "Shock", 1.5
+	//Damagefactor "head", 0.0
+    //Species hellknight
+	
+	//MONSTER
+    //+NOBLOOD
+    //+NOTARGET
+    //+DONTHURTSPECIES
+	//+LOOKALLAROUND
+	//+NOINTERACTION
+	+FLOORCLIP
+	
+	Scale 1.5
+	
+    //Obituary "%o was smashed by a Morning Star."
+	
+	States {
+		Spawn:
+			TNT1 A 0
+			FTKT A 1
+			Stop
+		/*See:
+			FTKB A 1 A_Chase("","Missile",CHF_DONTMOVE)
+			Loop
+		Missile:
+			//FTKB A 1 A_FaceTarget(10)
+			TNT1 A 0 A_JumpIfTargetInLOS("MissileBarrage",20,JLOSF_CLOSENOJUMP|JLOSF_DEADNOJUMP,2048,512)
+			Goto See
+		MissileBarrage:
+			TNT1 AAAAAAAAAAAA 0 A_FireMissile()
+			Goto See
+		Pain:
+			TNT1 A 0
+			Goto See
+		Death:
+			FTKB A 1 A_KillMaster
+			TNT1 AAAAAAAAAAAA 0 A_CustomMissile("DarkInquisitorGibber",50,0,random(0,359))
+			Stop*/
+	}
+}
+
+Actor MorningStarHusk : Enemy 23224 {
+	//$Category Federation
+	
+	Radius 48
+	Height 57
+    Speed 0
+    Mass 100000
+	
+	Health 4000
+	GibHealth 200
+	Painchance 0
+    PainChance "Fire2", 0
+    Damagefactor "Fire2", 0.1
+    PainChance "Shock", 255
+    Damagefactor "Shock", 1.5
+	Damagefactor "head", 0.0
+	DamageFactor "KnifeSlash", 0.1
+	DamageFactor "KnifeStab", 0.2
+	DamageFactor "KnifeSlashPower", 0.1
+	DamageFactor "KnifeStabPower", 0.2
+	DamageFactor "WakizashiSlash", 0.1
+	DamageFactor "WakizashiStab", 0.2
+	DamageFactor "WakizashiSlashPower", 0.1
+	DamageFactor "WakizashiStabPower", 0.2
+	
+	-ISMONSTER
+	-COUNTKILL
+	+FLOORCLIP
+    +NOBLOOD
+    +DONTMORPH
+    +NOICEDEATH
+	
+	Translation 2
+	Scale 1.5
+	
+    Obituary "%o was cut up by Morning Star debris."
+	
+    SeeSound ""
+    AttackSound ""
+    PainSound ""
+    DeathSound ""
+	
+	States {
+		Spawn:
+			FTKB A 1 A_SpawnItemEx("FlareSmoke",0,0,86,Random(-1,1),Random(-1,1),Random(1,5),0,SXF_NOCHECKPOSITION,SXF_CLIENTSIDE)
+			Loop
+		Death:
+			TNT1 AAAAAAAAAAAAAAAAAAAAAAA 0 A_CustomMissile("DarkInquisitorGibber",50,0,random(0,359))
+			TNT1 A 0 A_CustomMissile("DarkInquisitorBigExplosion",0,0,0)
+			Stop
+	}
+}
+
+Actor MorningStarMissile {
+	Radius 4
+	Height 8
+	
+	Speed 6
+	
+	Damage 6
+	DamageType "Explosive"
+	
+	PROJECTILE
+	+SKYEXPLODE
+	+DEHEXPLOSION
+	+ROCKETTRAIL
+    +SEEKERMISSILE
+	+BRIGHT
+	
+	Scale 0.15
+	
+	SeeSound "RPG/MissileLaunch"
+	DeathSound "Grenade/Explode"
+	
+	obituary "%o was smashed by a Morning Star."
+	
+	States {
+		Spawn:
+			TNT1 A 0
+			RPGR A 3
+			RPGR A 1 A_ChangeVelocity(20.0,random(-10.0,10.0),random(-7.0,7.0),1)
+			TNT1 A 0 A_SeekerMissile(2,3)
+			RPGR A 3
+			TNT1 A 0 A_SeekerMissile(2,3)
+			RPGR A 1 A_ChangeVelocity(20.0,random(-10.0,10.0),random(-10.0,10.0),1)
+			RPGR A 3
+			TNT1 A 0 A_SeekerMissile(2,3)
+			RPGR A 1 A_ChangeVelocity(20.0,random(-10.0,10.0),random(-10.0,10.0),1)
+			Goto SpawnLoop
+		SpawnLoop:
+			TNT1 A 0 A_JumpIfInventory("MorningStarMissile_Timer",32,"DeathAir")
+			TNT1 A 0 A_SeekerMissile(2,3)
+			RPGR A 1 A_ChangeVelocity(20.0,random(-10.0,10.0),random(-10.0,10.0),1)
+			RPGR A 2
+			TNT1 A 0 A_SeekerMissile(2,3)
+			RPGR A 2 A_GiveInventory("MorningStarMissile_Timer",1)
+			Loop
+		DeathAir:
+			TNT1 A 0 A_SpawnItemEx("DustCloudCluster_NoDirt",0,0,0,0,0,0,0,0,0)
+			Goto Death+1
+		Death:
+			TNT1 A 0 A_SpawnItemEx("DustCloudCluster",0,0,0,0,0,0,0,0,0)
+			TNT1 A 0 Radius_Quake(3,16,0,8,0)
+			TNT1 A 0 A_AlertMonsters
+			TNT1 A 0 A_PlaySoundEx("Artillery/KABOOM","SoundSlot5")
+			TNT1 A 0 A_PlaySoundEx("farexp","SoundSlot6")
+			MISL C 5 A_Explode(20,256)
+			MISL D 4
+			MISL E 3
+			Stop
+	}
+}
+
+//actor MorningStar_TurretSpawned : inventory { Inventory.MaxAmount 1 }
+//actor MorningStar_Timer : inventory { Inventory.MaxAmount 64 }
+actor MorningStarMissile_Timer : inventory { Inventory.MaxAmount 32 }

@@ -1,0 +1,74 @@
+/*Submitted: Infirnex
+Decorate: Infirnex
+GLDefs: Infirnex
+Sounds: id Software
+Sprites: id Software
+Sprite Edit: Infirnex
+Idea Base: Quake 2/3/4 armor Shard*/
+
+Actor ArmorShard : ArmorBonus {
+	Inventory.Pickupmessage "Picked up a Shield Battery."
+	Inventory.Icon "ARSDA0"
+	Inventory.PickupSound "pickup/armorshard"
+	Armor.MaxSaveAmount 2000
+	Armor.Saveamount 5
+	States {
+	Spawn:
+		ARSD ABCDCB 6
+		loop
+	}
+}
+
+Actor ArmorShardSpawner : RandomSpawner {
+	DropItem "ArmorShard1"
+	DropItem "ArmorShard2"
+	DropItem "ArmorShard3"
+	DropItem "ArmorShard4"
+	DropItem "ArmorShard5"
+	DropItem "ArmorShard6"
+	DropItem "ArmorShard7"
+	DropItem "ArmorShard8"
+	DropItem "ArmorShard9"
+	DropItem "ArmorShard10"
+	DropItem "ArmorShard11"
+	DropItem "ArmorShard12"
+	DropItem "ArmorShard13"
+	DropItem "ArmorShard14"
+	DropItem "ArmorShard15"
+	DropItem "ArmorShard16"
+	DropItem "ArmorShard17"
+	DropItem "ArmorShard18"
+	DropItem "ArmorShard19"
+	DropItem "ArmorShard20"
+	DropItem "ArmorShard21"
+	DropItem "ArmorShard22"
+	DropItem "ArmorShard23"
+	DropItem "ArmorShard24"
+	DropItem "ArmorShard25"
+}
+
+Actor ArmorShard1 : ArmorShard { Armor.Saveamount 1 }
+Actor ArmorShard2 : ArmorShard { Armor.Saveamount 2 }
+Actor ArmorShard3 : ArmorShard { Armor.Saveamount 3 }
+Actor ArmorShard4 : ArmorShard { Armor.Saveamount 4 }
+Actor ArmorShard5 : ArmorShard { Armor.Saveamount 5 }
+Actor ArmorShard6 : ArmorShard { Armor.Saveamount 6 }
+Actor ArmorShard7 : ArmorShard { Armor.Saveamount 7 }
+Actor ArmorShard8 : ArmorShard { Armor.Saveamount 8 }
+Actor ArmorShard9 : ArmorShard { Armor.Saveamount 9 }
+Actor ArmorShard10 : ArmorShard { Armor.Saveamount 10 }
+Actor ArmorShard11 : ArmorShard { Armor.Saveamount 11 }
+Actor ArmorShard12 : ArmorShard { Armor.Saveamount 12 }
+Actor ArmorShard13 : ArmorShard { Armor.Saveamount 13 }
+Actor ArmorShard14 : ArmorShard { Armor.Saveamount 14 }
+Actor ArmorShard15 : ArmorShard { Armor.Saveamount 15 }
+Actor ArmorShard16 : ArmorShard { Armor.Saveamount 16 }
+Actor ArmorShard17 : ArmorShard { Armor.Saveamount 17 }
+Actor ArmorShard18 : ArmorShard { Armor.Saveamount 18 }
+Actor ArmorShard19 : ArmorShard { Armor.Saveamount 19 }
+Actor ArmorShard20 : ArmorShard { Armor.Saveamount 20 }
+Actor ArmorShard21 : ArmorShard { Armor.Saveamount 21 }
+Actor ArmorShard22 : ArmorShard { Armor.Saveamount 22 }
+Actor ArmorShard23 : ArmorShard { Armor.Saveamount 23 }
+Actor ArmorShard24 : ArmorShard { Armor.Saveamount 24 }
+Actor ArmorShard25 : ArmorShard { Armor.Saveamount 25 }

@@ -1,0 +1,16 @@
+ACTOR NightVision : PowerupGiver replaces Infrared {
+	+COUNTITEM
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+	Inventory.MaxAmount 0
+	//Powerup.Type "LightAmp"
+	Powerup.Color "Cyan" 1.0
+	//Powerup.Colormap 0.0, 0.0, 1.0, 0.0, 0.0, 0.0
+	Inventory.PickupMessage "Night Vision"
+	States {
+		Spawn:
+			PVIS A 6 Bright
+			PVIS B 6
+			Loop
+	}
+}

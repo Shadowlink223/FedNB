@@ -1,0 +1,191 @@
+Actor FGrenadeKnight : GrenadeKnight 11448 {
+	//$Category Federation
+
+	Health 700
+	DamageFactor "KillMe", 0.0
+	DamageFactor "FriendBullet", 0.5
+	+NOBLOCKMONST
+	+FRIENDLY
+
+	States {
+  
+/******************************************************************************\
+==================================MAIN STATES===================================
+\******************************************************************************/
+
+	Spawn:
+		HEVY A 0
+		/*TNT1 A 0 A_CustomMissile("OrbitFriendly",44,0,0,2,0)
+		TNT1 A 0 A_CustomMissile("OrbitFriendly2",44,0,180,2,0)*/
+		TNT1 A 0 A_ChangeFlag("FRIENDLY",1)
+		TNT1 A 0 ACS_ExecuteAlways(556,0)
+		TNT1 A 0 Thing_SetSpecial(0,226,613,0,0)
+		TNT1 A 0 A_SpawnItem ("KillMe")
+	SpawnLoop:
+		TNT1 A 0 A_SpawnItem("HeadshotTarget10",15,40,0)
+		G99P A 10 A_LookEx(0,0,random(512,2048),random(1024,4096),random(90,180),"See")
+		Loop
+	See:
+		G99P A 1 // Infinite loop crash prevention?
+		Goto IfLowHealth
+	IfLowHealth:
+		TNT1 A 0 A_JumpIfHealthLower(50,"LowHealth")
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto HealthHigh
+	HealthHigh:
+		TNT1 A 0 A_ChangeFlag("Frightened",0)
+		Goto Chase
+	LowHealth:
+		TNT1 A 0 A_Jump(32,"HealUp")
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto Retreat
+	Retreat:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_ChangeFlag("Frightened",1)
+		Goto HealUp
+	HealUp:
+		TNT1 A 0 HealThing(1)
+		Goto Chase
+	Chase:
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		G99P A 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		G99P B 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		G99P C 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		G99P D 3 A_Chase
+		Goto See
+
+/******************************************************************************\
+=================================ATTACK STATES==================================
+\******************************************************************************/
+
+	Missile:
+		TNT1 A 0 A_SpawnItem("HeadshotTarget10",0,40,0)
+		G99P E 10 A_FaceTarget
+		Goto DistanceCheck
+	DistanceCheck:
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4",0,40,0)
+		G99P E 0 A_JumpIfCloser(192,"KnifeLunge")
+		G99P E 0 A_JumpIfCloser(1384,"LaunchHEGrenadeShort")
+		G99P E 0 A_JumpIfCloser(1704,"LaunchHEGrenade")
+		G99P E 0 A_JumpIfCloser(2024,"LaunchHEGrenadeFar")
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto LaunchHEGrenadeDistant
+	KnifeLunge:
+		TNT1 A 0 ThrustThing(angle*256/360,25,0,0)
+		G99P E 4 A_FaceTarget
+		TNT1 A 0 A_PlaySound("knife/swing")
+		TNT1 A 0 A_SpawnItem("HeadshotTarget2",0,40,0)
+		G99P E 2 A_CustomMeleeAttack(34,"knife/swing","knife/swing","Knife",1)
+		Goto CloseRangeFinish
+	CloseRangeFinish:
+		G99P EE 3 A_SpawnItem("HeadshotTarget3",0,40,0)
+		Goto See
+	LaunchHEGrenadeShort:
+		G99P F 4 BRIGHT A_CustomMissile("KnightGrenadeShell",28,5,random(-1,1),2,random(0,10))
+		Goto LaunchGrenadeEnd
+	LaunchHEGrenade:
+		G99P F 4 BRIGHT A_CustomMissile("KnightGrenadeShell",28,5,random(-5,5),2,random(0,10))
+		Goto LaunchGrenadeEnd
+	LaunchHEGrenadeFar:
+		G99P F 4 BRIGHT A_CustomMissile("KnightGrenadeShell",28,5,random(-10,10),2,random(0,10))
+		Goto LaunchGrenadeEnd
+	LaunchHEGrenadeDistant:
+		G99P F 4 BRIGHT A_CustomMissile("KnightGrenadeShell",28,5,random(-15,15),2,random(0,10))
+		Goto LaunchGrenadeEnd
+	LaunchGrenadeEnd:
+		G99P EE 3 A_SpawnItem("HeadshotTarget3",0,40,0)
+		Goto GrenadeReload
+	GrenadeReload:
+		TNT1 A 0 A_ChangeFlag(NOPAIN,1)
+		TNT1 A 0 A_PlaySoundEx("M4_CLIPO","SoundSlot5")
+		G99P E 2 A_SpawnItem("HeadshotTarget2",0,40,0)
+		G99P E 10 A_SpawnItem("HeadshotTarget10",0,40,0)
+		TNT1 A 0 A_PlaySoundEx("M4_CLIPI","SoundSlot5")
+		G99P E 2 A_SpawnItem("HeadshotTarget2",0,40,0)
+		G99P EEEEEE 10 A_SpawnItem("HeadshotTarget10",0,40,0)
+		TNT1 A 0 A_ChangeFlag(NOPAIN,0)
+		Goto See
+	
+/******************************************************************************\
+==================================PAIN STATES===================================
+\******************************************************************************/
+
+	Pain:
+		G99P G 3 A_SpawnItem("HeadshotTarget4",0,40,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4",0,40,0)
+		G99P G 3 A_Pain
+		Goto Missile
+	Pain.Shock:
+		TNT1 A 0 A_ChangeFlag(NOPAIN,1)
+		TNT1 A 0 A_Pain
+		G99P GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 10 A_SpawnItem("HeadshotTarget10",0,40,0)
+		TNT1 A 0 A_ChangeFlag(NOPAIN,0)
+		Goto See
+		
+/******************************************************************************\
+==================================DEATH STATES==================================
+\******************************************************************************/
+
+	Death: 
+		TNT1 A 0 A_JumpIfHealthLower(-60,"Splode")
+	Death.KnifeSlash:
+	Death.KnifeStab:
+	Death.KnifeSlashPower:
+	Death.KnifeStabPower:
+	Death.WakizashiSlash:
+	Death.WakizashiStab:
+	Death.WakizashiSlashPower:
+	Death.WakizashiStabPower:
+		G99P H 5
+		G99P I 5 A_Scream
+		G99P J 5 A_Fall
+		G99P KLM 5
+		TNT1 A 0 A_Jump(5,"Regenerating")
+		TNT1 A 0 A_GiveInventory("isDead",1)
+		G99P N -1
+		Stop
+	Regenerating:
+		G99P NNNNNNNNNNNNNNN 70
+		G99P N -1 Thing_Raise(0)
+		Wait
+	Splode:
+		G99P I 1 A_SpawnDebris("NashGore_Gib9",0)
+		TNT1 A 0 A_SpawnDebris("NashGore_Gib10",0)
+		TNT1 A 0 A_SpawnDebris("NashGore_Gib11",0)
+		TNT1 A 0 A_SpawnDebris("NashGore_Gib11",0)
+		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)
+		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)
+		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)
+		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)
+		TNT1 A 0 A_XScream
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_GiveInventory("isDead",1)
+		TNT1 A 0 A_SpawnItemEx("DEADFInitiateHead",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)
+		Stop
+	Death.Fire2:
+		TNT1 A 0 A_GiveInventory("isDead",1)
+		TNT1 A 1 A_SpawnItem("BurnDeath1",2,1)
+		TNT1 A 0 A_AlertMonsters
+		Stop
+	Death.head:
+		G99P O 9 A_PlaySound("headshot/splat")
+		TNT1 A 0 A_SpawnItem("AeniBlood",0,40,0)
+		TNT1 A 0 A_SpawnItem("AeniBlood",0,40,0)
+		G99P P 9 A_XScream
+		G99P Q 9 A_Fall
+		G99P R 5 A_GiveInventory("isDead",1)
+		G99P S 5 A_SpawnItemEx("DEADFInitiate",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)
+		stop
+	Raise: 
+		G99P KJI 5
+		TNT1 A 0 A_ChangeFlag("FRIENDLY",1)
+		TNT1 A 0 A_TakeInventory("isDead",1)
+		/*TNT1 A 0 A_CustomMissile("OrbitFriendly",44,0,0,2,0)
+		TNT1 A 0 A_CustomMissile("OrbitFriendly2",44,0,180,2,0)*/
+		G99P H 5 Thing_SetSpecial(0,226,613,0,0)
+		Goto See
+	}
+}

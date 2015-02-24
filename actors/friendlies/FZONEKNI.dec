@@ -1,0 +1,207 @@
+ACTOR FZoneKnight : ZoneKnight 11200 {
+	//$Category Federation
+
+	Health 450
+	DamageFactor "KillMe", 0.0
+	DamageFactor "FriendBullet", 0.5
+	+NOBLOCKMONST
+	+FRIENDLY
+
+	States {
+	
+/******************************************************************************\
+==================================MAIN STATES===================================
+\******************************************************************************/
+	
+	Spawn:
+		XXLF A 0
+		/*TNT1 A 0 A_CustomMissile("OrbitFriendly",44,0,0,2,0)
+		TNT1 A 0 A_CustomMissile("OrbitFriendly2",44,0,180,2,0)*/
+		TNT1 A 0 A_ChangeFlag("FRIENDLY",1)
+		TNT1 A 0 ACS_ExecuteAlways(556,0)
+		XXLF A 0 Thing_SetSpecial(0,226,613,0,0)
+		TNT1 A 0 A_SpawnItem ("KillMe")
+	SpawnLoop:
+		TNT1 A 0 A_SpawnItem("HeadshotTarget10",15,40,0)
+		XXLF A 10 A_LookEx(0,0,random(512,2048),random(1024,4096),random(150,180),"See")
+		goto SpawnLoop
+	See:
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		XXLF A 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		XXLF B 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		XXLF C 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		XXLF D 3 A_Chase
+		Loop
+
+/******************************************************************************\
+=================================ATTACK STATES==================================
+\******************************************************************************/
+
+	Missile:
+		TNT1 A 0 A_SpawnItem("HeadshotTarget10",0,40,0)
+		XXLF E 10 A_FaceTarget
+		TNT1 A 0 A_Jump(64,"DistanceCheck")
+		Goto BulletAttack
+	BulletAttack:
+		TNT1 A 0 A_JumpIfInventory("KnightAmmo",30,"Reload")
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("FNS_F1",6)
+		TNT1 A 0 A_GiveInventory("KnightAmmo",1)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget1",0,40,0)
+		//TNT1 A 0 A_CustomBulletAttack(5,5,1,random(2,5),"FBulletPuff")
+		XXLF F 1 BRIGHT A_CustomMissile("FZoneTracer",38,0,random(-5,5),0,random(-5,5))
+		XXLF E 2 A_SpawnItem ("HeadshotTarget2", 0, 40,0)
+		TNT1 A 0 A_JumpIfInventory("KnightAmmo",30,"Reload")
+		TNT1 A 0 A_MonsterRefire(224,"See")
+		Loop
+	Reload:
+		TNT1 A 0 A_ChangeFlag(NOPAIN,1)
+		TNT1 A 0 A_TakeInventory("KnightAmmo",30)
+		XXLF EE 3 A_SpawnItem("HeadshotTarget3",0,40,0)
+		TNT1 A 0 A_PlaySound("FNS_R2")
+		XXLF E 2 A_SpawnItem("HeadshotTarget2",0,40,0)
+		XXLF EEEEEEEEEEEEEEEEEEEEEEE 4 A_SpawnItem("HeadshotTarget4",0,40,0)
+		TNT1 A 0 A_ChangeFlag(NOPAIN,0)
+		Goto See
+	DistanceCheck:
+		TNT1 A 0 A_JumpIfCloser(1768,"LaunchGrenade")
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto BulletAttack
+	LaunchGrenade:
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4",0,40,0)
+		XXLF E 4 A_FaceTarget
+		XXLF E 4 A_SpawnItem("HeadshotTarget4",0,40,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget2",0,40,0)
+		TNT1 A 0 A_Jump(16,"LaunchSmokeGrenade")
+		Goto LaunchHEGrenade
+	LaunchHEGrenade:
+		XXLF F 2 BRIGHT A_CustomMissile("KnightGrenadeShell",28,5,random(-15,15),2,random(0,10))
+		Goto LaunchGrenadeFinish
+	LaunchSmokeGrenade:
+		XXLF F 2 A_CustomMissile("KnightSmokeGrenade",28,5,0)
+		Goto LaunchGrenadeFinish
+	LaunchGrenadeFinish:
+		XXLF EE 3 A_SpawnItem("HeadshotTarget3",0,40,0)
+		Goto GrenadeReload
+	GrenadeReload:
+		TNT1 A 0 A_ChangeFlag(NOPAIN,1)
+		TNT1 A 0 A_PlaySoundEx("M4_CLIPO","SoundSlot5")
+		XXLF E 2 A_SpawnItem("HeadshotTarget2",0,40,0)
+		XXLF E 10 A_SpawnItem("HeadshotTarget10",0,40,0)
+		TNT1 A 0 A_PlaySoundEx("M4_CLIPI","SoundSlot5")
+		XXLF E 2 A_SpawnItem("HeadshotTarget2",0,40,0)
+		XXLF EEEEEE 10 A_SpawnItem("HeadshotTarget10",0,40,0)
+		TNT1 A 0 A_ChangeFlag(NOPAIN,0)
+		Goto See
+
+/******************************************************************************\
+==================================PAIN STATES===================================
+\******************************************************************************/
+
+	Pain: 
+		XXLF G 3 A_SpawnItem("HeadshotTarget3",0,40,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		XXLF G 3 A_Pain
+		Goto See
+	Pain.Shock:
+		TNT1 A 0 A_ChangeFlag(NOPAIN,1)
+		TNT1 A 0 A_Pain
+		XXLF GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 10 A_SpawnItem("HeadshotTarget10",0,40,0)
+		TNT1 A 0 A_ChangeFlag(NOPAIN,0)
+		Goto See
+
+/******************************************************************************\
+==================================DEATH STATES==================================
+\******************************************************************************/
+
+	Death: 
+		TNT1 A 0 A_JumpIfHealthLower(-60,"Splode")
+	Death.KnifeSlash:
+	Death.KnifeStab:
+	Death.KnifeSlashPower:
+	Death.KnifeStabPower:
+	Death.WakizashiSlash:
+	Death.WakizashiStab:
+	Death.WakizashiSlashPower:
+	Death.WakizashiStabPower:
+		XXLF H 5 A_AlertMonsters
+		XXLF I 5 A_Scream
+		XXLF J 5 A_Fall
+		XXLF KLM 5
+		TNT1 A 0 A_Jump(2,"Regenerating")
+		TNT1 A 0 A_GiveInventory("isDead",1)
+		XXLF N -1
+		stop
+	Regenerating:
+		XXLF NNNNNNNNNNNNNNN 70
+		XXLF N -1 Thing_Raise(0)
+		Wait
+	Splode:
+		XXLF I 1 A_SpawnDebris("NashGore_Gib9",0)
+		TNT1 A 0 A_SpawnDebris("NashGore_Gib10",0)
+		TNT1 A 0 A_SpawnDebris("NashGore_Gib11",0)
+		TNT1 A 0 A_SpawnDebris("NashGore_Gib11",0)
+		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)
+		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)
+		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)
+		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)
+		TNT1 A 0 A_XScream
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_GiveInventory("isDead",1)
+		TNT1 A 0 A_SpawnItemEx("DEADFZoneKnightHead",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)
+		stop
+	Death.Fire2:
+		TNT1 A 0 A_GiveInventory("isDead",1)
+		TNT1 A 1 A_SpawnItem("BurnDeath1",2,1)
+		TNT1 A 0 A_AlertMonsters
+		stop
+	Death.head:
+		GO99 O 9 A_PlaySound("headshot/splat")
+		TNT1 A 0 A_SpawnItem("AeniBlood",0,40,0)
+		TNT1 A 0 A_SpawnItem("AeniBlood",0,40,0)
+		GO99 P 9 A_XScream
+		GO99 Q 9 A_Fall
+		GO99 R 5 A_GiveInventory("isDead",1)
+		GO99 S 5 A_SpawnItemEx("DEADFZoneKnight",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)
+		stop
+	Raise: 
+		XXLF KJI 5
+		TNT1 A 0 A_ChangeFlag("FRIENDLY",1)
+		TNT1 A 0 A_TakeInventory("isDead",1)
+		/*TNT1 A 0 A_CustomMissile("OrbitFriendly",44,0,0,2,0)
+		TNT1 A 0 A_CustomMissile("OrbitFriendly2",44,0,180,2,0)*/
+		XXLF H 5 Thing_SetSpecial(0,226,613,0,0)
+		Goto See
+	}
+}
+
+ACTOR DEADFZoneKnight
+{
+ +FLOORCLIP
+ Radius 12
+ Height 11
+ States
+ {
+  Spawn:
+   G99P T 0
+   G99P T -1
+   stop
+ }
+}
+
+ACTOR DEADFZoneKnightHead
+{
+ +FLOORCLIP
+ Radius 12
+ Height 11
+ States
+ {
+  Spawn:
+   XXLF W 0
+   XXLF W -1
+   stop
+ }
+}

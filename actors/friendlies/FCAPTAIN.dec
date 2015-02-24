@@ -1,0 +1,476 @@
+ACTOR FKnightCaptain : RandomSpawner 11205 {
+	+FRIENDLY
+	DropItem FKnightCaptain_MP7 255 3
+	DropItem FKnightCaptain_Deagle 255 1
+}
+
+Actor FKnightCaptain_MP7 : KnightCaptain_MP7 17054 {
+	//$Category Federation
+	Health 1080
+	
+	damagefactor "KillMe", 0.0
+	damagefactor "FriendBullet", 0.5
+	DamageFactor "KnifeSlash", 0.05
+	DamageFactor "KnifeStab", 0.1
+	DamageFactor "KnifeSlashPower", 0.05
+	DamageFactor "KnifeStabPower", 0.1
+	DamageFactor "WakizashiSlash", 0.05
+	DamageFactor "WakizashiStab", 0.1
+	DamageFactor "WakizashiSlashPower", 0.05
+	DamageFactor "WakizashiStabPower", 0.1
+	
+	+NOBLOCKMONST
+	+FRIENDLY
+
+	States {
+	
+/******************************************************************************\
+================================HEADSHOT STATES=================================
+\******************************************************************************/
+	
+	Spawn:
+		SKCP A 0                                                     			//
+		SKCP A 0 A_GiveInventory("MortarToken",1)					 			//
+		TNT1 A 0 A_JumpIfInventory("Dialogue_Type",1,2)
+		TNT1 A 0 ACS_ExecuteAlways(764,0,0,0,0)
+		/*TNT1 A 0 A_CustomMissile("OrbitFriendly", 44, 0, 0, 2, 0)    			//
+		TNT1 A 0 A_CustomMissile("OrbitFriendly2", 44, 0, 180, 2, 0) 			//*/
+		TNT1 A 0 A_ChangeFlag("FRIENDLY",1)                          			// MAKE FRIENDLY
+		TNT1 A 0 A_CheckSight("Spawn2")                              			// DO NOT SPAWN HEADSHOT BOX 
+		TNT1 A 0 ACS_ExecuteAlways(556,0)
+		SKCP A 0 Thing_SetSpecial(0,226,613,0,0)         						// EXP/KIA SCRIPT
+		TNT1 A 0 A_SpawnItem ("KillMe")
+	SpawnLoop:
+		SKCP A 0 A_CheckSight("SpawnLoop2")                              		// DO NOT SPAWN HEADSHOT BOX 
+		TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           			// MAKE HEADSHOT BOX
+		SKCP AAAAAA 1 A_LookEx(0,0,random(1024,2048),random(2048,4096),random(150,180),"SeeAlert")// ON LOOKOUT
+		SKCP A 0 HealThing(2)                                        			// HEALING
+		Loop		                                                 			//
+	SeeAlert:
+		SKCP A 1 A_AlertMonsters                                     			// ALERT OTHERS
+	See:
+		SKCP A 1 // Infinite loop crash prevention?
+		SKCP A 0 A_CheckSight("See2")                                			//
+		SKCP B 0 A_JumpIfInventory("CaptainScared",1,"IfLowHealth")  			// IF THIS CAPTAIN IS RETREATING
+		SKCP B 0 A_Jump(32,"Stand")                                  			// STANDBY
+	IfLowHealth:
+		SKCP B 0 A_JumpIfHealthLower(120,"LowHealth")                			// IF HEALTH IS LOW
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto HealthHigh                                              			//
+	LowHealth:
+		SKCP A 1 A_AlertMonsters                                     			// ALERT OTHERS
+		SKCP A 0 A_GiveInventory("CaptainScared", 1)                 			// CAPTAIN IS RETREATING
+		SKCP A 0 A_ChangeFlag("Frightened", 1)                       			// RETREAT
+		SKCP A 0 A_JumpIfInventory("Reinforce",1,"Reinforcements")   			//
+		Goto Chase                                                   			//
+	HealthHigh:
+		SKCP A 0 A_TakeInventory("CaptainScared", 1)                 			// CAPTAIN IS NO LONGER RETREATING
+		SKCP A 0 A_ChangeFlag("Frightened", 0)                       			// PUSH ONWARD
+	Chase:
+		SKCP A 0 A_JumpIfInventory("CaptainScared", 1, 2)            			// IF THIS CAPTAIN IS RETREATING
+		SKCP A 0 A_JumpIfHealthLower(40, "LowHealth")                			// IF HEALTH IS LOW
+		TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           			// MAKE HEADSHOT BOX
+		SKCP AAAA 1 A_Chase("Melee","",CHF_NOPLAYACTIVE) 						// CHARGE AND PUNCH
+		TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           			// MAKE HEADSHOT BOX
+		SKCP AAAA 1 A_Chase("Melee","Missile")            						// CHASE
+		SKCP A 0 HealThing(2)                                        			// HEALING
+		SKCP A 0 A_JumpIfInventory("CaptainScared",1,"IfLowHealth")  			// IF THIS CAPTAIN IS RETREATING
+	ChaseSecond:
+		SKCP A 0 A_JumpIfInventory("CaptainScared", 1, 2)            			// IF THIS CAPTAIN IS RETREATING
+		SKCP A 0 A_JumpIfHealthLower(40, "LowHealth")                			// IF HEALTH IS LOW
+		TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           			// MAKE HEADSHOT BOX
+		SKCP BBBB 1 A_Chase("Melee","",CHF_NOPLAYACTIVE) 						// CHARGE AND PUNCH
+		TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           			// MAKE HEADSHOT BOX
+		SKCP BBBB 1 A_Chase("Melee","Missile")            						// CHASE
+		SKCP A 0 HealThing(2)                                        			// HEALING
+		SKCP A 0 A_JumpIfInventory("CaptainScared",1,"IfLowHealth")  			// IF THIS CAPTAIN IS RETREATING
+	ChaseThird:
+		SKCP A 0 A_JumpIfInventory("CaptainScared", 1, 2)            			// IF THIS CAPTAIN IS RETREATING
+		SKCP A 0 A_JumpIfHealthLower(40, "LowHealth")                			// IF HEALTH IS LOW
+		TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           			// MAKE HEADSHOT BOX
+		SKCP CCCC 1 A_Chase("Melee","",CHF_NOPLAYACTIVE) 						// CHARGE AND PUNCH
+		TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           			// MAKE HEADSHOT BOX
+		SKCP CCCC 1 A_Chase("Melee","Missile")            						// CHARGE
+		SKCP A 0 HealThing(2)                                        			// HEALING
+		SKCP A 0 A_JumpIfInventory("CaptainScared",1,"IfLowHealth")  			// IF THIS CAPTAIN IS RETREATING
+	ChaseFourth:
+		SKCP A 0 A_JumpIfInventory("CaptainScared", 1, 2)            			// IF THIS CAPTAIN IS RETREATING
+		SKCP A 0 A_JumpIfHealthLower(40, "LowHealth")                			// IF HEALTH IS LOW
+		TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           			// MAKE HEADSHOT BOX
+		SKCP DDDD 1 A_Chase("Melee","",CHF_NOPLAYACTIVE) 						// CHARGE AND PUNCH
+		TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           			// MAKE HEADSHOT BOX
+		SKCP DDDD 1 A_Chase("Melee","Missile")            						// CHARGE
+		SKCP A 0 HealThing(2)                                        			// HEALING
+		Goto See                                                         		//
+	Stand:
+		SKCP A 0 A_Chase("Melee","Missile",CHF_NOPLAYACTIVE|CHF_DONTMOVE)		// CHASE
+		TNT1 A 0 A_SpawnItem ("HeadshotTarget4", 15, 40,0)           			// MAKE HEADSHOT BOX
+		SKCP A 4 A_FaceTarget                                        			//
+		SKCP A 0 HealThing(2)                                        			// HEALING
+		SKCP A 0 A_Jump(192,"Stand")                                      		// STOP STANDING AROUND?
+		Goto See                                                     			//
+	
+/******************************************************************************\
+==============================NON-HEADSHOT STATES===============================
+\******************************************************************************/
+	
+	Spawn2:
+		SKCP A 0                                                     			//
+		SKCP A 0 A_GiveInventory("MortarToken",1)					 			//
+		SKCP A 0 Thing_SetSpecial(0,226,613,0,0)         						// EXP/KIA SCRIPT
+		TNT1 A 0 A_SpawnItem ("KillMe")
+	SpawnLoop2:
+		SKCP A 0 A_CheckSight(1)                       							// IF PLAYER IN SIGHT SWITCH TO SPAWNLOOP
+		Goto SpawnLoop
+		SKCP AAAAAA 1 A_LookEx(0,0,random(1024,2048),random(2048,4096),random(150,180),"SeeAlert2")// ON LOOKOUT
+		SKCP A 0 HealThing(2)                                        			// HEALING
+		Loop		                                                 			//
+	SeeAlert2:
+		SKCP A 1 A_AlertMonsters                                     			// ALERT OTHERS
+	See2:
+		SKCP A 0 A_CheckSight("See2Action")                       				// IF PLAYER IN SIGHT SWITCH TO SEE
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto See
+	See2Action:
+		SKCP B 0 A_JumpIfInventory("CaptainScared",1,"IfLowHealth2")  			// IF THIS CAPTAIN IS RETREATING
+		SKCP B 0 A_Jump(32,"Stand2")                                  			// STANDBY
+	IfLowHealth2:
+		SKCP B 0 A_JumpIfHealthLower(120,"LowHealth2")                			// IF HEALTH IS LOW
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto HealthHigh2                                              			//
+	LowHealth2:
+		SKCP A 1 A_AlertMonsters                                     			// ALERT OTHERS
+		SKCP A 0 A_GiveInventory("CaptainScared", 1)                 			// CAPTAIN IS RETREATING
+		SKCP A 0 A_ChangeFlag("Frightened", 1)                       			// RETREAT
+		SKCP A 0 A_JumpIfInventory("Reinforce",1,"Reinforcements")   			//
+		Goto Chase2                                                   			//
+	HealthHigh2:
+		SKCP A 0 A_TakeInventory("CaptainScared", 1)                 			// CAPTAIN IS NO LONGER RETREATING
+		SKCP A 0 A_ChangeFlag("Frightened", 0)                       			// PUSH ONWARD
+	Chase2:
+		SKCP A 0 A_JumpIfInventory("CaptainScared", 1, 2)            			// IF THIS CAPTAIN IS RETREATING
+		SKCP A 0 A_JumpIfHealthLower(40, "LowHealth2")                			// IF HEALTH IS LOW
+		SKCP AAAA 1 A_Chase("Melee","",CHF_NOPLAYACTIVE) 						// CHARGE AND PUNCH
+		SKCP AAAA 1 A_Chase("Melee","Missile")            						// CHASE
+		SKCP A 0 HealThing(2)                                        			// HEALING
+		SKCP A 0 A_JumpIfInventory("CaptainScared",1,"IfLowHealth2")  			// IF THIS CAPTAIN IS RETREATING
+	ChaseSecond2:
+		SKCP A 0 A_JumpIfInventory("CaptainScared", 1, 2)            			// IF THIS CAPTAIN IS RETREATING
+		SKCP A 0 A_JumpIfHealthLower(40, "LowHealth2")                			// IF HEALTH IS LOW
+		SKCP BBBB 1 A_Chase("Melee","",CHF_NOPLAYACTIVE) 						// CHARGE AND PUNCH
+		SKCP BBBB 1 A_Chase("Melee","Missile")            						// CHASE
+		SKCP A 0 HealThing(2)                                        			// HEALING
+		SKCP A 0 A_JumpIfInventory("CaptainScared",1,"IfLowHealth2")  			// IF THIS CAPTAIN IS RETREATING
+	ChaseThird2:
+		SKCP A 0 A_JumpIfInventory("CaptainScared", 1, 2)            			// IF THIS CAPTAIN IS RETREATING
+		SKCP A 0 A_JumpIfHealthLower(40, "LowHealth2")                			// IF HEALTH IS LOW
+		SKCP CCCC 1 A_Chase("Melee","",CHF_NOPLAYACTIVE) 						// CHARGE AND PUNCH
+		SKCP CCCC 1 A_Chase("Melee","Missile")            						// CHARGE
+		SKCP A 0 HealThing(2)                                        			// HEALING
+		SKCP A 0 A_JumpIfInventory("CaptainScared",1,"IfLowHealth2")  			// IF THIS CAPTAIN IS RETREATING
+	ChaseFourth2:
+		SKCP A 0 A_JumpIfInventory("CaptainScared", 1, 2)            			// IF THIS CAPTAIN IS RETREATING
+		SKCP A 0 A_JumpIfHealthLower(40, "LowHealth2")                			// IF HEALTH IS LOW
+		SKCP DDDD 1 A_Chase("Melee","",CHF_NOPLAYACTIVE) 						// CHARGE AND PUNCH
+		SKCP DDDD 1 A_Chase("Melee","Missile")            						// CHARGE
+		SKCP A 0 HealThing(2)                                        			// HEALING
+		Goto See2                                                     			//
+	Stand2:
+		SKCP A 0 A_Chase("Melee","Missile",CHF_NOPLAYACTIVE|CHF_DONTMOVE)		// CHASE
+		SKCP A 3 A_FaceTarget                                        			//
+		SKCP A 0 HealThing(2)                                        			// HEALING
+		SKCP A 0 A_Jump(192,"Stand")                                      		// STOP STANDING AROUND?
+		Goto See2                                                     			//
+		
+/******************************************************************************\
+=================================ATTACK STATES==================================
+\******************************************************************************/
+		
+	Melee:
+		SKCP A 0 A_FaceTarget                                        			//
+		SKCP E 3 A_CustomMeleeAttack(8,"monster/inipunc1","none")    			// PAWNCH
+		SKCP A 0 A_FaceTarget                                        			//
+		SKCP A 3 A_CustomMissile("Knockback",32,0,0,0)               			// KNOCKBACK TARGET
+		Goto See                                                     			//
+	Missile:
+		SKCP E 0 A_ChangeFlag("NoPain",1)                            			// WILL NOT ENTER PAIN STATE
+		SKCP E 0 A_Jump(64,"IfClose")                                			// CHANCE GRENADE
+		SKCP E 2 A_FaceTarget                                        			//
+	BulletAttack:
+		SKCP E 0 A_JumpIfInventory("KnightAmmo",40,"Reload")             		// CHECK AMMO
+		TNT1 A 0 A_SpawnItem("HeadshotTarget10",0,40,0)           				// MAKE HEADSHOT BOX
+		//SKCP F 0 A_CustomBulletAttack(5,5,1,random(1,3),"FBulletPuff")   		// 1ST SHOT
+		TNT1 A 0 A_PlaySoundEx("MP7/FIRE","SoundSlot6")
+		SKCP F 2 BRIGHT A_CustomMissile("FCaptainTracer",38,0,random(-10,10),0,random(-10,10))
+		TNT1 A 0 A_SpawnItem("HeadshotTarget10",0,40,0)           				// MAKE HEADSHOT BOX
+		SKCP E 2 A_FaceTarget                                        			//
+		SKCP E 0 A_GiveInventory("KnightAmmo",1)                    			// LESSEN AMMO
+		SKCP E 0 A_JumpIfInventory("KnightAmmo",40,"Reload")             		// CHECK AMMO
+		SKCP E 0 A_Jump(8,"StopShooting")                                      	//
+		SKCP E 0 A_SpidReFire                                        			// SHOOT AGAIN!
+		Loop                                               						//
+	StopShooting:
+		SKCP E 0 A_JumpIfInventory("KnightAmmo",40,"Reload")             		// CHECK AMMO
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		goto See                                                     			//
+	Reload:
+		SKCP E 0 A_TakeInventory("KnightAmmo",40)                   			// RELOAD!
+		SKCP E 8 A_PlaySound("ZSec/DryFire")                         			//
+		SKCP E 55 A_PlaySound("ZSec/Reload")                         			//
+		SKCP E 0 A_ChangeFlag("NoPain", 0)                           			// WILL ENTER PAIN STATE
+		goto See                                                     			//
+	IfClose:
+		SKCP E 0 A_JumpIfCloser(1024,"ThrowGrenade")                            // GRENADE IF CLOSE
+		SKCP A 0 A_JumpIfInventory("MortarToken",1,"CheckMortar")    			//
+		Goto See                                                     			//
+	ThrowGrenade:
+		SKCP E 0 A_Jump(16,"SmokeGrenade")                                      // CHANCE SMOKE GRENADE
+		SKCP E 8 A_FaceTarget                                        			// GRENADE
+		TNT1 A 0 A_PlaySound("GRE_THRO",CHAN_AUTO)                				//
+		SKCP F 2 bright A_CustomMissile("ThrownGrenade",28,5,random(-15,15),0)	//("KnightGrenadeShell",28,5,random(-15,15),2,random(0,10))
+		SKCP E 6 A_FaceTarget                                        			//
+		SKCP E 0 A_ChangeFlag("NoPain",0)                           			// WILL ENTER PAIN STATE
+		Goto See                                                     			//
+	SmokeGrenade:
+		SKCP E 8 A_FaceTarget                                        			// SMOKE GRENADE
+		SKCP F 0 A_PlaySound("weapons/rocklf")                					//
+		SKCP F 2 bright A_CustomMissile("KnightSmokeGrenade",28,5,0) 			//
+		SKCP E 6 A_FaceTarget                                        			//
+		SKCP E 0 A_ChangeFlag("NoPain",0)                           			// WILL ENTER PAIN STATE
+		Goto See                                                     			//
+	CheckMortar:
+		SKCP A 0 A_Jump(64,"MortarStrike")                            			//
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto See
+	MortarStrike:
+		SKCP E 3 A_FaceTarget                                        			//
+		TNT1 A 0 A_TakeInventory("MortarToken",1)
+		TNT1 A 0 A_PlaySoundEx("Artillery/FireMission","Auto")		 			//
+		TNT1 A 0 A_CustomMissile("MortarSpawner",40,0,0,0,0)		 			//
+		TNT1 A 0 A_CustomMissile("MortarSpawner",40,0,0,0,0)		 			//
+		TNT1 A 0 A_CustomMissile("MortarSpawner",40,0,0,0,0)		 			//
+		TNT1 A 0 A_CustomMissile("MortarSpawner",40,0,0,0,0)		 			//
+		TNT1 A 0 A_CustomMissile("MortarSpawner",40,0,0,0,0)		 			//
+		TNT1 A 0 A_CustomMissile("MortarSpawner",40,0,0,0,0)		 			//
+		TNT1 A 0 A_CustomMissile("MortarSpawner",40,0,0,0,0)		 			//
+		TNT1 A 0 A_CustomMissile("MortarSpawner",40,0,0,0,0)		 			//
+		TNT1 A 0 A_CustomMissile("MortarSpawner",40,0,0,0,0)		 			//
+		TNT1 A 0 A_CustomMissile("MortarSpawner",40,0,0,0,0)		 			//
+		SKCP E 140
+		Goto See
+		
+/******************************************************************************\
+==================================PAIN STATES===================================
+\******************************************************************************/
+		
+	Pain:
+		SKCP G 3                                                     			//
+		SKCP G 3 A_Pain                                              			// OW!
+		SKCP G 0 HealThing(2)                                        			// HEALING
+		SKCP G 0 A_GiveInventory("Reinforce",1)                      			//
+		Goto See                                                     			//
+	Pain.Shock:
+		SKCP G 2 A_ChangeFlag("NoPain",1)                           			// STUNNED!
+		SKCP G 300 A_Pain                                            			//
+		SKCP G 0 A_ChangeFlag("NoPain",0)                           			//
+		Goto See                                                     			//
+		
+/******************************************************************************\
+==================================DEATH STATES==================================
+\******************************************************************************/
+		
+	Death:
+		TNT1 A 0 A_TakeInventory("Dialogue_Type",3)
+		SKCP H 0 A_JumpIfHealthLower(-60,"Splode")                   			//
+  Death.KnifeSlash:
+  Death.KnifeStab:
+  Death.KnifeSlashPower:
+  Death.KnifeStabPower:
+  Death.WakizashiSlash:
+  Death.WakizashiStab:
+  Death.WakizashiSlashPower:
+  Death.WakizashiStabPower:
+		SKCP H 5 ACS_ExecuteAlways(757,0,random(326,350),0,0)        			//
+		SKCP I 8 A_ScreamAndUnblock                                  			//
+		SKCP JKLM 6                                                  			//
+		SKCP N 0 A_Jump(64,"Regenerating")                                      // REGENERATING!
+		SKCP N 0 A_GiveInventory("isDead", 1)                        			//
+		SKCP N -1                                                    			//
+		stop                                                         			//
+	Regenerating:
+		SKCP NNNNN 70                                                			//
+		SKCP NNNNN 70                                                			//
+		SKCP NNNNN 70                                                			//
+		SKCP N -1 Thing_Raise(0)                                     			// STILL ALIVE
+		Wait                                                         			//
+	Splode:
+		SKCP I 1 ACS_ExecuteAlways(757,0,random(326,350),0,0)                   // xDeath
+		SKCP I 0 A_XScream                                           			//
+		SKCP I 0 A_NoBlocking                                        			//
+		SKCP I 0 A_SpawnDebris("NashGore_Gib9",0)                    			// GIBS!
+		SKCP I 0 A_SpawnDebris("NashGore_Gib10",0)                   			//
+		SKCP I 0 A_SpawnDebris("NashGore_Gib11",0)                   			//
+		SKCP I 0 A_SpawnDebris("NashGore_Gib11",0)                   			//
+		SKCP I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        			//
+		SKCP I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        			//
+		SKCP I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        			//
+		SKCP I 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)        			//
+		SKCP I 0 A_GiveInventory("isDead", 1)                        			//
+		SKCP Z 0 A_SpawnItemEx("DEADInitiateHead",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)//
+		stop                                                         			//
+	Death.Fire2:
+		TNT1 A 0 ACS_ExecuteAlways(757,0,random(351,375),0,0)        			//
+		SKCP A 0 A_GiveInventory("isDead", 1)                        			//
+		TNT1 A 1 A_SpawnItem("BurnDeath1",2,1)                   				// SCORCHED
+		stop                                                       				//
+	Raise:
+		SKCP K 5 A_ChangeFlag("FRIENDLY",1)										// REVIVED
+		SKCP JI 5                                                    			//
+		SKCP A 0 A_TakeInventory("isDead", 1)                        			//
+		/*SKCP A 0 A_CustomMissile("OrbitFriendly", 44, 0, 0, 2, 0)    			// Reminder: markers stay around actor when in fake death,
+		SKCP A 0 A_CustomMissile("OrbitFriendly2", 44, 0, 180, 2, 0) 			//			 make those disappear till revived.*/
+		SKCP H 5 Thing_SetSpecial(0,226,613,0,random(60,80))        			// EXP/KIA SCRIPT
+		TNT1 A 0 A_SpawnItem ("KillMe")
+		Goto See                                                     			//
+	Death.head:
+		SKCP A 0 ACS_ExecuteAlways(757,0,random(326,350),0,0)        			//
+		SKCP O 9 A_PlaySound("headshot/splat")                       			//
+		TNT1 A 0 A_SpawnItem("AeniBlood",0,40,0)
+		TNT1 A 0 A_SpawnItem("AeniBlood",0,40,0)
+		SKCP P 9 A_XScream                                           			//
+		SKCP Q 9 A_Fall                                              			//
+		SKCP RS 5                                                    			//
+		SKCP A 0 A_GiveInventory("isDead", 1)                        			//
+		SKCP T 0 A_SpawnItemEx("DEADInitiate",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)// FAKE BODY
+		stop                                                         			//
+	Reinforcements:
+		SKCP E 1 A_TakeInventory("Reinforce",1)
+		SKCP E 0 A_Jump(16,2)
+		SKCP E 1 A_SpawnItemEx("FWeakBeacon",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION|SXF_NOCHECKPOSITION)
+		Goto See
+		SKCP E 1 A_SpawnItemEx("FStrongBeacon",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION|SXF_NOCHECKPOSITION)
+		Goto See
+	}
+}
+
+Actor FKnightCaptain_Deagle : FKnightCaptain_MP7 17055 {
+	//$Category Federation
+	States {
+		Missile:
+			SKCP E 0 A_ChangeFlag("NoPain",1)                            		// WILL NOT ENTER PAIN STATE
+			SKCP E 0 A_Jump(8,"IfClose")                                		// CHANCE GRENADE
+			SKCP E 2 A_FaceTarget                                        		//
+			Goto BulletAttack
+		BulletAttack:
+			SKCP E 0 A_JumpIfInventory("KnightAmmo",7,"Reload")               	// CHECK AMMO
+			SKCP F 0 A_CustomBulletAttack(5,5,1,random(6,12),BulletPuff)   		// 1ST SHOT
+			TNT1 A 0 A_PlaySoundEx("DE_FIRE","Auto")
+			SKCP F 2 BRIGHT A_CustomMissile("CaptainTracer",38,0,random(-6,6),2,random(-6,6))
+			SKCP E 28 A_GiveInventory("KnightAmmo",1)                    		// LESSEN AMMO
+			SKCP E 0 A_JumpIfInventory("KnightAmmo",7,"Reload")               	// CHECK AMMO
+			SKCP E 0 A_Jump(32,"StopShooting")                                  //
+			SKCP E 0 A_SpidReFire                                        		// SHOOT AGAIN!
+			Goto BulletAttack                                               	//
+		StopShooting:
+			SKCP E 0 A_JumpIfInventory("KnightAmmo",7,"Reload")             	// CHECK AMMO
+			goto See                                                     		//
+		Reload:
+			SKCP E 0 A_TakeInventory("KnightAmmo",7)                    		// RELOAD!
+			SKCP E 8 A_PlaySound("DE_R4")                         		 		//
+			SKCP E 24 A_PlaySound("DE_R1")                         		 		//
+			SKCP E 40 A_PlaySound("DE_R2")                         		 		//
+			SKCP E 24 A_PlaySound("DE_R3")                         		 		//
+			SKCP E 46 A_PlaySound("DE_R4")                         		 		//
+			SKCP E 40															//
+			SKCP E 0 A_ChangeFlag("NoPain",0)                           		// WILL ENTER PAIN STATE
+			goto See                                                     		//
+	}
+}
+
+ACTOR DEADFKnightCaptain {
+	+FLOORCLIP
+	Radius 12
+	Height 11
+	States {
+		Spawn:
+			SKCP T 0
+			SKCP T -1
+			stop
+	}
+}
+
+ACTOR DEADFKnightCaptainHead {
+	+FLOORCLIP
+	Radius 12
+	Height 11
+	States {
+		Spawn:
+			SKCP W 0
+			SKCP W -1
+			stop
+	}
+}
+
+ACTOR FWeakBeacon {
+	-SOLID
+	-SHOOTABLE
+	+NOTARGET
+	+FRIENDLY
+	States {
+		Spawn:
+			7BEA A 105 BRIGHT
+			7BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+			7BEA A 0 A_SpawnItemEx ("FStrikeKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+			7BEA A 105 BRIGHT
+			7BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+			7BEA A 0 A_SpawnItemEx ("FStrikeKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+			7BEA A 105 BRIGHT
+			7BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+			7BEA A 0 A_SpawnItemEx ("FStrikeKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+			7BEA A 105 BRIGHT
+			7BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+			7BEA A 0 A_SpawnItemEx ("FStrikeKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+			7BEA A 105 BRIGHT
+			7BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+			7BEA A 0 A_SpawnItemEx ("FStrikeKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+			7BEA A 105 BRIGHT
+			goto Death
+		Death:
+			TNT1 A 1 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+			stop
+	}
+}
+  
+ACTOR FStrongBeacon {
+	-SOLID
+	-SHOOTABLE
+	+NOTARGET
+	+FRIENDLY
+	States {
+		Spawn:
+			2BEA A 105 BRIGHT
+			2BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+			2BEA A 0 A_SpawnItemEx ("FKnightCaptain_MP7", 0, 0, 8, 0, 0, 0, 0, 1)
+			Goto SpawnRest
+		SpawnDeagle:
+			2BEA A 0 A_SPawnItemEx ("FKnightCaptain_Deagle", 0, 0, 8, 0, 0, 0, 0, 1)
+		SpawnRest:
+			2BEA A 105 BRIGHT
+			2BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+			2BEA A 0 A_SpawnItemEx ("FStrikeKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+			2BEA A 105 BRIGHT
+			2BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+			2BEA A 0 A_SpawnItemEx ("FStrikeKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+			2BEA A 105 BRIGHT
+			2BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+			2BEA A 0 A_SpawnItemEx ("FStrikeKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+			2BEA A 105 BRIGHT
+			2BEA A 0 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+			2BEA A 0 A_SpawnItemEx ("FHeavyKnight", 0, 0, 8, 0, 0, 0, 0, 1)
+			2BEA A 105 BRIGHT
+			goto Death
+		Death:
+			TNT1 A 1 A_CustomMissile ("BeaconTeleportFog", 0, 0, 0, 0, 0)
+			stop
+	}
+}

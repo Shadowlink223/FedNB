@@ -1,0 +1,364 @@
+ACTOR FRiotKnight : RiotKnight 11721 {
+	//$Category Federation
+
+	Health 700
+	DamageFactor "KillMe", 0.0
+	DamageFactor "FriendBullet", 0.5
+	+NOBLOCKMONST
+	+FRIENDLY
+
+	States {
+
+/******************************************************************************\
+==================================MAIN STATES===================================
+\******************************************************************************/
+
+	Spawn:
+		POSS A 0
+		/*TNT1 A 0 A_CustomMissile("OrbitFriendly",44,0,0,2,0)
+		TNT1 A 0 A_CustomMissile("OrbitFriendly2",44,0,180,2,0)*/
+		TNT1 A 0 A_ChangeFlag("FRIENDLY",1)
+		TNT1 A 0 ACS_ExecuteAlways(556,0)
+		TNT1 A 0 Thing_SetSpecial(0,226,613,0,0)
+		TNT1 A 0 A_SpawnItem ("KillMe")
+	SpawnLoop:
+		TNT1 A 0 A_SpawnItem("HeadshotTarget10",15,40,0)
+		POSS E 10 A_LookEx(0,0,random(512,2048),random(1024,4096),random(120,180),"See")
+		Loop
+	See:
+		POSS A 1 // Infinite loop crash prevention?
+		TNT1 A 0 A_CheckSight("ChanceToCharge")
+		Goto TakeCharge
+	ChanceToCharge:
+		TNT1 A 0 A_Jump(128,"GiveCharge")
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto Chase
+	GiveCharge:
+		TNT1 A 0 A_JumpIfInventory("KnightCharge",1,"TakeCharge")
+		TNT1 A 0 A_GiveInventory("KnightCharge",1)
+		Goto IfLowHealth
+	TakeCharge:
+		TNT1 A 0 A_TakeInventory("KnightCharge",1)
+		Goto IfLowHealth
+	IfLowHealth:
+		TNT1 A 0 A_JumpIfHealthLower(50,"LowHealth")
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto HealthHigh
+	HealthHigh:
+		TNT1 A 0 A_ChangeFlag("Frightened",0)
+		Goto Chase
+	LowHealth:
+		TNT1 A 0 A_Jump(32,"HealUp")
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto Retreat
+	Retreat:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_ChangeFlag("Frightened",1)
+		Goto HealUp
+	HealUp:
+		TNT1 A 0 HealThing(1)
+		Goto Chase
+	Chase:
+		TNT1 A 0 A_JumpIfInventory("KnightCharge",1,"Charge")
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		POSS A 3 A_FastChase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		POSS B 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		POSS C 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		POSS D 3 A_Chase
+		Goto See
+	Charge:
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		TNT1 A 0 A_Chase
+		POSS A 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		TNT1 A 0 A_Chase
+		POSS B 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		TNT1 A 0 A_Chase
+		POSS C 3 A_Chase
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
+		TNT1 A 0 A_Chase
+		POSS D 3 A_Chase
+		Goto See
+
+/******************************************************************************\
+=================================ATTACK STATES==================================
+\******************************************************************************/
+
+	Missile:
+		Goto Defend
+	Defend:
+		TNT1 A 0 A_TakeInventory("RiotCounter",11)
+		POSS G 0 A_JumpIfCloser(192,"RiotShield")
+		Goto AttackAndDefend
+	RiotShield:
+		TNT1 A 0 A_JumpIfInventory("RiotCounter",11,"ShieldBash")
+		TNT1 A 0 A_FaceTarget
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_GiveInventory("RiotCounter",1)
+		Loop
+	ShieldBash:
+		TNT1 A 0 A_FaceTarget
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		BISH E 0 ThrustThing(angle*256/360,25,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget10",0,40,0)
+		POSS G 10 A_FaceTarget
+		TNT1 A 0 A_RadiusThrust(500,256,0)
+		TNT1 A 0 A_PlaySound("knife/swing")
+		TNT1 A 0 A_CustomMeleeAttack(25,"RiotKnight/ShieldBash","","ShieldBash",0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget2",0,40,0)
+		POSS G 2 A_FaceTarget
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		Goto See
+	AttackAndDefend:
+		POSS G 0 A_FaceTarget
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		Goto CheckSightAndAmmo
+	CheckSightAndAmmo:
+		TNT1 A 0 A_CheckSight("See")
+		POSS E 0 A_JumpIfInventory("RiotAmmo",8,"Reload")
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto Target
+	Target:
+		TNT1 A 0 A_JumpIfInventory("RiotCounter",11,"FireShotGun")
+		TNT1 A 0 A_SpawnItem("HeadshotTarget10",0,40,0)
+		TNT1 A 0 A_FaceTarget
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_GiveInventory("RiotCounter",1)
+		Loop
+	FireShotgun:
+		TNT1 A 0 A_TakeInventory("RiotCounter",11)
+		TNT1 A 0 A_PlaySound("S12_Fire")
+		TNT1 A 0 A_AlertMonsters
+		TNT1 AAAAAAAAAAAAAAA 0 A_CustomMissile("FRiotTracer",38,0,random(-11.2,11.2),0,random(-7.1,7.1))
+		POSS F 4 BRIGHT //A_CustomBulletAttack(11.2,11.2,15,random(1,3),"RiotPuff")
+		TNT1 A 0 A_GiveInventory("RiotAmmo",1)
+		Goto BetweenShots
+	BetweenShots:
+		TNT1 A 0 A_JumpIfInventory("RiotCounter",6,"ChanceDropShield")
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS E 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_GiveInventory("RiotCounter",1)
+		Loop
+	ChanceDropShield:
+		TNT1 A 0 A_Jump(32,"See")
+		TNT1 A 0 A_TakeInventory("DealWithIt",1)
+		Goto Defend
+	Reload:
+		TNT1 A 0 A_ChangeFlag(NOPAIN,1)
+		TNT1 A 0 A_TakeInventory("RiotAmmo",8)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		Goto LoadShells
+	LoadShells:
+		TNT1 A 0 A_JumpIfInventory("RiotCounter",8,"ReloadEnd")
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_PlaySound("S12_R",5)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_GiveInventory("RiotCounter",1)
+		Loop
+	ReloadEnd:
+		TNT1 A 0 A_TakeInventory("RiotCounter",11)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_PlaySoundEx("S12_PUMP","SoundSlot5")
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_ChangeFlag(NOPAIN,0)
+		Goto See
+	
+/******************************************************************************\
+==================================PAIN STATES===================================
+\******************************************************************************/
+
+	Pain:
+		TNT1 A 0 A_FaceTarget
+		TNT1 A 0 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		POSS G 3 A_SpawnItem("HeadshotTarget3",0,40,0)
+		TNT1 A 0 A_SpawnItemEx("RiotKnightShield",0,10,30,0,0,0,0)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
+		POSS G 3 A_Pain
+		Goto See
+	Pain.Shock:
+		TNT1 A 0 A_ChangeFlag(NOPAIN,1)
+		TNT1 A 0 A_Pain
+		POSS GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 10 A_SpawnItem("HeadshotTarget10",0,40,0)
+		TNT1 A 0 A_ChangeFlag(NOPAIN,0)
+		Goto See
+
+/******************************************************************************\
+==================================DEATH STATES==================================
+\******************************************************************************/
+
+	Death: 
+		TNT1 A 0 A_JumpIfHealthLower(-60,"Splode")
+	Death.KnifeSlash:
+	Death.KnifeStab:
+	Death.KnifeSlashPower:
+	Death.KnifeStabPower:
+	Death.WakizashiSlash:
+	Death.WakizashiStab:
+	Death.WakizashiSlashPower:
+	Death.WakizashiStabPower:
+		POSS H 5 A_AlertMonsters
+		POSS I 5 A_Scream
+		POSS J 5 A_Fall
+		POSS KLM 5
+		TNT1 A 0 A_Jump(5,"Regenerating")
+		TNT1 A 0 A_GiveInventory("isDead",1)
+		POSS N -1
+		Stop
+	Regenerating:
+		POSS NNN 70
+		POSS N -1 Thing_Raise(0)
+		Wait
+	Splode:
+		POSS I 1 A_SpawnDebris("NashGore_Gib9",0)
+		TNT1 A 0 A_SpawnDebris("NashGore_Gib10",0)
+		TNT1 A 0 A_SpawnDebris("NashGore_Gib11",0)
+		TNT1 A 0 A_SpawnDebris("NashGore_Gib11",0)
+		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)
+		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)
+		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)
+		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator",0,0,0,0)
+		TNT1 A 0 A_XScream
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_GiveInventory("isDead",1)
+		TNT1 A 0 A_SpawnItemEx("DEADFRiotKnightHead",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)
+		Stop
+	Death.Fire2:
+		TNT1 A 0 A_GiveInventory("isDead",1)
+		TNT1 A 1 A_SpawnItem("BurnDeath1", 2, 1)
+		TNT1 A 0 A_AlertMonsters
+		Stop
+	Death.head:
+		POSS O 9 A_PlaySound("headshot/splat")
+		TNT1 A 0 A_SpawnItem("AeniBlood",0,40,0)
+		TNT1 A 0 A_SpawnItem("AeniBlood",0,40,0)
+		POSS P 9 A_XScream
+		POSS Q 9 A_Fall
+		POSS R 5 A_GiveInventory("isDead",1)
+		POSS S 5 A_SpawnItemEx("DEADFRiotKnight",0,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION)
+		Stop
+	Raise: 
+		POSS KJI 5
+		TNT1 A 0 A_ChangeFlag("FRIENDLY",1)
+		TNT1 A 0 A_TakeInventory("isDead",1)
+		/*TNT1 A 0 A_CustomMissile("OrbitFriendly",44,0,0,2,0)
+		TNT1 A 0 A_CustomMissile("OrbitFriendly2",44,0,180,2,0)*/
+		POSS H 5 Thing_SetSpecial(0,226,613,0,0)
+		Goto See
+	} 
+}
+
+ACTOR DEADFRiotKnight
+{
+ +FLOORCLIP
+ Radius 12
+ Height 11
+ States
+ {
+  Spawn:
+   POSS W 0
+   POSS W -1
+   stop
+ }
+}
+
+ACTOR DEADFRiotKnightHead
+{
+ +FLOORCLIP
+ Radius 12
+ Height 11
+ States
+ {
+  Spawn:
+   POSS W 0
+   POSS W -1
+   stop
+ }
+}
+
+
+ACTOR DEADFRiotKnight
+{
+ +FLOORCLIP
+ Radius 12
+ Height 11
+ States
+ {
+  Spawn:
+   POSS W 0
+   POSS W -1
+   stop
+ }
+}
+
+ACTOR DEADFRiotKnightHead
+{
+ +FLOORCLIP
+ Radius 12
+ Height 11
+ States
+ {
+  Spawn:
+   POSS W 0
+   POSS W -1
+   stop
+ }
+}

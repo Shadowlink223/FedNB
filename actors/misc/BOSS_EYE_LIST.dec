@@ -1,0 +1,32 @@
+actor FedBossEye : BossEye replaces BossEye {
+	DropItem "Initiate"			255 50
+	DropItem "ZoneKnight"		255 50
+	DropItem "StrikeKnight"		255 50
+	DropItem "KnightPlasmaTank"	255 30
+	DropItem "StrikeFlyer"		255 30
+	DropItem "HeavyKnight"		255 40
+	DropItem "GrenadeKnight"	255 30
+	DropItem "BerserkKnight"	255 50
+	DropItem "RiotKnight"		255 50
+	DropItem "BioKnight"		255 50
+	DropItem "IceKnight"		255 50
+	DropItem "FireKnight"		255 50
+	DropItem "ShockKnight"		255 50
+	DropItem "SentryKnight"		255 40
+	DropItem "FedSentinel"		255 30
+	DropItem "BishopKnight"		255 5
+	DropItem "RookKnight"		255 50
+	DropItem "SkyKnight"		255 50
+	DropItem "MirageKnight"		255 0
+	DropItem "TremorKnight"		255 20
+	DropItem "Legionary"		255 40
+	DropItem "TerrorMite"		255 20
+	DropItem "Hoplite"			255 30
+	DropItem "FlashKnight"		255 20
+	DropItem "MedicKnight"		255 5
+	DropItem "KnightCaptain"	255 50
+	DropItem "Justicar"			255 20
+	DropItem "FedCrusader"		255 10
+	DropItem "FedTemplar"		255 5
+	DropItem "SpectrumKnight"	255 1
+}

@@ -1,0 +1,86 @@
+ACTOR Slug_Bio {
+	Radius 2
+	Height 4
+	Speed 60
+	
+	PROJECTILE
+	-NOGRAVITY
+	
+	Gravity 0.1
+	
+	Damage 65
+	DamageType "PoisonSlug"
+	
+	Scale 0.5
+	
+	Decal PlasmaScorchLower
+	
+	DeathSound "weapons/devzap"
+	
+	States {
+		Spawn:
+			PROJ A -1
+			Loop
+		Death:
+			TNT1 A 0 A_SpawnItemEx("SlugBioExplosion")
+			Stop
+	}
+}
+
+ACTOR SlugBioExplosion {
+	Speed 1
+	
+	PROJECTILE
+	+RANDOMIZE
+	+NOCLIP
+	
+	RenderStyle Add
+	Alpha 0.9
+	Scale 1
+	
+	Damage 0
+	DamageType "Poison"
+
+	Obituary "\ca %k \cb --> Bio Slug --> \cc %o"
+
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 Radius_Quake(9,10,0,6,0)
+			FX1A ABC 1 BRIGHT
+			TNT1 A 0 A_SpawnItemEx("SlugBioSludgeExplosion",0,0,0,0,0,0,32,0)
+			FX1A DEFGHI 1 BRIGHT
+			FX1A JKLMNOPQRSTUVWXYZ 1
+			FX1B ABCD 2
+			Stop
+	}  
+}
+
+ACTOR SlugBioSludgeExplosion {
+	Radius 16
+	Height 32
+	Speed 0
+	
+	Damage 5
+	DamageType "Poison"
+	PoisonDamage 35
+	
+	PROJECTILE
+	+RIPPER
+	
+	Scale 0.5
+	
+	Decal BioSludgeOoze
+	
+	States {
+		Spawn:
+			TNT1 A 0
+		Death:
+			SLUD A 2 BRIGHT A_PlaySound("bloodsplat",CHAN_AUTO)
+			SLUD BC 2 BRIGHT
+			SLUD D 2 BRIGHT //A_Explode(32,64)
+			TNT1 AAAAAAAA 0 A_SpawnItemEx("GrenBioSludgeBall",0,0,8,random(-10,10),random(-10,10),random(-10,10),SXF_NOCHECKPOSITION)
+			SLUD EFGHIJKLMN 2 BRIGHT
+			STOP
+	}
+}

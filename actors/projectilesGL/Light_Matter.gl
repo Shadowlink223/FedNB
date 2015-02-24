@@ -1,0 +1,62 @@
+pulselight LightMatterLight {
+    offset 0 0 0
+    color 0.2 0.0 0.6
+    size 470
+    secondarySize 490
+    interval 0.7
+}
+Object LightMatterBall {	Frame CRYP { Light LightMatterLight } }
+Object LightMatterChargeBase {	Frame CRYP { Light LightMatterLight } }
+
+pulselight LightMatterLightSmall {
+    offset 0 0 0
+    color 0.2 0.0 0.6
+    size 270
+    secondarySize 290
+    interval 0.7
+}
+Object LightMatterCharge {	Frame CRYP { Light LightMatterLightSmall } }
+
+flickerlight LightMatterLightExp1 {
+    offset 0 0 0
+    color 1.0 1.0 1.0
+    size 500
+    secondarysize 510
+    chance 0.4
+}
+flickerlight LightMatterLightExp2 {
+    offset 0 0 0
+    color 1.0 1.0 1.0
+    size 485
+    secondarysize 495
+    chance 0.4
+}
+flickerlight LightMatterLightExp3 {
+    offset 0 0 0
+    color 1.0 1.0 1.0
+    size 470
+    secondarysize 480
+    chance 0.4
+}
+flickerlight LightMatterLightExp4 {
+    offset 0 0 0
+    color 1.0 1.0 1.0
+    size 455
+    secondarysize 465
+    chance 0.4
+}
+flickerlight LightMatterLightExp5 {
+    offset 0 0 0
+    color 1.0 1.0 1.0
+    size 440
+    secondarysize 450
+    chance 0.4
+}
+Object LightExplosionSpawner {
+	Frame PLAYA	{ Light LightMatterLightExp2 }
+	Frame PLAYB	{ Light LightMatterLightExp1 }
+	Frame PLAYC	{ Light LightMatterLightExp2 }
+	Frame PLAYD	{ Light LightMatterLightExp3 }
+	Frame PLAYE	{ Light LightMatterLightExp4 }
+	Frame PLAYF	{ Light LightMatterLightExp5 }
+}

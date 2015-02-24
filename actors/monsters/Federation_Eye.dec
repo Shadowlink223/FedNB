@@ -1,0 +1,85 @@
+ACTOR FedEye replaces EvilEye {
+	Radius 16
+	Height 54
+	Health 250
+	Painchance 0
+	Speed 0
+	Mass 9999999
+	MONSTER
+	+FLOATBOB
+	-SOLID
+	+VISIBILITYPULSE
+	+LOOKALLAROUND
+	+NOICEDEATH
+	+NOBLOOD
+	+DONTGIB
+	+DONTSPLASH
+	Renderstyle Translucent
+	Scale 0.25
+	
+	SeeSound "WHISPER2"
+	ActiveSound ""
+	DeathSound "Glass/Glass"
+	
+	States {
+		Spawn:
+			FEDE A 1 A_LookEx(LOF_NOSOUNDCHECK,0,2048,0,0,"See")
+			loop
+		See:
+			FEDE A 35 A_SpawnItemEx("FedEyeTeleportFog",random(-512,512),random(-512,512),0,0,0,0,random(0,360))
+			FEDE AAAAAAAAAA 35 A_AlertMonsters
+			loop
+		Death:
+			FEDE A 0 A_Scream
+			FEDE A 1 A_Burst("FedEyeChunkSpawner")
+			stop
+	}
+}
+
+ACTOR FedEyeTeleportFog {
+	+FIXMAPTHINGPOS
+	Radius 20
+	Height 56
+	dropitem FedEyeKnightSpawner
+	States {
+		Spawn:
+			FEDT A 0
+			TNT1 A 0 A_PlaySound("Teleport/Teleport",0)
+			FEDT ABCDE 6
+			Goto Death
+		Death:
+			FEDT F 6 A_NoBlocking
+			FEDT EDCBA 6
+			stop
+	}
+}
+
+ACTOR FedEyeKnightSpawner : RandomSpawner {
+	dropitem "Initiate" 255 10
+	dropitem "StrikeKnight" 255 20
+	dropitem "HeavyKnight" 255 3
+	dropitem "IceKnight" 255 3
+	dropitem "FireKnight" 255 3
+	dropitem "BioKnight" 255 3
+	dropitem "ShockKnight" 255 3
+	dropitem "KnightCaptain" 255 1
+}
+
+ACTOR FedEyeChunkSpawner : RandomSpawner {
+	dropitem "FedEyeWhiteChunk"
+	dropitem "FedEyeBlackChunk"
+}
+
+ACTOR FedEyeWhiteChunk : IceChunk {
+	Scale 0.5
+	Renderstyle Translucent
+	Alpha 0.5
+	Translation "0:255=80:95"
+}
+
+ACTOR FedEyeBlackChunk : IceChunk {
+	Scale 0.5
+	Renderstyle Translucent
+	Alpha 0.5
+	Translation "0:255=96:111"
+}
