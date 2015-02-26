@@ -496,7 +496,7 @@ Actor ReconCameraPlayer {
 	States {
 		Spawn:
 			FCAM A 0
-			FCAM A 1 Thing_ChangeTID(0,4400)
+			FCAM A 1 Thing_ChangeTID(0,4400+(angle+3)/4)
 		See:
 			FCAM A 4 A_CountDown
 			FCAM A 0 A_Stop

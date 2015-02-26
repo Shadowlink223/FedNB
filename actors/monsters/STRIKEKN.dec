@@ -92,13 +92,13 @@ ACTOR StrikeKnight : Enemy 13202 {
 	Chase:
 		TNT1 A 0 A_JumpIfInventory("KnightCharge",1,"Charge")
 		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
-		SKFA A 3 A_Chase("missile","missile",CHF_FASTCHASE)
+		SKFA AA 3 A_Chase("missile","missile",CHF_FASTCHASE)
 		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
-		SKFA B 3 A_Chase
+		SKFA BB 3 A_Chase
 		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
-		SKFA C 3 A_Chase
+		SKFA CC 3 A_Chase
 		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)
-		SKFA D 3 A_Chase
+		SKFA DD 3 A_Chase
 		Goto See
 	Charge:
 		TNT1 A 0 A_SpawnItem("HeadshotTarget3",0,40,0)

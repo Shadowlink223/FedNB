@@ -90,6 +90,23 @@ ACTOR RiotArmor : BasicArmorPickup
   }
 }
 
+ACTOR BerserkerArmor : BasicArmorPickup
+{
+  inventory.pickupmessage "Picked up the Berserker Armor!"
+  inventory.icon "FARMA0"
+  translation "112:127=176:191"
+  armor.saveamount 120
+  armor.savepercent 80
+  armor.maxfullabsorb 40
+  states
+  {
+  Spawn:
+    FARM A 6
+    FARM A 7 bright
+    loop
+  }
+}
+
 ACTOR HeavyArmor : BasicArmorPickup
 {
   inventory.pickupmessage "Picked up the Heavy Armor!"

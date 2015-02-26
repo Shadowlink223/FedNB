@@ -8,7 +8,7 @@ radius 20
 height 56
 mass 100
 speed 30
-painchance 200
+painchance 150
 PainChance "Shock", 255
 	PainChance "ShockSlug", 255
 Translation "112:127=192:207"

@@ -6,12 +6,29 @@ Sprites: id Software
 Sprite Edit: Infirnex
 Idea Base: Quake 2/3/4 armor Shard*/
 
-Actor ArmorShard : ArmorBonus {
+Actor ShieldPoint : ArmorBonus {
 	Inventory.Pickupmessage "Picked up a Shield Battery."
-	Inventory.Icon "ARSDA0"
+	Inventory.Icon "FARMA0"
 	Inventory.PickupSound "pickup/armorshard"
 	Armor.MaxSaveAmount 2000
-	Armor.Saveamount 5
+	Armor.SaveAmount 1
+	Armor.SavePercent 60
+	Armor.MaxFullAbsorb 10
+	States {
+	Spawn:
+		ARSD ABCDCB 6
+		loop
+	}
+}
+
+Actor ArmorShard : ArmorBonus {
+	Inventory.Pickupmessage "Picked up a Shield Battery."
+	Inventory.Icon "FARMA0"
+	Inventory.PickupSound "pickup/armorshard"
+	Armor.MaxSaveAmount 2000
+	Armor.SaveAmount 5
+	Armor.SavePercent 60
+	Armor.MaxFullAbsorb 10
 	States {
 	Spawn:
 		ARSD ABCDCB 6

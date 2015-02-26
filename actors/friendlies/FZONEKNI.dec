@@ -26,6 +26,7 @@ ACTOR FZoneKnight : ZoneKnight 11200 {
 		XXLF A 10 A_LookEx(0,0,random(512,2048),random(1024,4096),random(150,180),"See")
 		goto SpawnLoop
 	See:
+		TNT1 A 0 A_Jump(230,"Stand")
 		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
 		XXLF A 3 A_Chase
 		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
@@ -35,6 +36,11 @@ ACTOR FZoneKnight : ZoneKnight 11200 {
 		TNT1 A 0 A_SpawnItem("HeadshotTarget3",15,40,0)
 		XXLF D 3 A_Chase
 		Loop
+	Stand:
+		TNT1 A 0 A_Chase("","Missile",CHF_DONTMOVE)
+		TNT1 A 0 A_SpawnItem("HeadshotTarget4",15,40,0)
+		XXLF A 4 A_FaceTarget
+		Goto See
 
 /******************************************************************************\
 =================================ATTACK STATES==================================

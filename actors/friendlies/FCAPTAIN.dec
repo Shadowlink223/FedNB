@@ -193,9 +193,10 @@ Actor FKnightCaptain_MP7 : KnightCaptain_MP7 17054 {
 		SKCP A 3 A_CustomMissile("Knockback",32,0,0,0)               			// KNOCKBACK TARGET
 		Goto See                                                     			//
 	Missile:
-		SKCP E 0 A_ChangeFlag("NoPain",1)                            			// WILL NOT ENTER PAIN STATE
-		SKCP E 0 A_Jump(64,"IfClose")                                			// CHANCE GRENADE
-		SKCP E 2 A_FaceTarget                                        			//
+		TNT1 A 0 A_ChangeFlag("NoPain",1)
+		SKCP E 2 A_FaceTarget
+		TNT1 A 0 A_Jump(64,"DistanceCheck")
+		Goto BulletAttack
 	BulletAttack:
 		SKCP E 0 A_JumpIfInventory("KnightAmmo",40,"Reload")             		// CHECK AMMO
 		TNT1 A 0 A_SpawnItem("HeadshotTarget10",0,40,0)           				// MAKE HEADSHOT BOX
@@ -219,7 +220,7 @@ Actor FKnightCaptain_MP7 : KnightCaptain_MP7 17054 {
 		SKCP E 55 A_PlaySound("ZSec/Reload")                         			//
 		SKCP E 0 A_ChangeFlag("NoPain", 0)                           			// WILL ENTER PAIN STATE
 		goto See                                                     			//
-	IfClose:
+	DistanceCheck:
 		SKCP E 0 A_JumpIfCloser(1024,"ThrowGrenade")                            // GRENADE IF CLOSE
 		SKCP A 0 A_JumpIfInventory("MortarToken",1,"CheckMortar")    			//
 		Goto See                                                     			//
@@ -357,9 +358,9 @@ Actor FKnightCaptain_Deagle : FKnightCaptain_MP7 17055 {
 	//$Category Federation
 	States {
 		Missile:
-			SKCP E 0 A_ChangeFlag("NoPain",1)                            		// WILL NOT ENTER PAIN STATE
-			SKCP E 0 A_Jump(8,"IfClose")                                		// CHANCE GRENADE
-			SKCP E 2 A_FaceTarget                                        		//
+			TNT1 A 0 A_ChangeFlag("NoPain",1)
+			SKCP E 2 A_FaceTarget
+			TNT1 A 0 A_Jump(64,"DistanceCheck")
 			Goto BulletAttack
 		BulletAttack:
 			SKCP E 0 A_JumpIfInventory("KnightAmmo",7,"Reload")               	// CHECK AMMO
@@ -380,8 +381,7 @@ Actor FKnightCaptain_Deagle : FKnightCaptain_MP7 17055 {
 			SKCP E 24 A_PlaySound("DE_R1")                         		 		//
 			SKCP E 40 A_PlaySound("DE_R2")                         		 		//
 			SKCP E 24 A_PlaySound("DE_R3")                         		 		//
-			SKCP E 46 A_PlaySound("DE_R4")                         		 		//
-			SKCP E 40															//
+			SKCP E 86 A_PlaySound("DE_R4")										//
 			SKCP E 0 A_ChangeFlag("NoPain",0)                           		// WILL ENTER PAIN STATE
 			goto See                                                     		//
 	}

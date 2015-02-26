@@ -5,14 +5,15 @@ ACTOR BeaconTeleportFog : TeleportFog
 ACTOR 2Beacon : CustomInventory
 {
   +INVENTORY.INVBAR
+  Translation "112:127=160:167"
   Inventory.MaxAmount 5
   Inventory.Icon "BCAPB0"
   Inventory.PickupMessage "You picked up a traitor beacon! - 1 Captain - 3 Strike Knights - 1 Heavy Knight -"
   States
   {
   Spawn:
-    2BEA A 8
-    2BEA A 0
+    BEAC N 8
+    BEAC N 0
     loop
   Use:
     TNT1 A 1 A_SpawnItemEx ("Active2Beacon", 56, 0, 8, 0, 0, 0, 0, 1)
@@ -55,14 +56,15 @@ actor Active2Beacon
 ACTOR 5Beacon : CustomInventory
 {
   +INVENTORY.INVBAR
+  Translation "112:127=96:111"
   Inventory.MaxAmount 5
   Inventory.Icon "BINIB0"
   Inventory.PickupMessage "You picked up a traitor beacon! - 5 Initiates -"
   States
   {
   Spawn:
-    5BEA A 8
-    5BEA A 0
+    BEAC N 8
+    BEAC N 0
     loop
   Use:
     TNT1 A 1 A_SpawnItemEx ("Active5Beacon", 56, 0, 8, 0, 0, 0, 0, 1)
@@ -100,14 +102,15 @@ actor Active5Beacon
 ACTOR 6Beacon : CustomInventory
 {
   +INVENTORY.INVBAR
+  Translation "112:127=64:79"
   Inventory.MaxAmount 5
   Inventory.Icon "BHEVB0"
   Inventory.PickupMessage "You picked up a traitor beacon! - 5 Heavy Knights -"
   States
   {
   Spawn:
-    6BEA A 8
-    6BEA A 0
+    BEAC N 8
+    BEAC N 0
     loop
   Use:
     TNT1 A 1 A_SpawnItemEx ("Active6Beacon", 56, 0, 8, 0, 0, 0, 0, 1)
@@ -145,14 +148,15 @@ actor Active6Beacon
 ACTOR 7Beacon : CustomInventory
 {
   +INVENTORY.INVBAR
+  Translation "112:127=32:47"
   Inventory.MaxAmount 5
   Inventory.Icon "BSTRB0"
   Inventory.PickupMessage "You picked up a traitor beacon! - 5 Strike Knights -"
   States
   {
   Spawn:
-    7BEA A 8
-    7BEA A 0
+    BEAC N 8
+    BEAC N 0
     loop
   Use:
     TNT1 A 1 A_SpawnItemEx ("Active7Beacon", 56, 0, 8, 0, 0, 0, 0, 1)
@@ -190,14 +194,15 @@ actor Active7Beacon
 ACTOR 8Beacon : CustomInventory
 {
   +INVENTORY.INVBAR
+  Translation "112:127=192:207"
   Inventory.MaxAmount 5
   Inventory.Icon "BROKB0"
   Inventory.PickupMessage "You picked up a traitor beacon! - 3 Rook Knights -"
   States
   {
   Spawn:
-    8BEA A 8
-    8BEA A 0
+    BEAC N 8
+    BEAC N 0
     loop
   Use:
     TNT1 A 1 A_SpawnItemEx ("Active8Beacon", 56, 0, 8, 0, 0, 0, 0, 1)
@@ -231,14 +236,15 @@ actor Active8Beacon
 ACTOR 9Beacon : CustomInventory
 {
   +INVENTORY.INVBAR
+  Translation "112:127=152:159"
   Inventory.MaxAmount 5
   Inventory.Icon "BRIOB0"
   Inventory.PickupMessage "You picked up a traitor beacon! - 5 Riot Knights -"
   States
   {
   Spawn:
-    9BEA A 8
-    9BEA A 0
+    BEAC N 8
+    BEAC N 0
     loop
   Use:
     TNT1 A 1 A_SpawnItemEx ("Active9Beacon", 56, 0, 8, 0, 0, 0, 0, 1)
@@ -276,14 +282,15 @@ actor Active9Beacon
 ACTOR 0Beacon : CustomInventory
 {
   +INVENTORY.INVBAR
+  Translation "112:127=240:247"
   Inventory.MaxAmount 5
   Inventory.Icon "BZONB0"
   Inventory.PickupMessage "You picked up a traitor beacon! - 5 Zone Knights -"
   States
   {
   Spawn:
-    0BEA A 8
-    0BEA A 0
+    BEAC N 8
+    BEAC N 0
     loop
   Use:
     TNT1 A 1 A_SpawnItemEx ("Active0Beacon", 56, 0, 8, 0, 0, 0, 0, 1)
@@ -321,14 +328,15 @@ actor Active0Beacon
 ACTOR ABeacon : CustomInventory
 {
   +INVENTORY.INVBAR
+  Translation "112:127=5:8"
   Inventory.MaxAmount 5
   Inventory.Icon "ABEAB0"
   Inventory.PickupMessage "You picked up a traitor beacon! - 1 Grenade Knight -"
   States
   {
   Spawn:
-    ABEA A 8
-    ABEA A 0
+    BEAC N 8
+    BEAC N 0
     loop
   Use:
     TNT1 A 1 A_SpawnItemEx ("ActiveABeacon", 56, 0, 8, 0, 0, 0, 0, 1)
@@ -358,14 +366,15 @@ actor ActiveABeacon
 ACTOR BBeacon : CustomInventory
 {
   +INVENTORY.INVBAR
+  Translation "112:127=208:223"
   Inventory.MaxAmount 5
   Inventory.Icon "BBEAB0"
   Inventory.PickupMessage "You picked up a traitor beacon! - 2 Fire Knights -"
   States
   {
   Spawn:
-    BBEA A 8
-    BBEA A 0
+    BEAC N 8
+    BEAC N 0
     loop
   Use:
     TNT1 A 1 A_SpawnItemEx ("ActiveBBeacon", 56, 0, 8, 0, 0, 0, 0, 1)
@@ -397,14 +406,15 @@ actor ActiveBBeacon
 ACTOR CBeacon : CustomInventory
 {
   +INVENTORY.INVBAR
+  Translation "112:127=80:95"
   Inventory.MaxAmount 5
   Inventory.Icon "CBEAB0"
   Inventory.PickupMessage "You picked up a traitor beacon! - 2 Ice Knights -"
   States
   {
   Spawn:
-    CBEA A 8
-    CBEA A 0
+    BEAC N 8
+    BEAC N 0
     loop
   Use:
     TNT1 A 1 A_SpawnItemEx ("ActiveCBeacon", 56, 0, 8, 0, 0, 0, 0, 1)
@@ -436,14 +446,15 @@ actor ActiveCBeacon
 ACTOR DBeacon : CustomInventory
 {
   +INVENTORY.INVBAR
+  //Translation "112:127=112:127"
   Inventory.MaxAmount 5
   Inventory.Icon "DBEAB0"
   Inventory.PickupMessage "You picked up a traitor beacon! - 1 Bio Knight -"
   States
   {
   Spawn:
-    DBEA A 8
-    DBEA A 0
+    BEAC N 8
+    BEAC N 0
     loop
   Use:
     TNT1 A 1 A_SpawnItemEx ("ActiveDBeacon", 56, 0, 8, 0, 0, 0, 0, 1)
@@ -475,14 +486,15 @@ actor ActiveDBeacon
 ACTOR EBeacon : CustomInventory
 {
   +INVENTORY.INVBAR
+  Translation "112:127=96:111"
   Inventory.MaxAmount 5
   Inventory.Icon "EBEAB0"
   Inventory.PickupMessage "You picked up a traitor beacon! - 1 Hunter Knight -"
   States
   {
   Spawn:
-    EBEA A 8
-    EBEA A 0
+    BEAC N 8
+    BEAC N 0
     loop
   Use:
     TNT1 A 1 A_SpawnItemEx ("ActiveEBeacon", 56, 0, 8, 0, 0, 0, 0, 1)
@@ -512,14 +524,15 @@ actor ActiveEBeacon
 ACTOR FBeacon : CustomInventory
 {
   +INVENTORY.INVBAR
+  Translation "112:127=9:12"
   Inventory.MaxAmount 5
   Inventory.Icon "FBEAB0"
   Inventory.PickupMessage "You picked up a traitor beacon! - 1 Justicar -"
   States
   {
   Spawn:
-    FBEA A 8
-    FBEA A 0
+    BEAC N 8
+    BEAC N 0
     loop
   Use:
     TNT1 A 1 A_SpawnItemEx ("ActiveFBeacon", 56, 0, 8, 0, 0, 0, 0, 1)
@@ -549,14 +562,15 @@ actor ActiveFBeacon
 ACTOR GBeacon : CustomInventory
 {
   +INVENTORY.INVBAR
+  Translation "112:127=224:231"
   Inventory.MaxAmount 5
   Inventory.Icon "GBEAB0"
   Inventory.PickupMessage "You picked up a traitor beacon! - 2 Shock Knights -"
   States
   {
   Spawn:
-    GBEA A 8
-    GBEA A 0
+    BEAC N 8
+    BEAC N 0
     loop
   Use:
     TNT1 A 1 A_SpawnItemEx ("ActiveGBeacon", 56, 0, 8, 0, 0, 0, 0, 1)
@@ -588,14 +602,15 @@ actor ActiveGBeacon
 ACTOR ShieldGenerator : CustomInventory
 {
   +INVENTORY.INVBAR
+  Translation "112:127=192:199"
   Inventory.MaxAmount 5
   Inventory.Icon "BSHLB0"
   Inventory.PickupMessage "You picked up a shield generator!"
   States
   {
   Spawn:
-    4BEA A 8
-    4BEA A 0
+    BEAC N 8
+    BEAC N 0
     loop
   Use:
     TNT1 A 1 A_SpawnItemEx ("ActiveShieldGenerator", 56, 0, 8, 0, 0, 0, 0, 1)

@@ -64,7 +64,8 @@ ACTOR HellKnightSpawner : RandomSpawner replaces HellKnight {
 }
 
 ACTOR RevenantSpawner : RandomSpawner replaces Revenant {
-	Dropitem "FlashKnight"
+	Dropitem "FlashKnight" 255 15
+	Dropitem "GrenadeKnight" 255 1
 	//Dropitem "StrikeKnight"
 }
 
@@ -137,7 +138,7 @@ ACTOR ArachnotronSpawner : RandomSpawner replaces Arachnotron {
 ACTOR CyberdemonSpawner : RandomSpawner replaces Cyberdemon 16848 {
 	Dropitem "FedTemplar"
 	Dropitem "FedCrusader"
-	//Dropitem "StrikeKnigh
+	//Dropitem "StrikeKnight"
 }
 
 ACTOR SpiderMastermindSpawner : RandomSpawner replaces SpiderMastermind {
@@ -153,40 +154,40 @@ ACTOR WolfensteinSSSpawner : RandomSpawner replaces WolfensteinSS {
 
 // ST Monster replacements
 
-//ACTOR DarkImpSpawner : RandomSpawner replaces DarkImp 16849 {
-//	Dropitem "ShotgunGuySpawner"
-	//Dropitem "StrikeKnight"
-//}
+/*ACTOR DarkImpSpawner : RandomSpawner replaces DarkImp 16849 {
+	Dropitem "ShotgunGuySpawner"
+	Dropitem "StrikeKnight"
+}*/
 
-//ACTOR BelphegorSpawner : RandomSpawner replaces Belphegor 16850 {
-//	Dropitem "Justicar"
-	//Dropitem "StrikeKnight"
-//}
+/*ACTOR BelphegorSpawner : RandomSpawner replaces Belphegor 16850 {
+	Dropitem "Justicar"
+	Dropitem "StrikeKnight"
+}*/
 
-//ACTOR HectebusSpawner : RandomSpawner replaces Hectebus 16851 {
-//	Dropitem "MancubusSpawner"
-	//Dropitem "StrikeKnight"
-//}
+/*ACTOR HectebusSpawner : RandomSpawner replaces Hectebus 16851 {
+	Dropitem "MancubusSpawner"
+	Dropitem "StrikeKnight"
+}*/
 
-//ACTOR SuperShotgunGuySpawner : RandomSpawner replaces SuperShotgunGuy 16852 {
-//	Dropitem "RiotKnight"
-	//Dropitem "StrikeKnight"
-//}
+/*ACTOR SuperShotgunGuySpawner : RandomSpawner replaces SuperShotgunGuy 16852 {
+	Dropitem "RiotKnight"
+	Dropitem "StrikeKnight"
+}*/
 
-//ACTOR CacolanternSpawner : RandomSpawner replaces Cacolantern 16853 {
-	//Dropitem "SkyKnight"
-	//Dropitem "StrikeKnight"
-//}
+/*ACTOR CacolanternSpawner : RandomSpawner replaces Cacolantern 16853 {
+	Dropitem "SkyKnight"
+	Dropitem "StrikeKnight"
+}*/
 
-//ACTOR BloodDemonSpawner : RandomSpawner replaces BloodDemon 16854 {
-	//Dropitem "BerserkKnight"
-	//Dropitem "StrikeKnight"
-//}
+/*ACTOR BloodDemonSpawner : RandomSpawner replaces BloodDemon 16854 {
+	Dropitem "BerserkKnight"
+	Dropitem "StrikeKnight"
+}*/
 
-//ACTOR AbaddonSpawner : RandomSpawner replaces Abaddon 16855 {
-	//Dropitem "StrikeFlyer"
-	//Dropitem "StrikeKnight"
-//}
+/*ACTOR AbaddonSpawner : RandomSpawner replaces Abaddon 16855 {
+	Dropitem "StrikeFlyer"
+	Dropitem "StrikeKnight"
+}*/
 
 //===============================================================
 //---------------------::::::INVASION::::::----------------------
